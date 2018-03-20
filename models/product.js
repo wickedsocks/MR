@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Creation and validation for database entity
 let schema = new mongoose.Schema({
   title: {
     type: String,

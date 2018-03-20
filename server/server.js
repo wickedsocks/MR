@@ -1,13 +1,18 @@
+// required this file to inject default config for nodeJS app
 require("../dbconfig/config");
 const bodyParser = require('body-parser');
-const {mongoose} = require('../db/mongoose');
+
+// required for providing mongoDB connection
+require('../db/mongoose');
 
 import express from "express";
 import { Nuxt, Builder } from "nuxt";
 
-import api from "./api";
+import api from "./api/api";
 
 const app = express();
+
+// body-parser needed to parse req.body object in your node  app
 app.use(bodyParser.json());
 
 const host = process.env.HOST || "127.0.0.1";
@@ -37,3 +42,7 @@ app.use(nuxt.render);
 // Listen the server
 app.listen(port, host);
 console.log("Server listening on " + host + ":" + port); // eslint-disable-line no-console
+
+module.exports = {
+  app
+}

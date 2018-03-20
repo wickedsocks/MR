@@ -12,7 +12,9 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
-    'no-extra-semi': 1
+    'no-extra-semi': 1,
+    'no-console': 0,
+    "no-undef": 0,
   },
   globals: {}
 }

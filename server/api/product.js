@@ -4,7 +4,6 @@ import { Product } from "../../models/product";
 const router = Router();
 
 router.post("/products", (req, res) => {
-  console.log('req ', req.body);
   let newProduct = new Product({
     title: req.body.title,
     description: req.body.description,
