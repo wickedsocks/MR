@@ -13,6 +13,7 @@ import api from "./api/api";
 const app = express();
 
 // body-parser needed to parse req.body object in your node  app
+// app.use(bodyParser.urlencoded({extended:true})) 
 app.use(bodyParser.json());
 
 const host = process.env.HOST || "127.0.0.1";

@@ -12,3 +12,7 @@ dist
 
 # Backpack build
 build
+
+# Database mongo
+database.json
+backup.database.json
