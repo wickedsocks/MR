@@ -4,6 +4,10 @@
   "description": "Server rendering VueJs project",
   "author": "Mykhailov Pavel <mykhailovpm@gmail.com>",
   "private": true,
+  "engines": {
+    "node": "9.8.0",
+    "npm": "5.8.0"
+  },
   "scripts": {
     "dev": "export NODE_ENV=development && backpack dev",
     "test": "export NODE_ENV=test && mocha --require babel-core/register test/server.test.js --exit",
