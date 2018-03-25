@@ -1,4 +1,4 @@
-require('../../dbconfig/config');
+require('./../../dbconfig/config');
 import { Router } from "express";
 import { Product } from "../../models/product";
 const formidable = require("formidable");
