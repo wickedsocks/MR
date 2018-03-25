@@ -44,6 +44,9 @@ router.get("/products", (req, res) => {
 router.post("/products/upload", (req, res) => {
   let form = new formidable.IncomingForm();
   form.parse(req, function(err, fields, files) {
+    if (err) {
+      res.status(400).send(err);
+    }
     cloudinary.v2.uploader.upload(files.file.path, {public_id: files.file.name}, function(err, result) {
       res.send(result);
     });
