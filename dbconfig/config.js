@@ -1,6 +1,6 @@
 let env = process.env.NODE_ENV || "development";
 
-if (false) {
+if (env == 'test' || env == 'production') {
   const config = require('./../config.json');
   const envConfig = config[env];
   
