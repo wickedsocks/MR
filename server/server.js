@@ -1,9 +1,9 @@
 // required this file to inject default config for nodeJS app
-require("../dbconfig/config");
 const bodyParser = require('body-parser');
 
 // required for providing mongoDB connection
 require('../db/mongoose');
+require("../dbconfig/config");
 
 import express from "express";
 import { Nuxt, Builder } from "nuxt";
