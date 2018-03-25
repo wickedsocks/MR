@@ -1,3 +1,4 @@
+require('../../dbconfig/config');
 import { Router } from "express";
 import { Product } from "../../models/product";
 const formidable = require("formidable");
@@ -5,9 +6,9 @@ const formidable = require("formidable");
 const cloudinary = require("cloudinary");
 
 cloudinary.config({
-  cloud_name: "pavelmykhailovmrjs",
-  api_key: "345334832129142",
-  api_secret: "9dpzvcXoeQnNRViWdz-3Sa9u_SU"
+  cloud_name: process.env.CLOUD_NAME_CLOUDINARY,
+  api_key: process.env.API_KEY_CLOUDINARY,
+  api_secret: process.env.API_SECRET_CLOUDINARY
 });
 
 const router = Router();
