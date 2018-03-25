@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { Product } from "../../models/product";
 const formidable = require("formidable");
+
 const cloudinary = require("cloudinary");
 
 cloudinary.config({
@@ -40,9 +41,9 @@ router.get("/products", (req, res) => {
 });
 
 router.post("/products/upload", (req, res) => {
-  var form = new formidable.IncomingForm();
+  let form = new formidable.IncomingForm();
   form.parse(req, function(err, fields, files) {
-    cloudinary.v2.uploader.upload(files.file.path, function(err, result) {
+    cloudinary.v2.uploader.upload(files.file.path, {public_id: files.file.name}, function(err, result) {
       res.send(result);
     });
   });

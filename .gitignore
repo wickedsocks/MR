@@ -16,3 +16,4 @@ build
 # Database mongo
 database.json
 backup.database.json
+dbconfig/config.json
