@@ -41,7 +41,7 @@ router.get("/products", (req, res) => {
   );
 });
 
-router.post("/products/upload", (req, res) => {
+router.post("/products/upload-image", (req, res) => {
   let form = new formidable.IncomingForm();
   form.parse(req, function(err, fields, files) {
     if (err) {
