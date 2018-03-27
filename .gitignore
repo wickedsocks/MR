@@ -17,3 +17,4 @@ build
 database.json
 backup.database.json
 config.json
+categories.json

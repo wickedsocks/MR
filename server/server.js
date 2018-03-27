@@ -5,15 +5,13 @@ const bodyParser = require('body-parser');
 // required for providing mongoDB connection
 require('../db/mongoose');
 
-import express from "express";
-import { Nuxt, Builder } from "nuxt";
+const express = require('express');
+const { Nuxt, Builder } = require("nuxt");
 
-import api from "./api/api";
+const api = require("./api/api");
 
 const app = express();
 
-// body-parser needed to parse req.body object in your node  app
-// app.use(bodyParser.urlencoded({extended:true})) 
 app.use(bodyParser.json());
 
 const host = process.env.HOST || "127.0.0.1";

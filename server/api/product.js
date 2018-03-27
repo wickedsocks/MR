@@ -1,6 +1,6 @@
 require('../../dbconfig/config');
-import { Router } from "express";
-import { Product } from "../../models/product";
+const { Router } = require('express');
+const  { Product } =  require("../../models/product");
 const formidable = require("formidable");
 
 const cloudinary = require("cloudinary");
@@ -53,4 +53,4 @@ router.post("/products/upload", (req, res) => {
   });
 });
 
-export default router;
+module.exports = router;
