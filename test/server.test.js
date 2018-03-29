@@ -1,9 +1,10 @@
 const supertest = require("supertest");
 const { app } = require("../server/server");
 const expect = require("chai").expect;
-const { products, populateProducts } = require("./seed/seed");
+const { products, populateProducts, categories, populateCategories } = require("./seed/seed");
 
 beforeEach(populateProducts);
+beforeEach(populateCategories);
 
 describe("GET /api/products", () => {
   it("should return all products", (done) => {
@@ -45,3 +46,44 @@ describe("POST /api/products", () => {
       .end(done);
   });
 });
+
+describe('POST /api/categories', () => {
+  it('should create new category instance', (done) => {
+    let category = {
+      description: 'req.body.description test',
+      name: 'req.body.name test',
+      seoUrl: 'req.body.seoUrl test',
+      headingTitle: "req.body.headingTitle test",
+      seoTitle: 'req.body.seoTitle test',
+      categoriesId: '1',
+      seoDescription: 'req.body.seoDescription test',
+      languageId: 'req.body.languageId test',
+      seKeywords: 'req.body.seKeywords test'
+    };
+    supertest(app)
+    .post('/api/categories')
+    .send(category)
+    .expect(200)
+    .expect((res) => {
+      expect(res.body.categoriesDescription).to.be.equal(category.description);
+      expect(res.body.categoriesName).to.be.equal(category.name);
+      expect(res.body.categoriesSeoTitle).to.be.equal(category.seoTitle);
+    })
+    .end(done);
+  })
+});
+
+describe("GET /api/categories", () => {
+  it('should return categories list', (done) => {
+    supertest(app)
+    .get('/api/categories')
+    .expect(200)
+    .expect((res) => {
+      expect(res.body[0].categoriesDescription).to.be.equal(categories[0].categoriesDescription);
+      expect(res.body[0].categoriesName).to.be.equal(categories[0].categoriesName);
+      expect(res.body[1].categoriesDescription).to.be.equal(categories[1].categoriesDescription);
+      expect(res.body[1].categoriesName).to.be.equal(categories[1].categoriesName);
+    })
+    .end(done);
+  });
+})
