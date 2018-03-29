@@ -1,13 +1,13 @@
 require("../../dbconfig/config");
 
 const { Router } = require("express");
-const { Category } = require("../../models/category");
+const { CategoryManufacture } = require("../../models/category");
 
 const router = Router();
 
-router.post("/categories", (req, res) => {
-  Category.collection.count({}).then((length) => {
-    let newCategory = new Category({
+router.post("/categories/manufacture", (req, res) => {
+  CategoryManufacture.collection.count({}).then((length) => {
+    let newCategory = new CategoryManufacture({
       categoriesDescription: req.body.description,
       categoriesName: req.body.name,
       categoriesSeoUrl: req.body.seoUrl,
@@ -30,8 +30,8 @@ router.post("/categories", (req, res) => {
   });
 });
 
-router.get("/categories", (req, res) => {
-  Category.find({}).then(
+router.get("/categories/manufacture", (req, res) => {
+  CategoryManufacture.find({}).then(
     (categories) => {
       res.send(categories);
     },

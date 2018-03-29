@@ -1,10 +1,10 @@
 const supertest = require("supertest");
 const { app } = require("../server/server");
 const expect = require("chai").expect;
-const { products, populateProducts, categories, populateCategories } = require("./seed/seed");
+const { products, populateProducts, categoriesManufacture, populateCategoriesManufacture } = require("./seed/seed");
 
 beforeEach(populateProducts);
-beforeEach(populateCategories);
+beforeEach(populateCategoriesManufacture);
 
 describe("GET /api/products", () => {
   it("should return all products", (done) => {
@@ -47,8 +47,8 @@ describe("POST /api/products", () => {
   });
 });
 
-describe('POST /api/categories', () => {
-  it('should create new category instance', (done) => {
+describe('POST /api/categories/manufacture', () => {
+  it('should create new category manufacture instance', (done) => {
     let category = {
       description: 'req.body.description test',
       name: 'req.body.name test',
@@ -61,7 +61,7 @@ describe('POST /api/categories', () => {
       seKeywords: 'req.body.seKeywords test'
     };
     supertest(app)
-    .post('/api/categories')
+    .post('/api/categories/manufacture')
     .send(category)
     .expect(200)
     .expect((res) => {
@@ -73,16 +73,16 @@ describe('POST /api/categories', () => {
   })
 });
 
-describe("GET /api/categories", () => {
-  it('should return categories list', (done) => {
+describe("GET /api/categories/manufacture", () => {
+  it('should return categories manufacture list', (done) => {
     supertest(app)
-    .get('/api/categories')
+    .get('/api/categories/manufacture')
     .expect(200)
     .expect((res) => {
-      expect(res.body[0].categoriesDescription).to.be.equal(categories[0].categoriesDescription);
-      expect(res.body[0].categoriesName).to.be.equal(categories[0].categoriesName);
-      expect(res.body[1].categoriesDescription).to.be.equal(categories[1].categoriesDescription);
-      expect(res.body[1].categoriesName).to.be.equal(categories[1].categoriesName);
+      expect(res.body[0].categoriesDescription).to.be.equal(categoriesManufacture[0].categoriesDescription);
+      expect(res.body[0].categoriesName).to.be.equal(categoriesManufacture[0].categoriesName);
+      expect(res.body[1].categoriesDescription).to.be.equal(categoriesManufacture[1].categoriesDescription);
+      expect(res.body[1].categoriesName).to.be.equal(categoriesManufacture[1].categoriesName);
     })
     .end(done);
   });

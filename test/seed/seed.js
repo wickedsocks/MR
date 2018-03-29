@@ -1,5 +1,5 @@
 const { Product } = require("../../models/product");
-const { Category } = require("../../models/category");
+const { CategoryManufacture } = require("../../models/category");
 
 const products = [
   {
@@ -16,7 +16,7 @@ const products = [
   }
 ];
 
-const categories = [
+const categoriesManufacture = [
   {
     categoriesDescription: 'req.body.description 1',
     categoriesName: 'req.body.name 1',
@@ -52,11 +52,11 @@ const populateProducts = (done) => {
     .then(() => done());
 };
 
-const populateCategories = (done) => {
-  Category.remove({})
+const populateCategoriesManufacture = (done) => {
+  CategoryManufacture.remove({})
   .then(() => {
-    let catOne = new Category(categories[0]).save();
-    let catTwo = new Category(categories[1]).save();
+    let catOne = new CategoryManufacture(categoriesManufacture[0]).save();
+    let catTwo = new CategoryManufacture(categoriesManufacture[1]).save();
 
     return Promise.all([catOne, catTwo]);
   })
@@ -66,6 +66,6 @@ const populateCategories = (done) => {
 module.exports = {
   products,
   populateProducts,
-  categories,
-  populateCategories
+  categoriesManufacture,
+  populateCategoriesManufacture
 };

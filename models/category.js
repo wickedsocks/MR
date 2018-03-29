@@ -39,8 +39,8 @@ let schema = new mongoose.Schema({
   },
 });
 
-const Category = mongoose.model("Category", schema);
+const CategoryManufacture = mongoose.model("category_manufacture", schema);
 
 module.exports = {
-  Category
+  CategoryManufacture
 }
