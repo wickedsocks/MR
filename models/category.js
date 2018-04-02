@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-let schema = new mongoose.Schema({
+let manufactureCategory = new mongoose.Schema({
   categoriesDescription: {
     type: String,
     required: true
@@ -39,8 +39,17 @@ let schema = new mongoose.Schema({
   },
 });
 
-const CategoryManufacture = mongoose.model("categories_manufacture", schema);
+let procutCategory = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  }
+});
+
+const CategoryManufacture = mongoose.model("categories_manufacture", manufactureCategory);
+const CategoryProduct = mongoose.model('categories_product', procutCategory)
 
 module.exports = {
-  CategoryManufacture
+  CategoryManufacture,
+  CategoryProduct
 }

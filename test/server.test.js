@@ -1,10 +1,18 @@
 const supertest = require("supertest");
 const { app } = require("../server/server");
 const expect = require("chai").expect;
-const { products, populateProducts, categoriesManufacture, populateCategoriesManufacture } = require("./seed/seed");
+const {
+  products,
+  populateProducts,
+  categoriesManufacture,
+  populateCategoriesManufacture,
+  categoriesProduct,
+  populateCategoryProducts
+} = require("./seed/seed");
 
 beforeEach(populateProducts);
 beforeEach(populateCategoriesManufacture);
+beforeEach(populateCategoryProducts);
 
 describe("GET /api/products", () => {
   it("should return all products", (done) => {
@@ -21,13 +29,12 @@ describe("GET /api/products", () => {
   });
 });
 
-
 describe("POST /api/products", () => {
   it("should return posted product", (done) => {
-    let title = 'Title';
-    let description = 'Description';
+    let title = "Title";
+    let description = "Description";
     let price = 1234;
-    let currency = 'UAH';
+    let currency = "UAH";
     supertest(app)
       .post("/api/products")
       .send({
@@ -47,43 +54,66 @@ describe("POST /api/products", () => {
   });
 });
 
-describe('POST /api/categories/manufacture', () => {
-  it('should create new category manufacture instance', (done) => {
+describe("POST /api/categories/manufacture", () => {
+  it("should create new category manufacture instance", (done) => {
     let category = {
-      description: 'req.body.description test',
-      name: 'req.body.name test',
-      seoUrl: 'req.body.seoUrl test',
+      description: "req.body.description test",
+      name: "req.body.name test",
+      seoUrl: "req.body.seoUrl test",
       headingTitle: "req.body.headingTitle test",
-      seoTitle: 'req.body.seoTitle test',
-      categoriesId: '1',
-      seoDescription: 'req.body.seoDescription test',
-      languageId: 'req.body.languageId test',
-      seKeywords: 'req.body.seKeywords test'
+      seoTitle: "req.body.seoTitle test",
+      categoriesId: "1",
+      seoDescription: "req.body.seoDescription test",
+      languageId: "req.body.languageId test",
+      seKeywords: "req.body.seKeywords test"
     };
     supertest(app)
-    .post('/api/categories/manufacture')
-    .send(category)
-    .expect(200)
-    .expect((res) => {
-      expect(res.body.categoriesDescription).to.be.equal(category.description);
-      expect(res.body.categoriesName).to.be.equal(category.name);
-      expect(res.body.categoriesSeoTitle).to.be.equal(category.seoTitle);
-    })
-    .end(done);
-  })
+      .post("/api/categories/manufacture")
+      .send(category)
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.categoriesDescription).to.be.equal(
+          category.description
+        );
+        expect(res.body.categoriesName).to.be.equal(category.name);
+        expect(res.body.categoriesSeoTitle).to.be.equal(category.seoTitle);
+      })
+      .end(done);
+  });
 });
 
 describe("GET /api/categories/manufacture", () => {
-  it('should return categories manufacture list', (done) => {
+  it("should return categories manufacture list", (done) => {
     supertest(app)
-    .get('/api/categories/manufacture')
+      .get("/api/categories/manufacture")
+      .expect(200)
+      .expect((res) => {
+        expect(res.body[0].categoriesDescription).to.be.equal(
+          categoriesManufacture[0].categoriesDescription
+        );
+        expect(res.body[0].categoriesName).to.be.equal(
+          categoriesManufacture[0].categoriesName
+        );
+        expect(res.body[1].categoriesDescription).to.be.equal(
+          categoriesManufacture[1].categoriesDescription
+        );
+        expect(res.body[1].categoriesName).to.be.equal(
+          categoriesManufacture[1].categoriesName
+        );
+      })
+      .end(done);
+  });
+});
+
+describe('POSR /api/categories/product', () => {
+  it('should create new product category ', (done) => {
+    supertest(app)
+    .post('/api/categories/product')
+    .send(categoriesProduct[0])
     .expect(200)
     .expect((res) => {
-      expect(res.body[0].categoriesDescription).to.be.equal(categoriesManufacture[0].categoriesDescription);
-      expect(res.body[0].categoriesName).to.be.equal(categoriesManufacture[0].categoriesName);
-      expect(res.body[1].categoriesDescription).to.be.equal(categoriesManufacture[1].categoriesDescription);
-      expect(res.body[1].categoriesName).to.be.equal(categoriesManufacture[1].categoriesName);
+      expect(res.body.name).to.be.equal(categoriesProduct[0].name);
     })
     .end(done);
-  });
+  })
 })

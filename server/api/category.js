@@ -1,7 +1,10 @@
 require("../../dbconfig/config");
 
 const { Router } = require("express");
-const { CategoryManufacture } = require("../../models/category");
+const {
+  CategoryManufacture,
+  CategoryProduct
+} = require("../../models/category");
 
 const router = Router();
 
@@ -18,7 +21,7 @@ router.post("/categories/manufacture", (req, res) => {
       languageId: req.body.languageId,
       categoriesSeoKeywords: req.body.seKeywords
     });
-  
+
     newCategory.save().then(
       (success) => {
         res.send(success);
@@ -34,6 +37,20 @@ router.get("/categories/manufacture", (req, res) => {
   CategoryManufacture.find({}).then(
     (categories) => {
       res.send(categories);
+    },
+    (err) => {
+      res.status(400).send(err);
+    }
+  );
+});
+
+router.post("/categories/product", (req, res) => {
+  let newProductCategory = new CategoryProduct({
+    name: req.body.name
+  });
+  newProductCategory.save().then(
+    (success) => {
+      res.send(success);
     },
     (err) => {
       res.status(400).send(err);
