@@ -58,4 +58,12 @@ router.post("/categories/product", (req, res) => {
   );
 });
 
+router.get("/categories/product", (req, res) => {
+  CategoryProduct.find({}).then((categories) => {
+    res.send(categories);
+  },(err) => {
+    res.status(400).send(err);
+  })
+});
+
 module.exports = router;

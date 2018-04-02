@@ -105,7 +105,7 @@ describe("GET /api/categories/manufacture", () => {
   });
 });
 
-describe('POSR /api/categories/product', () => {
+describe('POST /api/categories/product', () => {
   it('should create new product category ', (done) => {
     supertest(app)
     .post('/api/categories/product')
@@ -116,4 +116,17 @@ describe('POSR /api/categories/product', () => {
     })
     .end(done);
   })
-})
+});
+
+describe('GET /api/categories/product', () => {
+  it('should return all product categories', (done) => {
+    supertest(app)
+    .get('/api/categories/product')
+    .expect(200)
+    .expect((res) => {
+      expect(res.body[0].name).to.be.equal(categoriesProduct[0].name);
+      expect(res.body[1].name).to.be.equal(categoriesProduct[1].name);
+    })
+    .end(done);
+  })
+});
