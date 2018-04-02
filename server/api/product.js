@@ -47,7 +47,7 @@ router.post("/products/upload-image", (req, res) => {
     if (err) {
       res.status(400).send(err);
     }
-    cloudinary.v2.uploader.upload(files.file.path, {public_id: files.file.name}, function(err, result) {
+    cloudinary.v2.uploader.upload(files.file.path, {public_id: fields.name}, function(err, result) {
       res.send(result);
     });
   });
