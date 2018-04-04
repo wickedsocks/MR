@@ -29,7 +29,9 @@
     "mongoose": "^5.0.10",
     "nuxt": "^1.0.0-rc3",
     "regenerator-runtime": "^0.11.1",
-    "source-map-support": "^0.4.15"
+    "source-map-support": "^0.4.15",
+    "vee-validate": "^2.0.6",
+    "vue-style-loader": "^4.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
@@ -44,6 +46,8 @@
     "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
+    "node-sass": "^4.8.3",
+    "sass-loader": "^6.0.7",
     "supertest": "^3.0.0"
   }
 }
