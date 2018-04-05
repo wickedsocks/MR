@@ -28,24 +28,24 @@
     </div>
   </section>
   <section class="row size-option">
-    <div class="col-6 d-flex align-items-center">
+    <div class="col-xs-12 col-sm-12 col-md-6 d-flex align-items-center">
       <input type="number" name="width" class="form-control col-6" placeholder="Укажите ширину">
       <span class="col-6">Ширина в см</span>
     </div>
-    <div class="col-6 d-flex align-items-center">
+    <div class="col-xs-12 col-sm-12 col-md-6 d-flex align-items-center">
       <input type="number" name="height" class="form-control col-6" placeholder="Укажите высоту">
       <span class="col-6">Высота в см</span>
     </div>
   </section>
   <section>
-    <h5>Продуктовая категория</h5>
-    <select class="custom-select" v-model="selectedCategories.product">
-      <option value="" disabled>Категория товара</option>
-      <option :value="prodCat._id" v-for="prodCat in productCategory" :key="prodCat._id">
-        {{prodCat.name}}
-      </option>
-    </select>
-    <h5>Производственная категория</h5>
+      <select class="custom-select" v-model="selectedCategories.product">
+        <option value="" disabled>Категория товара</option>
+        <option :value="prodCat._id" v-for="prodCat in productCategory" :key="prodCat._id">
+          {{prodCat.name}}
+        </option>
+      </select>
+  </section>
+  <section> 
     <select class="custom-select" v-model="selectedCategories.manufacture">
       <option value="" disabled>Производственная категория</option>
       <option :value="manufactureCat._id" v-for="manufactureCat in manufactureCategory" :key="manufactureCat._id">
@@ -53,7 +53,7 @@
       </option>
     </select>
   </section>
-  <button type="submit">Submit</button>
+  <button type="submit" class="btn btn-success">Добавить товар</button>
 </form>
 </template>
 
@@ -107,6 +107,7 @@ section {
   color: red;
   position: absolute;
   bottom: -22px;
+  white-space: pre-line;
 }
 #image {
   display: none;
@@ -128,6 +129,11 @@ section {
 .size-option {
   span {
     text-align: left;
+  }
+}
+@media (max-width: 767px) {
+  .size-option > div + div {
+    margin-top: 15px;
   }
 }
 </style>
