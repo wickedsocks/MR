@@ -1,5 +1,5 @@
 <template>
-<form class="container" novalidate @submit.prevent="validateBeforeSubmit">
+<form class="container" novalidate @submit.prevent="showData">
   <section class="row">
     <header class="col-12">
       <h1>Создание нового товара</h1>
@@ -37,28 +37,51 @@
       <span class="col-6">Высота в см</span>
     </div>
   </section>
+  <section>
+    <h5>Продуктовая категория</h5>
+    <select class="custom-select" v-model="selectedCategories.product">
+      <option value="" disabled>Категория товара</option>
+      <option :value="prodCat._id" v-for="prodCat in productCategory" :key="prodCat._id">
+        {{prodCat.name}}
+      </option>
+    </select>
+    <h5>Производственная категория</h5>
+    <select class="custom-select" v-model="selectedCategories.manufacture">
+      <option value="" disabled>Производственная категория</option>
+      <option :value="manufactureCat._id" v-for="manufactureCat in manufactureCategory" :key="manufactureCat._id">
+        {{manufactureCat.categoriesName}}
+      </option>
+    </select>
+  </section>
+  <button type="submit">Submit</button>
 </form>
 </template>
 
 <script>
+import axios from "~/plugins/axios";
+
 export default {
+  async asyncData() {
+    let productCategory = await axios.get("/api/categories/product");
+    let manufactureCategory = await axios.get("/api/categories/manufacture");
+    return {
+      productCategory: productCategory.data,
+      manufactureCategory: manufactureCategory.data
+    };
+  },
   data() {
     return {
-      email: ""
+      email: "",
+      product: '',
+      selectedCategories: {
+        product: '',
+        manufacture: '',
+      },
     };
   },
   methods: {
-    validateBeforeSubmit() {
-      console.log("this validator", this.$validator);
-      this.$validator.validateAll().then((result) => {
-        if (result) {
-          // eslint-disable-next-line
-          alert("Form Submitted!");
-          return;
-        }
-
-        alert("Correct them errors!");
-      });
+    showData() {
+      console.log('this.selectedCategories ', this.selectedCategories);
     }
   }
 };
