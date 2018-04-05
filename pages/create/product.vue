@@ -88,6 +88,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+form {
+  margin-bottom: 50px;
+}
 header {
   text-align: center;
   margin-top: 20px;
