@@ -21,26 +21,12 @@ const products = [
 
 const categoriesManufacture = [
   {
-    categoriesDescription: "req.body.description 1",
-    categoriesName: "req.body.name 1",
-    categoriesSeoUrl: "req.body.seoUrl 1",
-    categoriesHeadingTitle: "req.body.headingTitle 1",
-    categoriesSeoTitle: "req.body.seoTitle 1",
-    categoriesId: "1",
-    categoriesSeoDescription: "req.body.seoDescription 1",
-    languageId: "req.body.languageId 1",
-    categoriesSeoKeywords: "req.body.seKeywords 1"
+    description: "req.body.description 1",
+    name: "req.body.name 1"
   },
   {
-    categoriesDescription: "req.body.description 2",
-    categoriesName: "req.body.name 2",
-    categoriesSeoUrl: "req.body.seoUrl 2",
-    categoriesHeadingTitle: "req.body.headingTitle 2",
-    categoriesSeoTitle: "req.body.seoTitle 2",
-    categoriesId: "2",
-    categoriesSeoDescription: "req.body.seoDescription 2",
-    languageId: "req.body.languageId 2",
-    categoriesSeoKeywords: "req.body.seKeywords 2"
+    description: "req.body.description 2",
+    name: "req.body.name 2",
   }
 ];
 

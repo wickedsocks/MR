@@ -49,7 +49,7 @@
     <select class="custom-select" v-model="selectedCategories.manufacture">
       <option value="" disabled>Производственная категория</option>
       <option :value="manufactureCat._id" v-for="manufactureCat in manufactureCategory" :key="manufactureCat._id">
-        {{manufactureCat.categoriesName}}
+        {{manufactureCat.name}}
       </option>
     </select>
   </section>

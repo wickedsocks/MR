@@ -1,42 +1,14 @@
 const mongoose = require('mongoose');
 
 let manufactureCategory = new mongoose.Schema({
-  categoriesDescription: {
+  name: {
     type: String,
     required: true
   },
-  categoriesName: {
+  description: {
     type: String,
     required: true
-  },
-  categoriesSeoUrl: {
-    type: String,
-    required: true
-  },
-  categoriesHeadingTitle: {
-    type: String,
-    required: true
-  },
-  categoriesSeoTitle: {
-    type: String,
-    required: true
-  },
-  categoriesId: {
-    type: String,
-    required: true
-  },
-  categoriesSeoDescription: {
-    type: String,
-    required: true
-  },
-  languageId: {
-    type: String,
-    required: true
-  },
-  categoriesSeoKeywords: {
-    type: String,
-    required: true
-  },
+  }
 });
 
 let procutCategory = new mongoose.Schema({

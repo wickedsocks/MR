@@ -59,24 +59,16 @@ describe("POST /api/categories/manufacture", () => {
     let category = {
       description: "req.body.description test",
       name: "req.body.name test",
-      seoUrl: "req.body.seoUrl test",
-      headingTitle: "req.body.headingTitle test",
-      seoTitle: "req.body.seoTitle test",
-      categoriesId: "1",
-      seoDescription: "req.body.seoDescription test",
-      languageId: "req.body.languageId test",
-      seKeywords: "req.body.seKeywords test"
     };
     supertest(app)
       .post("/api/categories/manufacture")
       .send(category)
       .expect(200)
       .expect((res) => {
-        expect(res.body.categoriesDescription).to.be.equal(
+        expect(res.body.description).to.be.equal(
           category.description
         );
-        expect(res.body.categoriesName).to.be.equal(category.name);
-        expect(res.body.categoriesSeoTitle).to.be.equal(category.seoTitle);
+        expect(res.body.name).to.be.equal(category.name);
       })
       .end(done);
   });
@@ -88,17 +80,17 @@ describe("GET /api/categories/manufacture", () => {
       .get("/api/categories/manufacture")
       .expect(200)
       .expect((res) => {
-        expect(res.body[0].categoriesDescription).to.be.equal(
-          categoriesManufacture[0].categoriesDescription
+        expect(res.body[0].description).to.be.equal(
+          categoriesManufacture[0].description
         );
-        expect(res.body[0].categoriesName).to.be.equal(
-          categoriesManufacture[0].categoriesName
+        expect(res.body[0].name).to.be.equal(
+          categoriesManufacture[0].name
         );
-        expect(res.body[1].categoriesDescription).to.be.equal(
-          categoriesManufacture[1].categoriesDescription
+        expect(res.body[1].description).to.be.equal(
+          categoriesManufacture[1].description
         );
-        expect(res.body[1].categoriesName).to.be.equal(
-          categoriesManufacture[1].categoriesName
+        expect(res.body[1].name).to.be.equal(
+          categoriesManufacture[1].name
         );
       })
       .end(done);
