@@ -17,8 +17,12 @@ router.post("/products", (req, res) => {
   let newProduct = new Product({
     title: req.body.title,
     description: req.body.description,
-    price: req.body.price,
-    currency: req.body.currency
+    images: req.body.images,
+    width: req.body.width,
+    height: req.body.height,
+    productCategory: req.body.productCategory,
+    manufactureCategory: req.body.manufactureCategory,
+    price: req.body.price
   });
   newProduct.save().then(
     (success) => {

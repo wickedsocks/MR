@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 // Creation and validation for database entity
 let schema = new mongoose.Schema({
+  images: {
+    type: Array,
+    required: true
+  },
   title: {
     type: String,
     required: true
@@ -10,12 +14,24 @@ let schema = new mongoose.Schema({
     type: String,
     required: true
   },
-  price: {
+  width: {
     type: Number,
     required: true
   },
-  currency: {
+  height: {
+    type: Number,
+    required: true
+  },
+  productCategory: {
     type: String,
+    required: true
+  },
+  manufactureCategory: {
+    type: String,
+    required: true
+  },
+  price: {
+    type: Number,
     required: true
   }
 });
