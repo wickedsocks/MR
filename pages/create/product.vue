@@ -102,9 +102,10 @@ export default {
   methods: {
     sendForm() {
       // TODO: should filter images first of all add images to cloudinary and add property to axios request
+
       this.$validator.validateAll().then((success) => {
         if (success) {
-          alert('Товар отправлен на сервер');
+          alert("Товар отправлен на сервер");
           // TODO: uncomment when fix problem with images
           // axios
           //   .post("/api/products", {
@@ -126,7 +127,15 @@ export default {
           //     }
           //   );
         } else {
-          console.log('error occurs');
+          console.log("this.$validator.error ", this.$validator.errors.items);
+          let firstError = this.$validator.errors.items[0].field;
+          let el = document.querySelector(`[name=${firstError}]`);
+          console.log("el ", el);
+          el.scrollIntoView({
+            behavior: "smooth",
+            block: "end"
+          });
+          console.log("error occurs");
         }
       });
     },
@@ -173,7 +182,9 @@ section {
   white-space: pre-line;
 }
 #images {
-  display: none;
+  height: 0;
+  width: 0;
+  position: absolute;
 }
 .image-select-button {
   padding: 20px 60px;
