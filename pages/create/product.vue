@@ -47,7 +47,7 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 d-flex align-items-center flex-wrap">
       <input type="number" name="price" v-model="price" class="form-control col-6" placeholder="Укажите цену" v-validate="'required'">
-      <span class="col-6">Цена</span>
+      <span class="col-6">Грн</span>
       <span class="error-default" v-show="errors.has('price')"> {{errors.first('price')}} </span>
     </div>
   </section>
