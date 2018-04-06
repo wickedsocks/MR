@@ -124,11 +124,13 @@ export default {
                   console.log("product response ", success);
                   setTimeout(() => {
                     this.showSuccessMessage = false;
+                    this.$validator.errors.clear();
                   }, 2000);
                   this.showSuccessMessage = true;
                   this.showLoader = false;
                   // clearing variables
                   this.clearAndSetInitValues();
+                  this.$validator.errors.clear();
                 },
                 (error) => {
                   console.log("error ", error);
@@ -216,7 +218,7 @@ export default {
           product: "",
           manufacture: ""
         }
-      }
+      };
     }
   }
 };
