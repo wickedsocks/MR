@@ -20,14 +20,14 @@
   </section>
   <section class="row">
     <div class="col-12 d-flex flex-wrap">
-      <input class="form-control col-8" v-model="title" type="text" v-validate="'required|min:10'" name='title' placeholder="Имя и краткое описание товара">
+      <input class="form-control col-8" v-model="requestData.title" type="text" v-validate="'required|min:10'" name='title' placeholder="Имя и краткое описание товара">
       <span class="error-default" v-show="errors.has('title')"> {{errors.first('title')}} </span>
     </div>
   </section>
   <section class="row">
     <div class="col-12 d-flex justify-content-center flex-wrap">
       <textarea class="form-control"
-        v-model="description"
+        v-model="requestData.description"
         cols="30" rows="10" placeholder="Подробное описание, добавить пример извне"
         name="description"
         v-validate="'required|min:30'"></textarea>
@@ -36,23 +36,23 @@
   </section>
   <section class="row size-option">
     <div class="col-xs-12 col-sm-12 col-md-4 d-flex align-items-center flex-wrap">
-      <input type="number" v-model="width" name="width" class="form-control col-6" placeholder="Укажите ширину" v-validate="'required'">
+      <input type="number" v-model="requestData.width" name="width" class="form-control col-6" placeholder="Укажите ширину" v-validate="'required'">
       <span class="col-6">Ширина в см</span>
       <span class="error-default" v-show="errors.has('width')"> {{errors.first('width')}} </span>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 d-flex align-items-center flex-wrap">
-      <input type="number" name="height" v-model="height" class="form-control col-6" placeholder="Укажите высоту" v-validate="'required'">
+      <input type="number" name="height" v-model="requestData.height" class="form-control col-6" placeholder="Укажите высоту" v-validate="'required'">
       <span class="col-6">Высота в см</span>
       <span class="error-default" v-show="errors.has('height')"> {{errors.first('height')}} </span>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 d-flex align-items-center flex-wrap">
-      <input type="number" name="price" v-model="price" class="form-control col-6" placeholder="Укажите цену" v-validate="'required'">
+      <input type="number" name="price" v-model="requestData.price" class="form-control col-6" placeholder="Укажите цену" v-validate="'required'">
       <span class="col-6">Грн</span>
       <span class="error-default" v-show="errors.has('price')"> {{errors.first('price')}} </span>
     </div>
   </section>
   <section>
-      <select class="custom-select" name="product" v-model="selectedCategories.product" v-validate="'required'">
+      <select class="custom-select" name="product" v-model="requestData.selectedCategories.product" v-validate="'required'">
         <option value="" disabled>Категория товара</option>
         <option :value="prodCat._id" v-for="prodCat in productCategory" :key="prodCat._id">
           {{prodCat.name}}
@@ -61,7 +61,7 @@
       <span class="error-default" v-show="errors.has('product')"> {{errors.first('product')}} </span>
   </section>
   <section> 
-    <select class="custom-select" name="manufacture" v-model="selectedCategories.manufacture" v-validate="'required'">
+    <select class="custom-select" name="manufacture" v-model="requestData.selectedCategories.manufacture" v-validate="'required'">
       <option value="" disabled>Производственная категория</option>
       <option :value="manufactureCat._id" v-for="manufactureCat in manufactureCategory" :key="manufactureCat._id">
         {{manufactureCat.name}}
@@ -95,24 +95,25 @@ export default {
   },
   data() {
     return {
-      title: "",
       showLoader: false,
       showSuccessMessage: false,
-      description: "",
       images: [],
-      width: null,
-      height: null,
-      price: null,
-      imagesUrlsArray: [],
-      selectedCategories: {
-        product: "",
-        manufacture: ""
+      requestData: {
+        title: "",
+        description: "",
+        width: null,
+        height: null,
+        price: null,
+        imagesUrlsArray: [],
+        selectedCategories: {
+          product: "",
+          manufacture: ""
+        }
       }
     };
   },
   methods: {
     sendForm() {
-      // TODO: should filter images first of all add images to cloudinary and add property to axios request
       this.$validator.validateAll().then((success) => {
         if (success) {
           this.showLoader = true;
@@ -126,6 +127,8 @@ export default {
                   }, 2000);
                   this.showSuccessMessage = true;
                   this.showLoader = false;
+                  // clearing variables
+                  this.clearAndSetInitValues();
                 },
                 (error) => {
                   console.log("error ", error);
@@ -152,14 +155,14 @@ export default {
     },
     serverRequestUploadData() {
       return axios.post("/api/products", {
-        productCategory: this.selectedCategories.product,
-        manufactureCategory: this.selectedCategories.manufacture,
-        images: this.imagesUrlsArray,
-        title: this.title,
-        description: this.description,
-        height: this.height,
-        width: this.width,
-        price: this.price
+        productCategory: this.requestData.selectedCategories.product,
+        manufactureCategory: this.requestData.selectedCategories.manufacture,
+        images: this.requestData.imagesUrlsArray,
+        title: this.requestData.title,
+        description: this.requestData.description,
+        height: this.requestData.height,
+        width: this.requestData.width,
+        price: this.requestData.price
       });
     },
     uploadImagesToServer(images) {
@@ -168,14 +171,10 @@ export default {
         images.forEach((item) => {
           let form = new FormData();
           form.append("file", item.file);
-          // TODO: add proper name to image
-          // form.append('name', this.title)
           promiseArray.push(
             axios.post("/api/products/upload-image", form).then(
               (res) => {
-                console.log("success ", res.data.url);
-                // TODO: push only urls in final array which i send to server
-                this.imagesUrlsArray.push(res.data.url);
+                this.requestData.imagesUrlsArray.push(res.data.url);
               },
               (error) => {
                 console.log("error ", error);
@@ -202,6 +201,22 @@ export default {
     // remove fire from array
     removeImage(index, arr) {
       arr.splice(index, 1);
+    },
+    // Renew data after success upload
+    clearAndSetInitValues() {
+      this.images = [];
+      this.requestData = {
+        title: "",
+        description: "",
+        width: null,
+        height: null,
+        price: null,
+        imagesUrlsArray: [],
+        selectedCategories: {
+          product: "",
+          manufacture: ""
+        }
+      }
     }
   }
 };
