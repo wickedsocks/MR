@@ -13,7 +13,7 @@
       </label>
       <div class="image-preview d-flex justify-content-center" v-if="images && images.length > 0" v-for="(image, index) in images" :key="index" @click="removeImage(index, images)">
         <div class="close-main"></div>
-          <img :src="image">
+          <img :src="image.url">
       </div>
       <span class="error-default" v-show="errors.has('images')"> {{errors.first('images')}} </span>
     </div>
@@ -70,6 +70,14 @@
     <span class="error-default" v-show="errors.has('manufacture')"> {{errors.first('manufacture')}} </span>
   </section>
   <button type="submit" class="btn btn-success">Добавить товар</button>
+  <div v-show="showLoader" class="loader-wrapper">
+    <div class="loader"></div>
+  </div>
+  <div v-show="showSuccessMessage" class="success-message-wrapper">
+    <div class="success-message">
+      Товар успешно сохранен
+    </div>
+  </div>
 </form>
 </template>
 
@@ -88,11 +96,14 @@ export default {
   data() {
     return {
       title: "",
+      showLoader: false,
+      showSuccessMessage: false,
       description: "",
       images: [],
       width: null,
       height: null,
       price: null,
+      imagesUrlsArray: [],
       selectedCategories: {
         product: "",
         manufacture: ""
@@ -102,30 +113,30 @@ export default {
   methods: {
     sendForm() {
       // TODO: should filter images first of all add images to cloudinary and add property to axios request
-
       this.$validator.validateAll().then((success) => {
         if (success) {
-          alert("Товар отправлен на сервер");
-          // TODO: uncomment when fix problem with images
-          // axios
-          //   .post("/api/products", {
-          //     productCategory: this.selectedCategories.product,
-          //     manufactureCategory: this.selectedCategories.manufacture,
-          //     images: ['1', '2', '3', '4'],
-          //     title: this.title,
-          //     description: this.description,
-          //     height: this.height,
-          //     width: this.width,
-          //     price: this.price
-          //   })
-          //   .then(
-          //     (success) => {
-          //       console.log("product response ", success);
-          //     },
-          //     (error) => {
-          //       console.log("error ", error);
-          //     }
-          //   );
+          this.showLoader = true;
+          this.uploadImagesToServer(this.images).then(
+            () => {
+              this.serverRequestUploadData().then(
+                (success) => {
+                  console.log("product response ", success);
+                  setTimeout(() => {
+                    this.showSuccessMessage = false;
+                  }, 2000);
+                  this.showSuccessMessage = true;
+                  this.showLoader = false;
+                },
+                (error) => {
+                  console.log("error ", error);
+                  this.showLoader = false;
+                }
+              );
+            },
+            (err) => {
+              console.log("error occurs ", err);
+            }
+          );
         } else {
           console.log("this.$validator.error ", this.$validator.errors.items);
           let firstError = this.$validator.errors.items[0].field;
@@ -139,6 +150,42 @@ export default {
         }
       });
     },
+    serverRequestUploadData() {
+      return axios.post("/api/products", {
+        productCategory: this.selectedCategories.product,
+        manufactureCategory: this.selectedCategories.manufacture,
+        images: this.imagesUrlsArray,
+        title: this.title,
+        description: this.description,
+        height: this.height,
+        width: this.width,
+        price: this.price
+      });
+    },
+    uploadImagesToServer(images) {
+      var promiseArray = [];
+      if (images && images.length > 0) {
+        images.forEach((item) => {
+          let form = new FormData();
+          form.append("file", item.file);
+          // TODO: add proper name to image
+          // form.append('name', this.title)
+          promiseArray.push(
+            axios.post("/api/products/upload-image", form).then(
+              (res) => {
+                console.log("success ", res.data.url);
+                // TODO: push only urls in final array which i send to server
+                this.imagesUrlsArray.push(res.data.url);
+              },
+              (error) => {
+                console.log("error ", error);
+              }
+            )
+          );
+        });
+      }
+      return Promise.all(promiseArray);
+    },
     // on change event handler returns urls
     getFileData(event, filesArray) {
       if (event.target.files && event.target.files.length > 0) {
@@ -146,7 +193,7 @@ export default {
           const file = event.target.files[i];
           const reader = new FileReader();
           reader.onloadend = () => {
-            filesArray.push(reader.result);
+            filesArray.push({ url: reader.result, file });
           };
           reader.readAsDataURL(file);
         }
@@ -185,6 +232,8 @@ section {
   height: 0;
   width: 0;
   position: absolute;
+  outline: none;
+  overflow: hidden;
 }
 .image-select-button {
   padding: 20px 60px;
@@ -251,6 +300,76 @@ section {
     width: 100%;
     object-fit: contain;
   }
+}
+
+@keyframes loaderSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.loader-wrapper,
+.success-message-wrapper {
+  background: rgba(130, 130, 130, 0.32941);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.loader {
+  height: 70px;
+  width: 70px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #1fb264;
+  border-radius: 50%;
+  animation-name: loaderSpin;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.success-message {
+  position: absolute;
+  height: 180px;
+  width: 300px;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffffff;
+  border-radius: 4px;
+  font-size: 26px;
+  padding: 50px;
+  text-align: center;
+  animation-name: fadeIn;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
 @media (max-width: 767px) {
