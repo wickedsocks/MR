@@ -225,12 +225,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-form {
-  margin-bottom: 50px;
-}
-header {
-  margin-top: 20px;
-}
 section {
   div {
     position: relative;

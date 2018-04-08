@@ -1,7 +1,9 @@
 <template>
   <div>
     <my-header/>
-    <nuxt/>
+    <div class="main-wrapper">
+      <nuxt/>
+    </div>
     <my-footer/>
   </div>
 </template>
@@ -20,8 +22,9 @@ export default {
 
 <style lang="scss" scoped>
 
-header {
-  margin-top: 56px;
+.main-wrapper {
+  min-height: calc(100vh - 112px);
+  padding-bottom: 50px;
 }
 
 .button,
