@@ -26,7 +26,7 @@ module.exports = {
   */
   css: ["~/assets/css/main.css"],
   
-  plugins: [ '~plugins/vee-validate'],
+  plugins: [ '~plugins/vee-validate', '~plugins/vuejs-filters.js'],
 
   /*
   ** Add axios globally
