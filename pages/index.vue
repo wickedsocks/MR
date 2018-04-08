@@ -1,25 +1,30 @@
 <template>
-  <section class="container">
-    <img src="~assets/img/logo.png" alt="Nuxt.js Logo" class="logo" />
-    <h1 class="title">
-      USERS
-    </h1>
-    <ul class="users">
-      <!-- <li v-for="(user, index) in users" :key="index" class="user">
-        <nuxt-link :to="{ name: 'id', params: { id: index }}">
-          {{ user.name }}
-        </nuxt-link>
-      </li> -->
-    </ul>
+  <section>
+    <my-product-list :products='products'/>
   </section>
 </template>
 
 <script>
+import MyProductList from "~/components/ProductList.vue";
+import axios from "~/plugins/axios";
 export default {
-  async asyncData() {},
+  components: {
+    MyProductList
+  },
+  async asyncData() {
+    let products = await axios.get("/api/products");
+    return {
+      products: products.data
+    };
+  },
+  data() {
+    return {
+      data: {}
+    };
+  },
   head() {
     return {
-      title: "Users",
+      title: "Каталог товара",
       meta: [
         {
           hid: "description",
@@ -32,16 +37,5 @@ export default {
 };
 </script>
 
-<style scoped>
-.title {
-  margin: 30px 0;
-}
-.users {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.user {
-  margin: 10px 0;
-}
+<style lang="scss" scoped>
 </style>

@@ -1,5 +1,8 @@
 <template>
-  <footer>
-    <!-- Visit our website for more documentation : <a href="https://nuxtjs.org" target="_blank">nuxtjs.org</a> -->
-  </footer>
+  <footer class="py-3 bg-footer">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+    </div>
+    <!-- /.container -->
+  </footer>  
 </template>

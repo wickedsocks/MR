@@ -1,5 +1,6 @@
 <template>
   <div>
+    <my-header/>
     <nuxt/>
     <my-footer/>
   </div>
@@ -7,15 +8,21 @@
 
 <script>
 import MyFooter from "~/components/Footer.vue";
+import MyHeader from "~/components/Header.vue";
 
 export default {
   components: {
-    MyFooter
+    MyFooter,
+    MyHeader
   }
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+
+header {
+  margin-top: 56px;
+}
 
 .button,
 .button:visited {

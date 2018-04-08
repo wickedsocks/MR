@@ -11,3 +11,8 @@ input[type=number]::-webkit-outer-spin-button {
 textarea {
   resize: none;
 }
+
+.bg-header,
+.bg-footer {
+  background: #1d8635;
+}
