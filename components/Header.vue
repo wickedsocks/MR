@@ -3,25 +3,17 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-header fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">Start Bootstrap</a>
+        <nuxt-link class="navbar-brand" to="/">Главная</nuxt-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home
-                <span class="sr-only">(current)</span>
-              </a>
+            <li class="nav-item">
+              <nuxt-link class="nav-link" to="/">Главная</nuxt-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
+              <nuxt-link class="nav-link" to="/create/product">Создать товар</nuxt-link>
             </li>
           </ul>
         </div>
@@ -29,3 +21,10 @@
     </nav>
   </header>
 </template>
+
+<style lang="scss" scoped>
+.nuxt-link-exact-active {
+  color: #ffffff !important;
+}
+</style>
+
