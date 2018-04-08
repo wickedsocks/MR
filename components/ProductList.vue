@@ -37,6 +37,7 @@ export default {
   img {
     height: 180px;
     width: auto;
+    object-fit: cover;
   }
 }
 </style>
