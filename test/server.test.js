@@ -34,21 +34,33 @@ describe("POST /api/products", () => {
     let title = "Title";
     let description = "Description";
     let price = 1234;
-    let currency = "UAH";
+    let manufactureCategory = "manufact cat";
+    let productCategory = "prodcat cat";
+    let images = ['a','b','c'];
+    let width = 14;
+    let height = 25;
     supertest(app)
       .post("/api/products")
       .send({
         title,
         description,
         price,
-        currency
+        manufactureCategory,
+        productCategory,
+        images,
+        width,
+        height
       })
       .expect(200)
       .expect((res) => {
         expect(res.body.title).to.be.equal(title);
         expect(res.body.price).to.be.equal(price);
         expect(res.body.description).to.be.equal(description);
-        expect(res.body.currency).to.be.equal(currency);
+        expect(res.body.manufactureCategory).to.be.equal(manufactureCategory);
+        expect(res.body.productCategory).to.be.equal(productCategory);
+        expect(res.body.images).to.deep.equal(images);
+        expect(res.body.width).to.be.equal(width);
+        expect(res.body.height).to.be.equal(height);
       })
       .end(done);
   });

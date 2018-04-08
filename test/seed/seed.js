@@ -9,13 +9,21 @@ const products = [
     title: "Product 1",
     description: "Best product",
     price: 3333,
-    currency: "UAH"
+    manufactureCategory: 'manu fact 1',
+    productCategory: 'prod cat 1',
+    images: ['a','b','c'],
+    width: 14,
+    height: 25
   },
   {
     title: "Product 2",
-    description: "Second best product",
-    price: 8888,
-    currency: "USD"
+    description: "Best product 2",
+    price: 8383,
+    manufactureCategory: 'manu fact 2',
+    productCategory: 'prod cat 2',
+    images: ['a 2','b 2','c 2'],
+    width: 55,
+    height: 74
   }
 ];
 
