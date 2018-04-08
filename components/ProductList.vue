@@ -12,7 +12,8 @@
             <img class="card-img-top" v-if="product.images && product.images.length > 0" :src="product.images[0]" :alt="product.title">
             <div class="card-body">
               <h5 class="card-title"> {{product.title}} </h5>
-              <p class="card-text"> {{product.description | limitTo(70)}}... </p>
+              <p class="card-text" v-if="product.description && product.description.length > 70"> {{product.description | limitTo(70)}}... </p>
+              <p class="card-text" v-if="product.description && product.description.length <= 70"> {{product.description}} </p>
               <a href="#" class="btn btn-primary">Купить</a>
             </div>
         </div>
