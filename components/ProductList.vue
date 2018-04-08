@@ -1,7 +1,6 @@
 <template>
    <!-- Page Content -->
     <section class="container">
-
       <!-- Page Heading -->
       <h3 class="my-4">Каталог товара
         <small>провославной продукции</small>

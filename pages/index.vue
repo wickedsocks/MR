@@ -38,4 +38,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+section {
+  margin-bottom: 50px;
+}
 </style>

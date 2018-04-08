@@ -9,10 +9,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
+            <li class="nav-item" data-toggle="collapse" data-target="#navbarResponsive">
               <nuxt-link class="nav-link" to="/">Главная</nuxt-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" data-toggle="collapse" data-target="#navbarResponsive">
               <nuxt-link class="nav-link" to="/create/product">Создать товар</nuxt-link>
             </li>
           </ul>
@@ -21,10 +21,16 @@
     </nav>
   </header>
 </template>
+<script>
+export default {};
+</script>
+
 
 <style lang="scss" scoped>
+header {
+  margin-bottom: 56px;
+}
 .nuxt-link-exact-active {
   color: #ffffff !important;
 }
 </style>
-
