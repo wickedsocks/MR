@@ -113,35 +113,25 @@ export default {
     };
   },
   methods: {
-    sendForm() {
-      this.$validator.validateAll().then((success) => {
-        if (success) {
+    async sendForm() {
+      try {
+        let valid = await this.$validator.validateAll();
+        if (valid) {
           this.showLoader = true;
-          this.uploadImagesToServer(this.images).then(
-            () => {
-              this.serverRequestUploadData().then(
-                (success) => {
-                  console.log("product response ", success);
-                  setTimeout(() => {
-                    this.showSuccessMessage = false;
-                    this.$validator.errors.clear();
-                  }, 2000);
-                  this.showSuccessMessage = true;
-                  this.showLoader = false;
-                  // clearing variables
-                  this.clearAndSetInitValues();
-                  this.$validator.errors.clear();
-                },
-                (error) => {
-                  console.log("error ", error);
-                  this.showLoader = false;
-                }
-              );
-            },
-            (err) => {
-              console.log("error occurs ", err);
-            }
-          );
+          let imagesUploaded = await this.uploadImagesToServer(this.images);
+          imagesUploaded.forEach((img) => {
+            this.requestData.imagesUrlsArray.push(img.data.url);
+          });
+          await this.serverRequestUploadData();
+          setTimeout(() => {
+            this.showSuccessMessage = false;
+          }, 2000);
+          setTimeout(() => {
+            this.$validator.errors.clear();
+          });
+          this.showSuccessMessage = true;
+          this.showLoader = false;
+          this.clearAndSetInitValues();
         } else {
           console.log("this.$validator.error ", this.$validator.errors.items);
           let firstError = this.$validator.errors.items[0].field;
@@ -153,7 +143,9 @@ export default {
           });
           console.log("error occurs");
         }
-      });
+      } catch (error) {
+        console.log("error ", error);
+      }
     },
     serverRequestUploadData() {
       return axios.post("/api/products", {
@@ -173,17 +165,10 @@ export default {
         images.forEach((item) => {
           let form = new FormData();
           form.append("file", item.file);
-          promiseArray.push(
-            axios.post("/api/products/upload-image", form).then(
-              (res) => {
-                this.requestData.imagesUrlsArray.push(res.data.url);
-              },
-              (error) => {
-                console.log("error ", error);
-              }
-            )
-          );
+          promiseArray.push(axios.post("/api/products/upload-image", form));
         });
+      } else {
+        promiseArray.push(Promise.reject("Images array empty"));
       }
       return Promise.all(promiseArray);
     },
