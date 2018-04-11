@@ -7,12 +7,15 @@ const {
   categoriesManufacture,
   populateCategoriesManufacture,
   categoriesProduct,
-  populateCategoryProducts
+  populateCategoryProducts,
+  orders,
+  populateOrders
 } = require("./seed/seed");
 
 beforeEach(populateProducts);
 beforeEach(populateCategoriesManufacture);
 beforeEach(populateCategoryProducts);
+beforeEach(populateOrders);
 
 describe("GET /api/products", () => {
   it("should return all products", (done) => {
@@ -132,5 +135,20 @@ describe('GET /api/categories/product', () => {
       expect(res.body[1].name).to.be.equal(categoriesProduct[1].name);
     })
     .end(done);
-  })
+  });
+});
+
+describe('POST /api/orders', () => {
+  it("should return new created order", (done) => {
+    supertest(app)
+    .post('/api/orders')
+    .send(orders[0])
+    .expect(200)
+    .expect((res) => {
+      expect(res.body.name).to.be.equal(orders[0].name);
+      expect(res.body.tel).to.be.equal(orders[0].tel);
+      expect(res.body.email).to.be.equal(orders[0].email);
+    })
+    .end(done);
+  });
 });
