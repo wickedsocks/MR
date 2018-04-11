@@ -16,6 +16,9 @@
             <li class="nav-item d-md-none d-lg-block">
               <nuxt-link class="nav-link" to="/create/product">Создать товар</nuxt-link>
             </li>
+            <li class="nav-item d-md-none d-lg-block">
+              <nuxt-link class="nav-link" to="/orders">Корзина</nuxt-link>
+            </li>
             <!-- menu for big screen end -->
             <!-- menu for small screen -->
             <li class="nav-item d-block d-lg-none" data-toggle="collapse" data-target="#navbarResponsive">
@@ -23,6 +26,9 @@
             </li>
             <li class="nav-item d-block d-lg-none" data-toggle="collapse" data-target="#navbarResponsive">
               <nuxt-link class="nav-link" to="/create/product">Создать товар</nuxt-link>
+            </li>
+            <li class="nav-item d-block d-lg-none" data-toggle="collapse" data-target="#navbarResponsive">
+              <nuxt-link class="nav-link" to="/orders">Корзина</nuxt-link>
             </li>
             <!-- menu for small screen end -->
           </ul>
