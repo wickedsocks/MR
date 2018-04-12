@@ -14,20 +14,33 @@
               <h5 class="card-title"> {{product.title}} </h5>
               <p class="card-text" v-if="product.description && product.description.length > 70"> {{product.description | limitTo(70)}}... </p>
               <p class="card-text" v-if="product.description && product.description.length <= 70"> {{product.description}} </p>
-              <button @click="addToBucket(product)" class="btn btn-primary">Купить</button>
+              <button @click="showProductPreview(product)" class="btn btn-primary">Купить</button>
             </div>
         </div>
       </div>
       </div>
+    <bucket-pop-up v-if="productPreview" :product="productPreview" @close-pop-up="hideProductPreview()"/>
     </section> 
 </template>
 
 <script>
-export default {
+import BucketPopUp from "~/components/BucketPopUp.vue";
+export default {  
+  data() {
+    return {
+      productPreview: ''
+    }
+  },
+  components: {
+    BucketPopUp
+  },
   props: ["products"],
   methods: {
-    addToBucket(product) {
-      this.$store.commit('addNewOrder', product);
+    hideProductPreview() {
+      this.productPreview = '';
+    },
+    showProductPreview(product) {
+      this.productPreview = product;
     }
   }
 };

@@ -6,10 +6,9 @@
     <div class="row">
       <h5 class="col-12">Заказ</h5>
       <div class="col-12">
-        <div class="product-item" v-for="(product, index) in orders" :key="index">
-          <img :src="product.images[0]" :alt="product.title">
-          {{product.title}}
-          <!-- {{product}} -->
+        <div class="product-item" v-for="(order, index) in orders" :key="index">
+          <img :src="order.product.images[0]" :alt="order.product.title">
+          {{order.product.title}} <span> {{order.quantity}}</span>
         </div>
       </div>
     </div>
@@ -46,6 +45,9 @@ export default {
   },
   computed: mapState(["orders"]),
   methods: {
+    showOrderPreview() {
+
+    },
     async makeOrder() {
       await axios.post("/api/orders", {
         name: this.name,

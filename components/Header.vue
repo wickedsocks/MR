@@ -20,7 +20,7 @@
               <nuxt-link class="nav-link" to="/bucket">
               <span>
                 Корзина
-                <span class='orders-count d-flex align-content-center justify-content-center' v-if="ordersLength && ordersLength > 0">{{ordersLength}}</span> 
+                <span class='orders-count d-flex align-content-center justify-content-center btn-warning' v-if="ordersLength && ordersLength > 0">{{ordersLength}}</span> 
               </span>
                 </nuxt-link>
             </li>
@@ -36,7 +36,7 @@
               <nuxt-link class="nav-link" to="/bucket">
                 <span>
                   Корзина
-                  <span class='orders-count d-flex align-content-center justify-content-center' v-if="ordersLength && ordersLength > 0">{{ordersLength}}</span> 
+                  <span class='orders-count d-flex align-content-center justify-content-center btn-warning' v-if="ordersLength && ordersLength > 0">{{ordersLength}}</span> 
                 </span>
                 </nuxt-link>
             </li>
@@ -69,13 +69,13 @@ header {
 
 .orders-count {
   position: absolute;
-  background: #fff100;
   border-radius: 50%;
-  height: 20px;
-  width: 20px;
+  height: 18px;
+  width: 18px;
   color: #000;
+  border: none;
   font-size: 12px;
-  right: -15px;
-  bottom: -15px;
+  right: -10px;
+  top: -10px;
 }
 </style>
