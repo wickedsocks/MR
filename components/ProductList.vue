@@ -14,7 +14,7 @@
               <h5 class="card-title"> {{product.title}} </h5>
               <p class="card-text" v-if="product.description && product.description.length > 70"> {{product.description | limitTo(70)}}... </p>
               <p class="card-text" v-if="product.description && product.description.length <= 70"> {{product.description}} </p>
-              <a href="#" class="btn btn-primary">Купить</a>
+              <button @click="addToBucket(product)" class="btn btn-primary">Купить</button>
             </div>
         </div>
       </div>
@@ -24,7 +24,12 @@
 
 <script>
 export default {
-  props: ["products"]
+  props: ["products"],
+  methods: {
+    addToBucket(product) {
+      this.$store.commit('addNewOrder', product);
+    }
+  }
 };
 </script>
 

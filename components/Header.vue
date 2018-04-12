@@ -17,7 +17,12 @@
               <nuxt-link class="nav-link" to="/create/product">Создать товар</nuxt-link>
             </li>
             <li class="nav-item d-md-none d-lg-block">
-              <nuxt-link class="nav-link" to="/orders">Корзина</nuxt-link>
+              <nuxt-link class="nav-link" to="/bucket">
+              <span>
+                Корзина
+                <span class='orders-count d-flex align-content-center justify-content-center' v-if="ordersLength && ordersLength > 0">{{ordersLength}}</span> 
+              </span>
+                </nuxt-link>
             </li>
             <!-- menu for big screen end -->
             <!-- menu for small screen -->
@@ -28,7 +33,12 @@
               <nuxt-link class="nav-link" to="/create/product">Создать товар</nuxt-link>
             </li>
             <li class="nav-item d-block d-lg-none" data-toggle="collapse" data-target="#navbarResponsive">
-              <nuxt-link class="nav-link" to="/orders">Корзина</nuxt-link>
+              <nuxt-link class="nav-link" to="/bucket">
+                <span>
+                  Корзина
+                  <span class='orders-count d-flex align-content-center justify-content-center' v-if="ordersLength && ordersLength > 0">{{ordersLength}}</span> 
+                </span>
+                </nuxt-link>
             </li>
             <!-- menu for small screen end -->
           </ul>
@@ -38,7 +48,10 @@
   </header>
 </template>
 <script>
-export default {};
+import { mapGetters } from "vuex";
+export default {
+  computed: mapGetters(["ordersLength"])
+};
 </script>
 
 
@@ -48,5 +61,21 @@ header {
 }
 .nuxt-link-exact-active {
   color: #ffffff !important;
+}
+
+.nav-link > span {
+  position: relative;
+}
+
+.orders-count {
+  position: absolute;
+  background: #fff100;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  color: #000;
+  font-size: 12px;
+  right: -15px;
+  bottom: -15px;
 }
 </style>
