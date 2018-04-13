@@ -7,12 +7,23 @@
       </header>
       <div class="product-wrapper d-flex justify-content-between">
         <img :src="product.images[0]" :alt="product.title">
-        <div class="counter d-flex align-items-center">
-          <button class="btn btn-success" @click="minus()">-</button>
-          <input type="number" class="form-control" v-model="quantity">
-          <button class="btn btn-success" @click="plus()">+</button>
+        <div class="counter d-flex justify-content-center align-items-start flex-column">
+          <div class="description">
+            <p> {{product.title}} </p>
+            <p> {{product.description | limitTo(50)}} </p>
+            <p> {{product.price}} грн </p>
+            <span>Количество:</span>
+          </div>
+          <div class="product-amount d-flex">
+            <button class="btn btn-success" @click="minus()">-</button>
+            <input type="number" class="form-control" v-model="quantity">
+            <button class="btn btn-success" @click="plus()">+</button>
+          </div>
         </div>
-        <button class="btn btn-success align-self-end" @click="addToBucket(product, quantity), hidePopUp()">В корзину</button>
+        <div class="total-price-and-button d-flex flex-column justify-content-between">
+          <h5>Общая цена <span>{{product.price * quantity}} грн</span></h5>
+          <button class="btn btn-success align-self-end" @click="addToBucket(product, quantity), hidePopUp()">В корзину</button>
+        </div>
       </div>
     </div>
   </section>
@@ -40,7 +51,7 @@ export default {
       this.$emit("close-pop-up");
     },
     addToBucket(product, quantity) {
-      this.$store.commit('addNewOrder', {product, quantity});
+      this.$store.commit("addNewOrder", { product, quantity });
     }
   }
 };
@@ -64,7 +75,7 @@ export default {
   margin: 0 auto;
   height: 320px;
   width: 60%;
-  text-align: right;
+  max-width: 800px;
 }
 
 header {
@@ -80,8 +91,28 @@ header {
 }
 
 .counter {
+  text-align: left;
   button {
     margin: 0 4px;
   }
+}
+
+.total-price-and-button {
+  margin-bottom: 7px;
+  margin-left: 10px;
+  text-align: right;
+  h5 {
+    margin-top: 20px;
+    display: inline-block;
+    width: 200px;
+    span {
+      display: block;
+      font-weight: normal;
+      font-size: 16px;
+    }
+  }
+}
+.description {
+  margin-left: 5px;
 }
 </style>

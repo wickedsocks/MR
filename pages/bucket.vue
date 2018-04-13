@@ -32,7 +32,6 @@
   </section>
 </template>
 <script>
-import { mapState } from "vuex";
 import axios from "~/plugins/axios";
 export default {
   data() {
@@ -43,7 +42,16 @@ export default {
       comment: ""
     };
   },
-  computed: mapState(["orders"]),
+  computed: {
+    orders() {
+      return this.$store.state.orders;
+    },
+    products() {
+      return this.orders.map((item) => {
+        return {id: item.product._id, quantity: item.quantity};
+      });
+    }
+  },
   methods: {
     showOrderPreview() {
 
@@ -52,6 +60,7 @@ export default {
       await axios.post("/api/orders", {
         name: this.name,
         email: this.email,
+        products: this.products,
         tel: this.tel,
         comment: this.comment
       });

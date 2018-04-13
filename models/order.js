@@ -5,6 +5,10 @@ let orderSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  products: {
+    type: Array,
+    required: true
+  },
   email: {
     type: String,
     required: true

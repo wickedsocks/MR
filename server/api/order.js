@@ -7,6 +7,7 @@ const router = Router();
 router.post('/orders', async (req, res) => {
   let newOrder = new Order({ 
     name: req.body.name,
+    products: req.body.products,
     email: req.body.email,
     tel: req.body.tel,
     comment: req.body.comment

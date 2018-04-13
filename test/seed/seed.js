@@ -52,12 +52,14 @@ const orders = [
   {
     name: "first order",
     email: "first email",
+    products: ['a','b','c'],
     tel: 1241241,
     comment: "Самый злостный комментарий"
   },
   {
     name: "second order",
     email: "second email",
+    products: ['d','e','f'],
     tel: 888000999,
     comment: "Самый позитивный комментарий комментарий"
   }
