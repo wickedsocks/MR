@@ -6,10 +6,10 @@
       </h5>
     </div>
     <div class="row">
-      <div class="col-6">
+      <div class="col-xs-12 col-md-6 col-lg-6">
         <img class="main-image" :src="product.images[0]" :alt="product.title">
       </div>
-      <div class="col-6">
+      <div class="col-xs-12 col-md-6 col-lg-6">
         <p> {{product.description}} </p>
         <p> Цена: {{product.price}} грн </p>
         <p> Изготовлено из: {{product.manufactureCategory}} </p>
@@ -18,7 +18,7 @@
         <p> Высота {{product.height}} см </p>
       </div>
     </div>
-    {{product}}
+    <!-- {{product}} -->
   </section>
 </template>
 <script>
