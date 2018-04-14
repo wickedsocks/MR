@@ -6,16 +6,14 @@
 
 <script>
 import MyProductList from "~/components/ProductList.vue";
-import axios from "~/plugins/axios";
 export default {
   components: {
     MyProductList
   },
-  async asyncData() {
-    let products = await axios.get("/api/products");
-    return {
-      products: products.data
-    };
+  computed: {
+    products() {
+      return this.$store.state.products;
+    }
   },
   data() {
     return {

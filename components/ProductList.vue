@@ -8,15 +8,16 @@
 
       <div class="row">
         <div class="col-lg-3 col-md-4 col-sm-6 product-item" v-for="product in products" :key="product._id">
-          <div class="card">
-            <img class="card-img-top" v-if="product.images && product.images.length > 0" :src="product.images[0]" :alt="product.title">
-            <div class="card-body">
-              <h5 class="card-title"> {{product.title}} </h5>
-              <p class="card-text" v-if="product.description && product.description.length > 70"> {{product.description | limitTo(70)}}... </p>
-              <p class="card-text" v-if="product.description && product.description.length <= 70"> {{product.description}} </p>
-              <button @click="showProductPreview(product)" class="btn btn-primary">Купить</button>
-            </div>
-        </div>
+            <div class="card">
+              <nuxt-link :to="'/product/'+ product._id" class="d-flex flex-column">
+                <img class="card-img-top" v-if="product.images && product.images.length > 0" :src="product.images[0]" :alt="product.title">
+                <div class="card-body">
+                  <h5 class="card-title"> {{product.title | limitTo(15)}}... </h5>
+                  <p class="card-text"> {{product.description | limitTo(30)}}... </p>
+                </div>
+              </nuxt-link>
+              <button @click.prevent="showProductPreview(product)" class="btn btn-primary">Купить</button>
+          </div>
       </div>
       </div>
     <bucket-pop-up v-if="productPreview" :product="productPreview" @close-pop-up="hideProductPreview()"/>
@@ -25,11 +26,11 @@
 
 <script>
 import BucketPopUp from "~/components/BucketPopUp.vue";
-export default {  
+export default {
   data() {
     return {
-      productPreview: ''
-    }
+      productPreview: ""
+    };
   },
   components: {
     BucketPopUp
@@ -37,7 +38,7 @@ export default {
   props: ["products"],
   methods: {
     hideProductPreview() {
-      this.productPreview = '';
+      this.productPreview = "";
     },
     showProductPreview(product) {
       this.productPreview = product;
@@ -51,11 +52,22 @@ export default {
 .product-item {
   padding-bottom: 20px;
 }
+.card-img-top {
+  height: 180px;
+  width: auto;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 10px;
+}
+
 .card {
-  img {
-    height: 180px;
-    width: auto;
-    object-fit: cover;
+  a {
+    color: #212529;
+  }
+  button {
+    margin: 0 10px 10px;
   }
 }
 </style>
