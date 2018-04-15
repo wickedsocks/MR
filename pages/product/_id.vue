@@ -23,15 +23,15 @@
 </template>
 <script>
 export default {
-  async asyncData({params, store}) {
-     return {product: store.getters.getSpecifiedProduct(params.id)};
+  async asyncData({ params, store }) {
+    return { product: store.getters.getSpecifiedProduct(params.id) };
   },
   data() {
     return {
-      product: ''
-    }
+      product: ""
+    };
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 .main-image {
