@@ -6,7 +6,10 @@ const bodyParser = require('body-parser');
 require('../db/mongoose');
 
 const express = require('express');
-const { Nuxt, Builder } = require("nuxt");
+const {
+  Nuxt,
+  Builder
+} = require("nuxt");
 
 const api = require("./api/api");
 

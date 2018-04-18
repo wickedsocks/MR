@@ -1,6 +1,6 @@
 <template>
   <section>
-    <my-product-list :products='products'/>
+    <my-product-list :products='products' />
   </section>
 </template>
 
