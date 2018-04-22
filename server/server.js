@@ -14,7 +14,6 @@ const {
 const api = require("./api/api");
 
 const app = express();
-// 
 
 app.use(bodyParser.json());
 
