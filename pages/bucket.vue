@@ -7,9 +7,10 @@
       <h5 class="col-12">Заказ</h5>
       <div class="col-12">
         <div class="product-item" v-for="(order, index) in orders" :key="index">
-          <img :src="order.product.images[0]" :alt="order.product.title">
-          {{order.product.title}} <span> {{order.quantity}}</span>
+          <img :src="order.product.images[0]" :alt="order.product.title"> {{order.product.title}}
+          <span> {{order.quantity}}</span>
         </div>
+        <h5> Сумма к оплате: {{totalOrderPrice}} грн </h5>
       </div>
     </div>
     <form class="row" novalidate @submit.prevent="makeOrder">
@@ -47,15 +48,16 @@ export default {
       return this.$store.state.orders;
     },
     products() {
-      return this.orders.map((item) => {
-        return {id: item.product._id, quantity: item.quantity};
+      return this.orders.map(item => {
+        return { id: item.product._id, quantity: item.quantity };
       });
+    },
+    totalOrderPrice() {
+      return this.$store.getters.totalOrderPrice;
     }
   },
   methods: {
-    showOrderPreview() {
-
-    },
+    showOrderPreview() {},
     async makeOrder() {
       await axios.post("/api/orders", {
         name: this.name,

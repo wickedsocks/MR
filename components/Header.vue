@@ -10,13 +10,13 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <!-- menu for big screen -->
-            <li class="nav-item d-md-none d-lg-block">
+            <li class="nav-item d-none d-lg-block">
               <nuxt-link class="nav-link" to="/">Главная</nuxt-link>
             </li>
-            <li class="nav-item d-md-none d-lg-block">
+            <li class="nav-item d-none d-lg-block">
               <nuxt-link class="nav-link" to="/create/product">Создать товар</nuxt-link>
             </li>
-            <li class="nav-item d-md-none d-lg-block">
+            <li class="nav-item d-none d-lg-block">
               <nuxt-link class="nav-link" to="/bucket">
               <span>
                 Корзина

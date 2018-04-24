@@ -122,7 +122,8 @@ export default {
           imagesUploaded.forEach((img) => {
             this.requestData.imagesUrlsArray.push(img.data.url);
           });
-          await this.serverRequestUploadData();
+          let response = await this.serverRequestUploadData();
+          this.$store.commit('addProduct',response.data);
           setTimeout(() => {
             this.showSuccessMessage = false;
           }, 2000);
@@ -187,6 +188,8 @@ export default {
     },
     // remove fire from array
     removeImage(index, arr) {
+      // clearing input value available readding same image
+      document.getElementById('images').value = '';
       arr.splice(index, 1);
     },
     // Renew data after success upload
