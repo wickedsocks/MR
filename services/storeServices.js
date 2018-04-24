@@ -1,4 +1,5 @@
-const storeServices = {
+import axios from "~/plugins/axios";
+export default {
   async getProducts(commit) {
     let products = await axios.get("/api/products");
     commit('setProducts', products.data);
@@ -28,6 +29,4 @@ const storeServices = {
     ));
     return matches ? decodeURIComponent(matches[1]) : undefined;
   }
-}
-
-module.exports = storeServices;
+};

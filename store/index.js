@@ -1,4 +1,5 @@
-import axios from "~/plugins/axios";
+import storeService from "./../services/storeServices";
+
 export const state = () => ({
   orders: [],
   products: []
@@ -26,11 +27,11 @@ export const mutations = {
   addNewOrder(state, payload) {
     // Increasing same order quantity if order already exists in state.orders
     // if not -> pushing new one in array
-    let sameOrder = increaseSameOrderQuantity(state.orders, payload);
+    let sameOrder = storeService.increaseSameOrderQuantity(state.orders, payload);
     if (!sameOrder) {
       state.orders.push(payload);
     }
-    setCookieOrders(state);
+    storeService.setCookieOrders(state);
   },
   setProducts(state, payload) {
     state.products = payload.slice();
@@ -45,6 +46,6 @@ export const actions = {
   async nuxtServerInit({
     commit
   }) {
-    await getProducts(commit);
+    await storeService.getProducts(commit);
   }
 };
