@@ -15,7 +15,7 @@ export const getters = {
   totalOrderPrice(state) {
     let price = 0;
     state.orders.forEach((item) => {
-     price += item.product.price * item.quantity;
+      price += item.product.price * item.quantity;
     });
     return price;
   }
@@ -30,6 +30,7 @@ export const mutations = {
     if (!sameOrder) {
       state.orders.push(payload);
     }
+    setCookieOrders(state);
   },
   setProducts(state, payload) {
     state.products = payload.slice();
@@ -58,10 +59,27 @@ async function getProducts(commit) {
 function increaseSameOrderQuantity(ordersArray, product) {
   let sameOrder;
   ordersArray.forEach((order) => {
-   if (order.product._id == product.product._id) {
-     order.quantity += product.quantity;
-     sameOrder =  order;
-   }
+    if (order.product._id == product.product._id) {
+      order.quantity += product.quantity;
+      sameOrder = order;
+    }
   });
   return sameOrder ? sameOrder : false;
+}
+
+function setCookieOrders(state) {
+  // Setting expiring date to one day
+  let date = new Date;
+  date.setDate(date.getDate() + 1);
+  let cookieExpireDate = `expires=${date.toUTCString()};`;
+  let cookieData = `mrorders=${JSON.stringify(state.orders)};`
+  // Setting cookie
+  document.cookie = cookieData + cookieExpireDate;
+}
+
+function getCookie(name) {
+  var matches = document.cookie.match(new RegExp(
+    "(?:^|; )" + name.replace(/([$?*|{}\\^])/g, '\\$1') + "=([^;]*)"
+  ));
+  return matches ? decodeURIComponent(matches[1]) : undefined;
 }
