@@ -23,7 +23,7 @@
               <nuxt-link class="nav-link" to="/bucket">
                 <span>
                   Корзина
-                  <span class='orders-count d-flex align-content-center justify-content-center btn-warning' v-if="ordersLength && ordersLength > 0">{{ordersLength}}</span>
+                  <span class='orders-count d-flex align-content-center justify-content-center btn-warning' v-if="bucketLength && bucketLength > 0">{{bucketLength}}</span>
                 </span>
               </nuxt-link>
             </li>
@@ -42,7 +42,7 @@
               <nuxt-link class="nav-link" to="/bucket">
                 <span>
                   Корзина
-                  <span class='orders-count d-flex align-content-center justify-content-center btn-warning' v-if="ordersLength && ordersLength > 0">{{ordersLength}}</span>
+                  <span class='orders-count d-flex align-content-center justify-content-center btn-warning' v-if="bucketLength && bucketLength > 0">{{bucketLength}}</span>
                 </span>
               </nuxt-link>
             </li>
@@ -56,7 +56,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  computed: mapGetters(["ordersLength"])
+  computed: mapGetters(["bucketLength"])
 };
 </script>
 

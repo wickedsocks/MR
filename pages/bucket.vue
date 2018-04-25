@@ -6,11 +6,11 @@
     <div class="row">
       <h5 class="col-12">Заказ</h5>
       <div class="col-12">
-        <div class="product-item" v-for="(order, index) in orders" :key="index">
-          <img :src="order.product.images[0]" :alt="order.product.title"> {{order.product.title}}
-          <span> {{order.quantity}}</span>
+        <div class="product-item" v-for="(item, index) in bucket" :key="index">
+          <img :src="item.product.images[0]" :alt="item.product.title"> {{item.product.title}}
+          <span> {{item.quantity}}</span>
         </div>
-        <h5> Сумма к оплате: {{totalOrderPrice}} грн </h5>
+        <h5> Сумма к оплате: {{totalBucketPrice}} грн </h5>
       </div>
     </div>
     <form class="row" novalidate @submit.prevent="makeOrder">
@@ -44,16 +44,16 @@ export default {
     };
   },
   computed: {
-    orders() {
-      return this.$store.state.orders;
+    bucket() {
+      return this.$store.state.bucket;
     },
     products() {
-      return this.orders.map(item => {
+      return this.bucket.map(item => {
         return { id: item.product._id, quantity: item.quantity };
       });
     },
-    totalOrderPrice() {
-      return this.$store.getters.totalOrderPrice;
+    totalBucketPrice() {
+      return this.$store.getters.totalBucketPrice;
     }
   },
   methods: {

@@ -51,7 +51,7 @@ export default {
       this.$emit("close-pop-up");
     },
     addToBucket(product, quantity) {
-      this.$store.commit("addNewOrder", { product, quantity });
+      this.$store.commit("addNewBucketItem", { product, quantity });
     }
   }
 };

@@ -1,21 +1,21 @@
 import storeService from "./../services/storeServices";
 
 export const state = () => ({
-  orders: [],
+  bucket: [],
   products: []
 });
 
 // Like a computed properties
 export const getters = {
-  ordersLength(state) {
-    return state.orders.length;
+  bucketLength(state) {
+    return state.bucket.length;
   },
   getSpecifiedProduct(state) {
     return (id) => state.products.find((item) => item._id == id);
   },
-  totalOrderPrice(state) {
+  totalBucketPrice(state) {
     let price = 0;
-    state.orders.forEach((item) => {
+    state.bucket.forEach((item) => {
       price += item.product.price * item.quantity;
     });
     return price;
@@ -24,14 +24,14 @@ export const getters = {
 
 // methods for sync operations
 export const mutations = {
-  addNewOrder(state, payload) {
-    // Increasing same order quantity if order already exists in state.orders
+  addNewBucketItem(state, payload) {
+    // Increasing same bucket item quantity if bucket item already exists in state.bucket
     // if not -> pushing new one in array
-    let sameOrder = storeService.increaseSameOrderQuantity(state.orders, payload);
-    if (!sameOrder) {
-      state.orders.push(payload);
+    let sameBucketItem = storeService.increaseSameBucketItemQuantity(state.bucket, payload);
+    if (!sameBucketItem) {
+      state.bucket.push(payload);
     }
-    storeService.setCookieOrders(state);
+    storeService.setCookieBucket(state);
   },
   setProducts(state, payload) {
     state.products = payload.slice();
