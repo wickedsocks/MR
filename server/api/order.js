@@ -20,4 +20,12 @@ router.post('/orders', async (req, res) => {
   }
 });
 
+router.get('/orders', async (req, res) => {
+  Order.find({}).then((orders) => {
+   res.send(orders);
+  }, (err) => {
+   res.status(400).send(err);
+  });
+})
+
 module.exports = router;

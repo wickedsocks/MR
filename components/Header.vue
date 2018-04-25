@@ -17,12 +17,15 @@
               <nuxt-link class="nav-link" to="/create/product">Создать товар</nuxt-link>
             </li>
             <li class="nav-item d-none d-lg-block">
+              <nuxt-link class="nav-link" to="/orders">Заказы</nuxt-link>
+            </li>
+            <li class="nav-item d-none d-lg-block">
               <nuxt-link class="nav-link" to="/bucket">
-              <span>
-                Корзина
-                <span class='orders-count d-flex align-content-center justify-content-center btn-warning' v-if="ordersLength && ordersLength > 0">{{ordersLength}}</span> 
-              </span>
-                </nuxt-link>
+                <span>
+                  Корзина
+                  <span class='orders-count d-flex align-content-center justify-content-center btn-warning' v-if="ordersLength && ordersLength > 0">{{ordersLength}}</span>
+                </span>
+              </nuxt-link>
             </li>
             <!-- menu for big screen end -->
             <!-- menu for small screen -->
@@ -33,12 +36,15 @@
               <nuxt-link class="nav-link" to="/create/product">Создать товар</nuxt-link>
             </li>
             <li class="nav-item d-block d-lg-none" data-toggle="collapse" data-target="#navbarResponsive">
+              <nuxt-link class="nav-link" to="/orders">Заказы</nuxt-link>
+            </li>
+            <li class="nav-item d-block d-lg-none" data-toggle="collapse" data-target="#navbarResponsive">
               <nuxt-link class="nav-link" to="/bucket">
                 <span>
                   Корзина
-                  <span class='orders-count d-flex align-content-center justify-content-center btn-warning' v-if="ordersLength && ordersLength > 0">{{ordersLength}}</span> 
+                  <span class='orders-count d-flex align-content-center justify-content-center btn-warning' v-if="ordersLength && ordersLength > 0">{{ordersLength}}</span>
                 </span>
-                </nuxt-link>
+              </nuxt-link>
             </li>
             <!-- menu for small screen end -->
           </ul>
