@@ -9,7 +9,7 @@
       </div>
       <div class="row no-gutters">
         <div class="col-12">
-          <img :src="product.images[0]" :alt="product.title" class="img-fluid">
+          <img :src="product.images[0]" :alt="product.title" class="img-fluid image">
         </div>
         <div class="col-12 description">
           <p>
@@ -100,6 +100,11 @@ export default {
   overflow-y: scroll;
 }
 
+.image {
+  display: block;
+  margin: 0 auto;
+}
+
 .row {
   margin-bottom: 10px;
 }
@@ -110,14 +115,6 @@ export default {
 
 header {
   border-bottom: 1px solid #efefef;
-}
-
-.product-wrapper {
-  img {
-    height: auto;
-    width: 100%;
-    margin: 10px 0;
-  }
 }
 
 .description {
