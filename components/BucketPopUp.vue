@@ -1,29 +1,46 @@
 <template>
   <section class="pop-up-wrapper" @click.self="hidePopUp()">
-    <div class="product-quantity form-control">
-      <header class="d-flex justify-content-between">
-        <h5> {{product.title}} </h5>
-        <div class="close" @click="hidePopUp()">X</div>
-      </header>
-      <div class="product-wrapper d-flex justify-content-between">
-        <img :src="product.images[0]" :alt="product.title">
-        <div class="counter d-flex justify-content-center align-items-start flex-column">
-          <div class="description">
-            <p> {{product.title}} </p>
-            <p> {{product.description | limitTo(50)}} </p>
-            <p> {{product.price}} грн </p>
-            <span>Количество:</span>
-          </div>
-          <div class="product-amount d-flex">
-            <button class="btn btn-success" @click="minus()">-</button>
-            <input type="number" class="form-control" v-model="quantity">
-            <button class="btn btn-success" @click="plus()">+</button>
-          </div>
+    <div class="container form-control">
+      <div class="row no-gutters">
+        <header class="col-12">
+          <span class="close" @click="hidePopUp()">X</span>
+          {{product.title}}
+        </header>
+      </div>
+      <div class="row no-gutters">
+        <div class="col-12">
+          <img :src="product.images[0]" :alt="product.title" class="img-fluid">
         </div>
-        <div class="total-price-and-button d-flex flex-column justify-content-between">
-          <h5>Общая цена <span>{{product.price * quantity}} грн</span></h5>
-          <button class="btn btn-success align-self-end" @click="addToBucket(product, quantity), hidePopUp()">В корзину</button>
+        <div class="col-12 description">
+          <p>
+            <span class="font-weight-bold">Наименование: </span>{{product.title}}
+          </p>
+          <p>
+            <span class="font-weight-bold">Описание: </span>{{product.description}}
+          </p>
+          <p>
+            <span class="font-weight-bold">Категория: </span>{{product.manufactureCategory}}<br>
+            <span class="font-weight-bold">Изготовлено из: </span>{{product.productCategory}}<br>
+            <span class="font-weight-bold">Ширина: </span>{{product.width}} см <br>
+            <span class="font-weight-bold">Высота: </span>{{product.height}} см
+          </p>
+          <p>
+            <span class="font-weight-bold">Цена: </span>{{product.price}} грн
+          </p>
         </div>
+      </div>
+      <div class="row no-gutters counter justify-content-between">
+        <input type="number" class="form-control" v-model="quantity">
+        <button class="btn btn-success col-5" @click="decrease()">-</button>
+        <button class="btn btn-success col-5" @click="increase()">+</button>
+      </div>
+      <div class="row no-gutters">
+        <p>
+          <span class="font-weight-bold">Общая стоимость: </span>{{product.price * quantity}} грн
+        </p>
+      </div>
+      <div class="row no-gutters">
+        <button class="btn btn-success col-12" @click="addToBucket(product, quantity); hidePopUp()">Купить</button>
       </div>
     </div>
   </section>
@@ -37,45 +54,58 @@ export default {
   },
   props: ["product"],
   methods: {
-    plus() {
+    increase() {
       if (!this.quantity) {
         this.quantity = 1;
       } else {
         this.quantity += 1;
       }
     },
-    minus() {
+    decrease() {
       this.quantity -= 1;
     },
     hidePopUp() {
       this.$emit("close-pop-up");
+      // return scrolling while component is not showing
+      document.getElementsByTagName("body")[0].style.overflow = "visible";
     },
     addToBucket(product, quantity) {
       this.$store.commit("addNewBucketItem", { product, quantity });
     }
+  },
+  mounted() {
+    // prevent scrolling while component is showing
+    document.getElementsByTagName("body")[0].style.overflow = "hidden";
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.close {
+  display: block;
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 4px;
+}
 .pop-up-wrapper {
+  padding: 20px 0;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 1100;
   background: rgba(130, 130, 130, 0.32941);
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
+
+.row {
+  margin-bottom: 10px;
+}
+
 .product-quantity {
   position: absolute;
-  top: 100px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: 0 auto;
-  height: 320px;
-  width: 60%;
-  max-width: 800px;
 }
 
 header {
@@ -84,35 +114,19 @@ header {
 
 .product-wrapper {
   img {
-    height: 200px;
-    width: 200px;
-    margin: 10px 10px 10px 0;
+    height: auto;
+    width: 100%;
+    margin: 10px 0;
   }
+}
+
+.description {
+  margin-top: 10px;
 }
 
 .counter {
-  text-align: left;
   button {
-    margin: 0 4px;
+    margin-top: 10px;
   }
-}
-
-.total-price-and-button {
-  margin-bottom: 7px;
-  margin-left: 10px;
-  text-align: right;
-  h5 {
-    margin-top: 20px;
-    display: inline-block;
-    width: 200px;
-    span {
-      display: block;
-      font-weight: normal;
-      font-size: 16px;
-    }
-  }
-}
-.description {
-  margin-left: 5px;
 }
 </style>
