@@ -85,13 +85,13 @@
 import axios from "~/plugins/axios";
 
 export default {
-  async asyncData() {
-    let productCategory = await axios.get("/api/categories/product");
-    let manufactureCategory = await axios.get("/api/categories/manufacture");
-    return {
-      productCategory: productCategory.data,
-      manufactureCategory: manufactureCategory.data
-    };
+  computed: {
+    productCategory() {
+      return this.$store.state.categories.productCategory;
+    },
+    manufactureCategory() {
+      return this.$store.state.categories.manufactureCategory;
+    }
   },
   data() {
     return {

@@ -1,8 +1,7 @@
 import axios from "~/plugins/axios";
 export default {
-  async getProducts(commit) {
-    let products = await axios.get("/api/products");
-    commit('setProducts', products.data);
+  async getProducts() {
+   return axios.get("/api/products");
   },
   increaseSameBucketItemQuantity(bucketArray, product) {
     let sameBucketItem;
@@ -29,8 +28,11 @@ export default {
     ));
     return matches ? decodeURIComponent(matches[1]) : undefined;
   },
-  // async getOrders(commit) {
-  //   let orders = await axios.get('/api/orders');
-  //   commit('')
-  // }
+  async getCategories() {
+    let [productCategory, manufactureCategory] = await Promise.all([axios.get("/api/categories/product"), axios.get("/api/categories/manufacture")]);
+    return {
+      productCategory: productCategory.data,
+      manufactureCategory: manufactureCategory.data
+    };
+  }
 };
