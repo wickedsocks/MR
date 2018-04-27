@@ -2,16 +2,16 @@
   <section class="pop-up-wrapper" @click.self="hidePopUp()">
     <div class="container form-control">
       <div class="row no-gutters">
-        <header class="col-12">
-          <span class="close" @click="hidePopUp()">X</span>
+        <header class="col-12 d-flex justify-content-between align-items-center">
           {{product.title}}
+          <span class="close" @click="hidePopUp()">X</span>
         </header>
       </div>
       <div class="row no-gutters">
-        <div class="col-12">
+        <div class="col-12 col-md-4">
           <img :src="product.images[0]" :alt="product.title" class="img-fluid image">
         </div>
-        <div class="col-12 description">
+        <div class="col-12 col-md-7 description">
           <p>
             <span class="font-weight-bold">Наименование: </span>{{product.title}}
           </p>
@@ -30,6 +30,7 @@
         </div>
       </div>
       <div class="row no-gutters counter justify-content-between">
+        <span class="font-weight-bold">Количество:</span>
         <input type="number" class="form-control" v-model="quantity">
         <button class="btn btn-success col-5" @click="decrease()">-</button>
         <button class="btn btn-success col-5" @click="increase()">+</button>
@@ -115,6 +116,7 @@ export default {
 
 header {
   border-bottom: 1px solid #efefef;
+  padding-bottom: 10px;
 }
 
 .description {
@@ -122,8 +124,20 @@ header {
 }
 
 .counter {
+  input {
+     padding: 6px 12px;
+  }
   button {
     margin-top: 10px;
+  }
+}
+@media screen and (min-width: 720px) {
+  .description {
+    margin-left: 10px;
+    margin-top: 0;
+  }
+  .image {
+    margin-top: 7px;
   }
 }
 </style>

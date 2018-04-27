@@ -3,7 +3,7 @@
     <section class="container">
       <!-- Page Heading -->
       <h3 class="my-4">Каталог товара
-        <small>провославной продукции</small>
+        <small>продукции</small>
       </h3>
 
       <div class="row">
