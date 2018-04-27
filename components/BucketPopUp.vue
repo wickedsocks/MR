@@ -68,7 +68,6 @@ export default {
       this.$emit("close-pop-up");
       // return scrolling while component is not showing
       document.getElementsByTagName("body")[0].style.overflow = "visible";
-      document.getElementsByTagName("body")[0].style.height = "auto";
     },
     addToBucket(product, quantity) {
       this.$store.commit("addNewBucketItem", { product, quantity });
@@ -77,7 +76,6 @@ export default {
   mounted() {
     // prevent scrolling while component is showing
     document.getElementsByTagName("body")[0].style.overflow = "hidden";
-    document.getElementsByTagName("body")[0].style.height = "100vh";
   }
 };
 </script>
