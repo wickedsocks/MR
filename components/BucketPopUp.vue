@@ -30,18 +30,18 @@
         </div>
       </div>
       <div class="row no-gutters counter justify-content-between">
-        <span class="font-weight-bold">Количество:</span>
-        <input type="number" class="form-control" v-model="quantity">
-        <button class="btn btn-success col-5" @click="decrease()">-</button>
-        <button class="btn btn-success col-5" @click="increase()">+</button>
-      </div>
-      <div class="row no-gutters">
-        <p>
-          <span class="font-weight-bold">Общая стоимость: </span>{{product.price * quantity}} грн
-        </p>
-      </div>
-      <div class="row no-gutters">
-        <button class="btn btn-success col-12" @click="addToBucket(product, quantity); hidePopUp()">Купить</button>
+        <span class="font-weight-bold col-12">Количество:</span>
+        <div class="col-12 col-md-6 d-flex justify-content-between flex-wrap">
+          <input type="number" class="form-control col-12" v-model="quantity">
+          <button class="btn btn-success col-5" @click="decrease()">-</button>
+          <button class="btn btn-success col-5" @click="increase()">+</button>
+        </div>
+        <div class="col-12 col-md-5">
+          <p class="col-12 total-price">
+            <span class="font-weight-bold">Общая стоимость: </span>{{product.price * quantity}} грн
+          </p>
+          <button class="btn btn-success col-12" @click="addToBucket(product, quantity); hidePopUp()">Купить</button>
+        </div>
       </div>
     </div>
   </section>
@@ -125,11 +125,15 @@ header {
 
 .counter {
   input {
-     padding: 6px 12px;
+    padding: 6px 12px;
   }
   button {
     margin-top: 10px;
   }
+}
+
+.total-price {
+  margin-top: 10px;
 }
 @media screen and (min-width: 720px) {
   .description {
@@ -138,6 +142,10 @@ header {
   }
   .image {
     margin-top: 7px;
+  }
+
+  .total-price {
+    margin-top: 0;
   }
 }
 </style>
