@@ -68,11 +68,6 @@ export default {
       this.$emit("close-pop-up");
       // return scrolling while component is not showing
       document.getElementsByTagName("body")[0].style.overflow = "visible";
-      document
-        .getElementsByTagName("body")[0]
-        .removeEventListener("touchmove", function(e) {
-          e.preventDefault();
-        });
     },
     addToBucket(product, quantity) {
       this.$store.commit("addNewBucketItem", { product, quantity });
@@ -81,11 +76,6 @@ export default {
   mounted() {
     // prevent scrolling while component is showing
     document.getElementsByTagName("body")[0].style.overflow = "hidden";
-    document
-      .getElementsByTagName("body")[0]
-      .addEventListener("touchmove", function(e) {
-        e.preventDefault();
-      });
   }
 };
 </script>
