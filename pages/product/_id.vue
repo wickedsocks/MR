@@ -61,5 +61,7 @@ export default {
 <style lang="scss" scoped>
 .main-image {
   max-height: 300px;
+  width: 100%;
+  height: auto;
 }
 </style>
