@@ -19,8 +19,8 @@
             <span class="font-weight-bold">Описание: </span>{{product.description}}
           </p>
           <p>
-            <span class="font-weight-bold">Категория: </span>{{product.manufactureCategory}}<br>
-            <span class="font-weight-bold">Изготовлено из: </span>{{product.productCategory}}<br>
+            <span class="font-weight-bold">Категория: </span>{{productCategory}}<br>
+            <span class="font-weight-bold">Изготовлено из: </span>{{manufactureCategory}}<br>
             <span class="font-weight-bold">Ширина: </span>{{product.width}} см <br>
             <span class="font-weight-bold">Высота: </span>{{product.height}} см
           </p>
@@ -53,6 +53,14 @@ export default {
       quantity: 1
     };
   },
+  computed: {
+    productCategory() {
+      return this.$store.getters.getCategoryById(this.product.productCategory).name;
+    },
+    manufactureCategory() {
+      return this.$store.getters.getCategoryById(this.product.manufactureCategory).name;
+    }
+  },
   props: ["product"],
   methods: {
     increase() {
@@ -67,16 +75,24 @@ export default {
     },
     hidePopUp() {
       this.$emit("close-pop-up");
-      // return scrolling while component is not showing
-      document.getElementsByTagName("body")[0].style.overflow = "visible";
     },
     addToBucket(product, quantity) {
       this.$store.commit("addNewBucketItem", { product, quantity });
+    },
+    closeWithEsc(event) {
+      if (event.keyCode == 27) {
+        this.hidePopUp();
+      }
     }
   },
   mounted() {
     // prevent scrolling while component is showing
     document.getElementsByTagName("body")[0].style.overflow = "hidden";
+    document.addEventListener("keyup", this.closeWithEsc);
+  },
+  destroyed() {
+    document.getElementsByTagName("body")[0].style.overflow = "visible";
+    document.removeEventListener("keyup", this.closeWithEsc);
   }
 };
 </script>

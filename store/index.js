@@ -20,6 +20,18 @@ export const getters = {
       price += item.product.price * item.quantity;
     });
     return price;
+  },
+  getCategoryById(state) {
+    return (id) => {
+      let categoriesNames = Object.keys(state.categories);
+      let findCategory;
+      categoriesNames.some((catName) => {
+        if (!findCategory) {
+          findCategory = state.categories[catName].find((item) => item._id == id);
+        }
+      })
+      return findCategory;
+    }
   }
 }
 
@@ -51,7 +63,7 @@ export const actions = {
     commit
   }) {
     let [products, categories] = await Promise.all([storeService.getProducts(), storeService.getCategories()])
-    commit('setCategories', categories); 
+    commit('setCategories', categories);
     commit('setProducts', products.data);
   }
 };
