@@ -16,27 +16,44 @@
         <p> Икона такого-то святого {{productCategory}} </p>
         <p> Ширина {{product.width}} см </p>
         <p> Высота {{product.height}} см </p>
+        <button @click.prevent="showProductPreview(product)" class="btn btn-primary">Купить</button>
       </div>
+      <bucket-pop-up v-if="productPreview" :product="productPreview" @close-pop-up="hideProductPreview()" />
     </div>
-    <!-- {{product}} -->
   </section>
 </template>
 <script>
+import BucketPopUp from "~/components/BucketPopUp.vue";
 export default {
   async asyncData({ params, store }) {
     return { product: store.getters.getSpecifiedProduct(params.id) };
   },
+  components: {
+    BucketPopUp
+  },
   data() {
     return {
-      product: ""
+      product: "",
+      productPreview: ""
     };
+  },
+  methods: {
+    hideProductPreview() {
+      this.productPreview = "";
+    },
+    showProductPreview(product) {
+      this.productPreview = product;
+    }
   },
   computed: {
     productCategory() {
-      return this.$store.getters.getCategoryById(this.product.productCategory).name;
+      return this.$store.getters.getCategoryById(this.product.productCategory)
+        .name;
     },
     manufactureCategory() {
-      return this.$store.getters.getCategoryById(this.product.manufactureCategory).name;
+      return this.$store.getters.getCategoryById(
+        this.product.manufactureCategory
+      ).name;
     }
   }
 };
