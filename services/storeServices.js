@@ -34,5 +34,8 @@ export default {
       productCategory: productCategory.data,
       manufactureCategory: manufactureCategory.data
     };
+  },
+  async getOrders() {
+    return await axios.get('/api/orders');
   }
 };

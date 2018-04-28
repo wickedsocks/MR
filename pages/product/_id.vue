@@ -26,7 +26,7 @@
 import BucketPopUp from "~/components/BucketPopUp.vue";
 export default {
   async asyncData({ params, store }) {
-    return { product: store.getters.getSpecifiedProduct(params.id) };
+    return { product: store.getters.getProductById(params.id) };
   },
   components: {
     BucketPopUp

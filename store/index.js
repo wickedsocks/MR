@@ -3,7 +3,8 @@ import storeService from "./../services/storeServices";
 export const state = () => ({
   bucket: [],
   products: [],
-  categories: {}
+  categories: {},
+  orders: []
 });
 
 // Like a computed properties
@@ -11,7 +12,7 @@ export const getters = {
   bucketLength(state) {
     return state.bucket.length;
   },
-  getSpecifiedProduct(state) {
+  getProductById(state) {
     return (id) => state.products.find((item) => item._id == id);
   },
   totalBucketPrice(state) {
@@ -54,6 +55,9 @@ export const mutations = {
   },
   setCategories(state, payload) {
     state.categories = Object.assign({}, payload);
+  },
+  setOrders(state, payload) {
+    state.orders = payload.slice();
   }
 };
 
@@ -62,8 +66,9 @@ export const actions = {
   async nuxtServerInit({
     commit
   }) {
-    let [products, categories] = await Promise.all([storeService.getProducts(), storeService.getCategories()])
+    let [products, categories, orders] = await Promise.all([storeService.getProducts(), storeService.getCategories(), storeService.getOrders()])
     commit('setCategories', categories);
     commit('setProducts', products.data);
+    commit('setOrders', orders.data);
   }
 };
