@@ -34,6 +34,7 @@
 </template>
 <script>
 import axios from "~/plugins/axios";
+import storeService from "~/services/storeServices";
 export default {
   data() {
     return {
@@ -57,7 +58,6 @@ export default {
     }
   },
   methods: {
-    showOrderPreview() {},
     async makeOrder() {
       await axios.post("/api/orders", {
         name: this.name,
@@ -66,6 +66,8 @@ export default {
         tel: this.tel,
         comment: this.comment
       });
+      storeService.removeCookie('mrbucket');
+      storeService.cleanBucket(this.$store);
       alert("Заказ оформлен");
     }
   }
