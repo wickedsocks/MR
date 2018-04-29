@@ -32,8 +32,10 @@ export default {
     let date = new Date(0);
     document.cookie = `${name}=;expires=${date.toUTCString()}`;
   },
-  cleanBucket(store){
-    store.bucket.splice(0);
+  cleanBucket(store) {
+    if (store.bucket) {
+      store.bucket.splice(0);
+    }
   },
   async getCategories() {
     let [productCategory, manufactureCategory] = await Promise.all([axios.get("/api/categories/product"), axios.get("/api/categories/manufacture")]);

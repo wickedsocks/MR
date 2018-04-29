@@ -64,7 +64,8 @@ export default {
         email: this.email,
         products: this.products,
         tel: this.tel,
-        comment: this.comment
+        comment: this.comment,
+        totalPrice: this.totalBucketPrice
       });
       storeService.removeCookie('mrbucket');
       storeService.cleanBucket(this.$store);

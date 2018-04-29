@@ -10,7 +10,8 @@ router.post('/orders', async (req, res) => {
     products: req.body.products,
     email: req.body.email,
     tel: req.body.tel,
-    comment: req.body.comment
+    comment: req.body.comment,
+    totalPrice: req.body.totalPrice
   });
   try {
     let orderStatus = await newOrder.save(); 

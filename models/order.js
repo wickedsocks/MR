@@ -19,6 +19,10 @@ let orderSchema = new mongoose.Schema({
   },
   comment: {
     type: String
+  },
+  totalPrice: {
+    required: true,
+    type: Number
   }
 });
 
