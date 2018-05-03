@@ -57,11 +57,6 @@ router.post('/orders', async (req, res) => {
         console.log(body);
         console.log(err);
       });
-      mailgun.messages().send(customerMessage, (error, body) => {
-        console.log(body);
-        console.log(error);
-      });
-
     });
   } catch (error) {
     res.status(400).send(error);

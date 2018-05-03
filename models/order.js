@@ -7,7 +7,8 @@ let orderSchema = new mongoose.Schema({
   },
   products: {
     type: Array,
-    required: true
+    required: true,
+    validate: [productsLengthLimit, "{PATH} product array length should be at least 1"]
   },
   email: {
     type: String,
@@ -25,6 +26,10 @@ let orderSchema = new mongoose.Schema({
     type: Number
   }
 });
+
+function productsLengthLimit(val) {
+  return val.length > 0;
+}
 
 const Order = mongoose.model("Order", orderSchema);
 

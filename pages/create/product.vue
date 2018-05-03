@@ -221,12 +221,6 @@ section {
   flex-wrap: wrap;
 }
 
-.error-default {
-  width: 100%;
-  font-size: 14px;
-  color: red;
-  white-space: pre-line;
-}
 #images {
   height: 0;
   width: 0;
