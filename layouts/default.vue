@@ -11,17 +11,29 @@
 <script>
 import MyFooter from "~/components/Footer.vue";
 import MyHeader from "~/components/Header.vue";
+import storeServices from "~/services/storeServices";
 
 export default {
   components: {
     MyFooter,
     MyHeader
+  },
+  mounted() {
+    // Check if cookie is available and set bucket data
+    if (!this.$store.state.bucket.length) {
+      let cookieString = storeServices.getCookie("mrbucket");
+      if (cookieString) {
+        let parsedCookie = JSON.parse(cookieString);
+        parsedCookie.forEach(bucketItem => {
+          this.$store.commit("addNewBucketItem", bucketItem);
+        });
+      }
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-
 .main-wrapper {
   min-height: calc(100vh - 112px);
   padding-bottom: 50px;

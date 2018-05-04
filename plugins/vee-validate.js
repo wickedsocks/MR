@@ -47,7 +47,6 @@ const dictionary = {
 const phoneNumber = {
   getMessage: () => `Введите корректный формат телефона`,
   validate(value) {
-    console.log(value);
     let regExp = new RegExp(/\+\(\d{1,2}\)-\d{3}-\d{3}-\d{2}-\d{2}/g);
     return regExp.test(value);
   }

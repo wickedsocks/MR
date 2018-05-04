@@ -54,8 +54,6 @@ router.post('/orders', async (req, res) => {
         text: `Новый заказ от ${req.body.name}, контактная информация: эл. почта - ${req.body.email}, телефон - ${req.body.tel}. Заказали: ${productText}, общей стоимостью ${req.body.totalPrice} грн, пожелания к заказу: ${req.body.comment}`
       };
       mailgun.messages().send(ownerMessage, (err, body) => {
-        console.log(body);
-        console.log(err);
       });
     });
   } catch (error) {

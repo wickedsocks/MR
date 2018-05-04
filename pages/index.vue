@@ -6,7 +6,6 @@
 
 <script>
 import MyProductList from "~/components/ProductList.vue";
-import storeServices from "./../services/storeServices";
 export default {
   components: {
     MyProductList
@@ -32,18 +31,6 @@ export default {
         }
       ]
     };
-  },
-  mounted() {
-    // Check if cookie is available and set bucket data
-    if (!this.$store.state.bucket.length) {
-      let cookieString = storeServices.getCookie("mrbucket");
-      if (cookieString) {
-        let parsedCookie = JSON.parse(cookieString);
-        parsedCookie.forEach((bucketItem) => {
-          this.$store.commit("addNewBucketItem", bucketItem);
-        });
-      }
-    }
   }
 };
 </script>

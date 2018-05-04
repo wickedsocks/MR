@@ -1,5 +1,6 @@
 import storeService from "./../services/storeServices";
 
+
 export const state = () => ({
   bucket: [],
   products: [],
@@ -58,6 +59,11 @@ export const mutations = {
   },
   setOrders(state, payload) {
     state.orders = payload.slice();
+  },
+  removeItemFromBucketByIndex(state, payload) {
+    if (state.bucket) {
+      state.bucket.splice(payload.index, 1);
+    }
   }
 };
 
