@@ -23,7 +23,7 @@
         <span class="error-default" v-show="errors.has('email')"> {{errors.first('email')}} </span>
       </div>
       <div class="col-12 form-input-wrapper">
-        <input class="form-control" type="number" v-validate:tel="'required|phoneNumber'" name="tel" placeholder="Введите номер телефона" v-model="tel">
+        <input class="form-control" v-mask="'+(##)-###-###-##-##'" id="tel" type="tel" v-validate:tel="'required|phoneNumber'" name="tel" placeholder="Введите номер телефона" v-model="tel">
         <span class="error-default" v-show="errors.has('tel')"> {{errors.first('tel')}} </span>
       </div>
       <div class="col-12 form-input-wrapper">
@@ -38,12 +38,17 @@
 <script>
 import axios from "~/plugins/axios";
 import storeService from "~/services/storeServices";
+import {mask} from 'vue-the-mask';
+
 export default {
+  directives: {
+    mask
+  },
   data() {
     return {
       name: "",
       email: "",
-      tel: null,
+      tel: "",
       comment: ""
     };
   },
@@ -77,6 +82,8 @@ export default {
         alert("Заказ оформлен");
       }
     }
+  },
+  mounted() {
   }
 };
 </script>

@@ -43,11 +43,12 @@ const dictionary = {
     }
   }
 };
-// Custom validation rules
+// // // Custom validation rules
 const phoneNumber = {
   getMessage: () => `Введите корректный формат телефона`,
   validate(value) {
-    let regExp = new RegExp(/^((38|7|7|8)+([0-9]){10})$/gm);
+    console.log(value);
+    let regExp = new RegExp(/\+\(\d{1,2}\)-\d{3}-\d{3}-\d{2}-\d{2}/g);
     return regExp.test(value);
   }
 }
