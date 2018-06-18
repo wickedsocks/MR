@@ -55,7 +55,6 @@ export default {
   },
   computed: {
     bucket() {
-      console.log(this.$store.state.bucket);
       return this.$store.state.bucket;
     },
     products() {

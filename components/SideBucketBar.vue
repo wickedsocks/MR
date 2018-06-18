@@ -4,8 +4,8 @@
 
     <div class="header-cart flex-col-l p-l-65 p-r-25" :class="{'right-0': showHide}">
       <div class="header-cart-title flex-w flex-sb-m p-b-8">
-        <span class="mtext-103 cl2">
-          Your Cart
+        <span class="cl2 cart-name">
+          Корзина
         </span>
 
         <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart" @click="close()">
@@ -15,16 +15,16 @@
 
       <div class="header-cart-content flex-w js-pscroll">
         <ul class="header-cart-wrapitem w-full">
-          <li class="header-cart-item flex-w flex-t m-b-12 align-items-center" v-for="item in products" :key="item.product._id">
-            <div class="header-cart-item-img">
+          <li class="header-cart-item flex-w flex-t m-b-12 align-items-center" v-for="(item, index) in products" :key="index">
+            <div class="header-cart-item-img" @click="removeItemFromBucket(index)">
               <img :src="item.product.images[0]" :alt="item.product.description">
               <i class="zmdi zmdi-close delete-item-icon"></i>
             </div>
 
             <div class="header-cart-item-txt p-t-8">
-              <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+              <nuxt-link @click.native="close()" :to="`/product/${item.product._id}`" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
                 {{item.product.title}}
-              </a>
+              </nuxt-link>
 
               <span class="header-cart-item-info">
                 {{item.quantity}} x {{item.product.price}} грн
@@ -38,8 +38,8 @@
              Всего: {{totalBucketPrice}} грн
           </div>
 
-          <div class="header-cart-buttons flex-w w-full" @click="close()">
-            <nuxt-link to='/bucket' class="flex-c-m cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10 bucket-button">
+          <div class="header-cart-buttons flex-w w-full">
+            <nuxt-link @click.native="close()" to='/bucket' class="flex-c-m cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10 bucket-button">
               ЗАКАЗАТЬ
             </nuxt-link>
 
@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import storeService from "~/services/storeServices.js";
 export default {
   props: ["showHide"],
   computed: {
@@ -69,6 +70,11 @@ export default {
   methods: {
     close() {
       this.$emit("close");
+    },
+    removeItemFromBucket(index) {
+      this.$store.commit('removeItemFromBucketByIndex', {index});
+      storeService.removeCookie("mrbucket");
+      storeService.setCookieBucket(this.$store.state);
     }
   }
 };
@@ -101,5 +107,11 @@ export default {
 .bucket-button {
   font-family: sans-serif;
   font-weight: 500;
+}
+
+.cart-name {
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 </style>

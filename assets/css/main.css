@@ -13,14 +13,52 @@ textarea {
   resize: none;
 }
 
-.bg-header,
-.bg-footer {
-  background: #1d8635;
-}
-
 .error-default {
   width: 100%;
   font-size: 14px;
   color: red;
   white-space: pre-line;
+}
+
+.black-button {
+  background-color: #222;
+  color: #ffffff;
+}
+
+.black-button:hover {
+  border-color: #717fe0;
+  background-color: #717fe0;
+  color: #fff;
+}
+
+.grey-button {
+  background-color: #e6e6e6;
+  color: #222;
+}
+
+.grey-button:hover {
+  border-color: #222;
+  background-color: #222;
+  color: #fff;
+}
+
+.purple-button {
+  background-color: #717fe0;
+  color: #ffffff;
+}
+
+.purple-button:hover {
+  border-color: #fff;
+  background-color: #fff;
+  color: #717fe0;
+}
+
+.black-button,
+.grey-button,
+.purple-button {
+  transition: background-color .3s ease-in-out, color .3s ease-in-out;
+}
+
+.purple-hover-color {
+  color: #717fe0;
 }

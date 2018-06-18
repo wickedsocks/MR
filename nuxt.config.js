@@ -53,7 +53,10 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: ["~/assets/css/main.css", "~/assets/css/theme.css", "~/assets/css/util.css", '~/node_modules/bootstrap/dist/css/bootstrap.min.css'],
+  css: [
+    "~/assets/css/main.css", "~/assets/css/theme.css", "~/assets/css/util.css",
+    '~/node_modules/bootstrap/dist/css/bootstrap.min.css', '~/assets/css/main.scss', '~/assets/css/hamburgers.min.css'
+  ],
 
   plugins: ["~plugins/vee-validate", "~plugins/vuejs-filters.js"],
 

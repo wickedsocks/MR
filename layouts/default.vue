@@ -1,7 +1,7 @@
 <template>
   <div>
     <my-header/>
-    <div class="main-wrapper">
+    <div class="main-wrapper container">
       <nuxt/>
     </div>
     <my-footer/>
@@ -63,5 +63,11 @@ export default {
   font-weight: 300;
   font-size: 2.5em;
   margin: 0;
+}
+
+@media screen and (max-width: 991px) {
+  .main-wrapper {
+    margin-top: 0;
+  }
 }
 </style>

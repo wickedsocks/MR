@@ -43,9 +43,8 @@
                 </label>
               </div>
 
-              <div class="icon-header-item cl2 hov-cl1 trans-04 pl-3 pr-2 js-show-cart" :class="{'icon-header-noti': bucketLength > 0}" :data-notify="bucketLength"
-                @click="showSideBarBucket()">
-                  <i class="zmdi zmdi-shopping-cart"></i>
+              <div class="icon-header-item cl2 hov-cl1 trans-04 pl-3 pr-2 js-show-cart" :class="{'icon-header-noti': bucketLength > 0}" :data-notify="bucketLength" @click="showSideBarBucket()">
+                <i class="zmdi zmdi-shopping-cart"></i>
               </div>
             </div>
           </nav>
@@ -64,21 +63,20 @@
 
         <!-- Icon header -->
         <div class="wrap-icon-header flex-w flex-r-m m-r-15">
-          <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
-            <i class="zmdi zmdi-search"></i>
+          <div class="icon-header-item cl2 col-8 col-sm-10 col-md-10 col-lg-12 hov-cl1 trans-04 p-r-11 d-flex align-items-center">
+            <input type="text" id='search' class="form-control" placeholder="Искать...">
+            <label for="search" class="input-group-btn pl-2 mb-0">
+              <i class="zmdi zmdi-search"></i>
+            </label>
           </div>
 
-          <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="2">
+          <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" :class="{'icon-header-noti': bucketLength > 0}" :data-notify="bucketLength" @click="showSideBarBucket()">
             <i class="zmdi zmdi-shopping-cart"></i>
           </div>
-
-          <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
-            <i class="zmdi zmdi-favorite-outline"></i>
-          </a>
         </div>
 
         <!-- Button show menu -->
-        <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+        <div class="btn-show-menu-mobile hamburger hamburger--squeeze" @click="showMobileMenu()" :class="{'is-active': showMobile}">
           <span class="hamburger-box">
             <span class="hamburger-inner"></span>
           </span>
@@ -86,72 +84,17 @@
       </div>
 
       <!-- Menu Mobile -->
-      <div class="menu-mobile">
-        <ul class="topbar-mobile">
-          <li>
-            <div class="left-top-bar">
-              Free shipping for standard order over $100
-            </div>
-          </li>
-
-          <li>
-            <div class="right-top-bar flex-w h-full">
-              <a href="#" class="flex-c-m p-lr-10 trans-04">
-                Help & FAQs
-              </a>
-
-              <a href="#" class="flex-c-m p-lr-10 trans-04">
-                My Account
-              </a>
-
-              <a href="#" class="flex-c-m p-lr-10 trans-04">
-                EN
-              </a>
-
-              <a href="#" class="flex-c-m p-lr-10 trans-04">
-                USD
-              </a>
-            </div>
-          </li>
-        </ul>
-
+      <div class="menu-mobile dis-block my-menu-mobile" ref="mobileMenu">
         <ul class="main-menu-m">
           <li>
-            <a href="index.html">Home</a>
-            <ul class="sub-menu-m">
-              <li>
-                <a href="index.html">Homepage 1</a>
-              </li>
-              <li>
-                <a href="home-02.html">Homepage 2</a>
-              </li>
-              <li>
-                <a href="home-03.html">Homepage 3</a>
-              </li>
-            </ul>
-            <span class="arrow-main-menu-m">
-              <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </span>
+            <nuxt-link to="/">Главная</nuxt-link>
+          </li>
+          <li>
+            <nuxt-link to="/create/product">Создать товар</nuxt-link>
           </li>
 
           <li>
-            <a href="product.html">Shop</a>
-          </li>
-
-          <li>
-            <a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
-          </li>
-
-          <li>
-            <a href="blog.html">Blog</a>
-          </li>
-
-          <li>
-            <a href="about.html">About</a>
-          </li>
-
-          <li>
-            <a href="contact.html">Contact</a>
+            <nuxt-link to="/orders">Заказы</nuxt-link>
           </li>
         </ul>
       </div>
@@ -172,7 +115,7 @@
         </div>
       </div>
     </header>
-    <side-bucket-bar :showHide='showHide' @close='close'/>
+    <side-bucket-bar :showHide='showHide' @close='close' />
   </div>
 </template>
 
@@ -188,7 +131,8 @@ export default {
   data() {
     return {
       scroll: false,
-      showHide: false
+      showHide: false,
+      showMobile: false
     };
   },
   methods: {
@@ -196,11 +140,16 @@ export default {
       this.scroll = window.pageYOffset > 0;
     },
     showSideBarBucket() {
-      console.log(this.showHide);
       this.showHide = true;
     },
     close() {
       this.showHide = false;
+    },
+    showMobileMenu() {
+      this.showMobile = !this.showMobile;
+      this.$refs.mobileMenu.style.height = this.$refs.mobileMenu.style.height
+        ? ""
+        : this.$refs.mobileMenu.scrollHeight + "px";
     }
   },
   mounted() {
@@ -228,6 +177,22 @@ label {
 }
 .nuxt-link-exact-active {
   color: #6c7ae0;
+}
+.my-menu-mobile {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease-in-out;
+}
+.my-menu-mobile {
+  a {
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .nuxt-link-exact-active {
+    color: #ffffff;
+    text-decoration: underline;
+  }
 }
 </style>
 

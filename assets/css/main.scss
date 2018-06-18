@@ -1,0 +1,11 @@
+$color-text-purple: #717fe0;
+$color-text-black: #222222;
+
+.card {
+  a {
+    color: $color-text-black;
+    &:hover {
+      color: $color-text-purple;
+    }
+  }
+}

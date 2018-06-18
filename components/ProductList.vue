@@ -14,9 +14,10 @@
                 <div class="card-body">
                   <h5 class="card-title"> {{product.title | limitTo(15)}}... </h5>
                   <p class="card-text"> {{product.description | limitTo(30)}}... </p>
+                  <p class="card-text"> {{product.price}} грн </p>
                 </div>
               </nuxt-link>
-              <button @click.prevent="showProductPreview(product)" class="btn btn-primary">Купить</button>
+              <button @click.prevent="showProductPreview(product)" class="btn black-button">В корзину</button>
           </div>
       </div>
       </div>
@@ -63,9 +64,6 @@ export default {
 }
 
 .card {
-  a {
-    color: #212529;
-  }
   button {
     margin: 0 10px 10px;
   }
