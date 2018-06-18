@@ -1,63 +1,70 @@
 module.exports = {
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
     title: "MRVueJS",
-    meta: [
-      { charset: "utf-8" },
+    meta: [{
+        charset: "utf-8"
+      },
       {
         name: "viewport",
         content: "width=device-width, initial-scale=1, user-scalable=no"
       },
-      { hid: "description", name: "description", content: "Nuxt.js project" }
-    ],
-    link: [
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       {
-        rel: "stylesheet",
-        href:
-          "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
-        integrity:
-          "sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm",
-        crossorigin: "anonymous"
+        hid: "description",
+        name: "description",
+        content: "Nuxt.js project"
       }
     ],
-    script: [
-      {
-        src:"https://code.jquery.com/jquery-3.2.1.slim.min.js",
-        integrity:"sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN",
-        crossorigin:"anonymous"
+    link: [{
+        rel: "icon",
+        type: "image/x-icon",
+        href: "/favicon.ico"
       },
       {
-        src:"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js",
-        integrity:"sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q",
-        crossorigin:"anonymous"
+        rel: "stylesheet",
+        href: "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+        integrity: "sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm",
+        crossorigin: "anonymous"
       },
       {
-        src:
-          "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js",
-        integrity:
-          "sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl",
+        rel: "stylesheet",
+        href: "https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
+      }
+    ],
+    script: [{
+        src: "https://code.jquery.com/jquery-3.2.1.slim.min.js",
+        integrity: "sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN",
+        crossorigin: "anonymous"
+      },
+      {
+        src: "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js",
+        integrity: "sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q",
+        crossorigin: "anonymous"
+      },
+      {
+        src: "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js",
+        integrity: "sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl",
         crossorigin: "anonymous"
       }
     ]
   },
   /*
-  ** Global CSS
-  */
-  css: ["~/assets/css/main.css"],
+   ** Global CSS
+   */
+  css: ["~/assets/css/main.css", "~/assets/css/theme.css", "~/assets/css/util.css", '~/node_modules/bootstrap/dist/css/bootstrap.min.css'],
 
   plugins: ["~plugins/vee-validate", "~plugins/vuejs-filters.js"],
 
   /*
-  ** Add axios globally
-  */
+   ** Add axios globally
+   */
   build: {
     vendor: ["axios", "vee-validate"],
     /*
-    ** Run ESLINT on save
-    */
+     ** Run ESLINT on save
+     */
     extend(config, ctx) {
       if (ctx.isClient) {
         config.module.rules.push({

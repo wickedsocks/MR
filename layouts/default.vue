@@ -37,6 +37,7 @@ export default {
 .main-wrapper {
   min-height: calc(100vh - 112px);
   padding-bottom: 50px;
+  margin-top: 84px;
 }
 
 .button,
