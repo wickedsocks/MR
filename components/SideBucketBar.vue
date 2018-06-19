@@ -16,7 +16,8 @@
       <div class="header-cart-content flex-w js-pscroll">
         <ul class="header-cart-wrapitem w-full">
           <li class="header-cart-item flex-w flex-t m-b-12 align-items-center" v-for="(item, index) in products" :key="index">
-            <div class="header-cart-item-img" @click="removeItemFromBucket(index)">
+            <product-item-for-sidebar :item="item"/>
+            <!-- <div class="header-cart-item-img" @click="removeItemFromBucket(index)">
               <img :src="item.product.images[0]" :alt="item.product.description">
               <i class="zmdi zmdi-close delete-item-icon"></i>
             </div>
@@ -29,23 +30,20 @@
               <span class="header-cart-item-info">
                 {{item.quantity}} x {{item.product.price}} грн
               </span>
-            </div>
+            </div> -->
+
           </li>
         </ul>
 
         <div class="w-full">
           <div class="header-cart-total w-full p-tb-40">
-             Всего: {{totalBucketPrice}} грн
+            Всего: {{totalBucketPrice}} грн
           </div>
 
           <div class="header-cart-buttons flex-w w-full">
             <nuxt-link @click.native="close()" to='/bucket' class="flex-c-m cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10 bucket-button">
               ЗАКАЗАТЬ
             </nuxt-link>
-
-            <!-- <a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-              Check Out
-            </a> -->
           </div>
         </div>
       </div>
@@ -54,9 +52,11 @@
 </template>
 
 <script>
+import ProductItemForSidebar from "../components/ProductItemForSidebar.vue";
 import storeService from "~/services/storeServices.js";
 export default {
   props: ["showHide"],
+  components: { ProductItemForSidebar },
   computed: {
     totalBucketPrice() {
       return this.$store.getters.totalBucketPrice;
@@ -72,7 +72,7 @@ export default {
       this.$emit("close");
     },
     removeItemFromBucket(index) {
-      this.$store.commit('removeItemFromBucketByIndex', {index});
+      this.$store.commit("removeItemFromBucketByIndex", { index });
       storeService.removeCookie("mrbucket");
       storeService.setCookieBucket(this.$store.state);
     }
@@ -83,25 +83,6 @@ export default {
 <style lang="scss" scoped>
 .right-0 {
   right: 0px;
-}
-.delete-item-icon {
-  color: #ffffff;
-  background-color: rgba(70, 70, 70, 0.56863);
-  font-size: 24px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.header-cart-item-img:hover > .delete-item-icon {
-  opacity: 1;
 }
 
 .bucket-button {

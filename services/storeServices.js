@@ -46,5 +46,12 @@ export default {
   },
   async getOrders() {
     return await axios.get('/api/orders');
+  },
+  async searchProductsByTitle(title) {
+    return await axios.get('/api/products/search', {
+      params: {
+        title
+      }
+    });
   }
 };

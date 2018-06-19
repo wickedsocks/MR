@@ -25,6 +25,7 @@
     "cross-env": "^5.0.1",
     "express": "^4.15.3",
     "formidable": "^1.2.1",
+    "lodash": "^4.17.10",
     "mailgun-js": "^0.17.0",
     "mocha": "^5.0.4",
     "mongoose": "^5.0.10",

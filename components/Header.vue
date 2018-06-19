@@ -36,12 +36,7 @@
 
             <!-- Icon header -->
             <div class="wrap-icon-header flex-w flex-r-m">
-              <div class="icon-header-item cl2 hov-cl1 trans-04 pl-2 pr-2 js-show-modal-search d-flex align-items-center">
-                <input type="text" id='search' class="form-control" placeholder="Искать...">
-                <label for="search" class="input-group-btn pl-2 mb-0">
-                  <i class="zmdi zmdi-search"></i>
-                </label>
-              </div>
+              <search-input/>
 
               <div class="icon-header-item cl2 hov-cl1 trans-04 pl-3 pr-2 js-show-cart" :class="{'icon-header-noti': bucketLength > 0}" :data-notify="bucketLength" @click="showSideBarBucket()">
                 <i class="zmdi zmdi-shopping-cart"></i>
@@ -122,10 +117,12 @@
 <script>
 import { mapGetters } from "vuex";
 import SideBucketBar from "~/components/SideBucketBar.vue";
+import SearchInput from "~/components/SearchInput.vue";
 
 export default {
   components: {
-    SideBucketBar
+    SideBucketBar,
+    SearchInput
   },
   computed: mapGetters(["bucketLength"]),
   data() {
