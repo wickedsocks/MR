@@ -1,6 +1,10 @@
 require('../../dbconfig/config');
-const { Router } = require('express');
-const  { Product } =  require("../../models/product");
+const {
+  Router
+} = require('express');
+const {
+  Product
+} = require("../../models/product");
 const formidable = require("formidable");
 
 const cloudinary = require("cloudinary");
@@ -45,13 +49,29 @@ router.get("/products", (req, res) => {
   );
 });
 
+router.get("/products/search", (req, res) => {
+  Product.find({
+    title: {
+      $regex: `${req.query.title}.*`,
+      $options: 'i'
+    }
+  }).then((products) => {
+
+    res.send(products);
+  }, (err) => {
+    res.send(err);
+  });
+})
+
 router.post("/products/upload-image", (req, res) => {
   let form = new formidable.IncomingForm();
-  form.parse(req, function(err, fields, files) {
+  form.parse(req, function (err, fields, files) {
     if (err) {
       res.status(400).send(err);
     }
-    cloudinary.v2.uploader.upload(files.file.path, {public_id: fields.name}, function(err, result) {
+    cloudinary.v2.uploader.upload(files.file.path, {
+      public_id: fields.name
+    }, function (err, result) {
       res.send(result);
     });
   });

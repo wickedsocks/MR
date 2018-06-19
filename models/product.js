@@ -35,6 +35,7 @@ let schema = new mongoose.Schema({
     required: true
   }
 });
+schema.index({title: "text"});
 
 const Product = mongoose.model("Product", schema);
 
