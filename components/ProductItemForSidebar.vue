@@ -19,7 +19,12 @@
 
 <script>
 export default {
-  props: ["item"]
+  props: ["item"],
+  methods: {
+    close() {
+      this.$emit('close');
+    }
+  }
 };
 </script>
 
