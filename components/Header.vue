@@ -58,13 +58,7 @@
 
         <!-- Icon header -->
         <div class="wrap-icon-header flex-w flex-r-m m-r-15">
-          <div class="icon-header-item cl2 col-8 col-sm-10 col-md-10 col-lg-12 hov-cl1 trans-04 p-r-11 d-flex align-items-center">
-            <input type="text" id='search' class="form-control" placeholder="Искать...">
-            <label for="search" class="input-group-btn pl-2 mb-0">
-              <i class="zmdi zmdi-search"></i>
-            </label>
-          </div>
-
+          <search-input/>
           <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" :class="{'icon-header-noti': bucketLength > 0}" :data-notify="bucketLength" @click="showSideBarBucket()">
             <i class="zmdi zmdi-shopping-cart"></i>
           </div>
