@@ -16,7 +16,7 @@
       <div class="header-cart-content flex-w js-pscroll">
         <ul class="header-cart-wrapitem w-full">
           <li class="header-cart-item flex-w flex-t m-b-12 align-items-center" v-for="(item, index) in products" :key="index">
-            <product-item-for-sidebar :item="item"/>
+            <product-item-for-sidebar :item="item" :bucket="true"/>
             <!-- <div class="header-cart-item-img" @click="removeItemFromBucket(index)">
               <img :src="item.product.images[0]" :alt="item.product.description">
               <i class="zmdi zmdi-close delete-item-icon"></i>

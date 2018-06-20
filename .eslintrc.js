@@ -14,7 +14,7 @@ module.exports = {
   rules: {
     'no-extra-semi': 1,
     'no-console': 0,
-    "no-undef": 0,
+    "no-undef": 0
   },
   globals: {}
 }
