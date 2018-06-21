@@ -18,8 +18,6 @@
 export default {
   computed: {
     allCategories() {
-      console.log(this.$store.state.categories.productCategory);
-      console.log(this.$store.state.categories.manufactureCategory);
       return this.$store.state.categories.productCategory.concat(
         this.$store.state.categories.manufactureCategory
       );

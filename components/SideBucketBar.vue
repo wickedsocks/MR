@@ -16,7 +16,7 @@
       <div class="header-cart-content flex-w js-pscroll">
         <ul class="header-cart-wrapitem w-full">
           <li class="header-cart-item flex-w flex-t m-b-12 align-items-center" v-for="(item, index) in products" :key="index">
-            <product-item-for-sidebar :item="item" @close="close()"/>
+            <product-item-for-sidebar @deleteIndex="removeItemFromBucket(index)" :item="item" @close="close()"/>
           </li>
         </ul>
 

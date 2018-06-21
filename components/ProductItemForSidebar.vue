@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex w-100">
-    <div class="header-cart-item-img" @click="removeItemFromBucket(index)">
+    <div class="header-cart-item-img" @click="deleteItemFromBucket()">
       <img :src="item.product.images[0]" :alt="item.product.description">
       <i class="zmdi zmdi-close delete-item-icon"></i>
     </div>
@@ -23,6 +23,9 @@ export default {
   methods: {
     close() {
       this.$emit('close');
+    },
+    deleteItemFromBucket() {
+      this.$emit('deleteIndex');
     }
   }
 };
