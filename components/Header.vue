@@ -12,10 +12,10 @@
           <nav class="limiter-menu-desktop container">
 
             <!-- Logo desktop -->
-            <a href="#" class="logo">
+            <nuxt-link  to="/" class="logo">
               <!-- <img src="img/icons/logo-01.png" alt="IMG-LOGO"> -->
               Логотип
-            </a>
+            </nuxt-link>
 
             <!-- Menu desktop -->
             <div class="menu-desktop">
@@ -50,10 +50,10 @@
       <div class="wrap-header-mobile">
         <!-- Logo moblie -->
         <div class="logo-mobile">
-          <a href="index.html">
+          <nuxt-link to='/'>
             Логотип
             <!-- <img src="img/icons/logo-01.png" alt="IMG-LOGO"> -->
-          </a>
+          </nuxt-link>
         </div>
 
         <!-- Icon header -->
