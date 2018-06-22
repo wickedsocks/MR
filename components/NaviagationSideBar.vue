@@ -6,9 +6,9 @@
       </h4>
       <ul>
         <li v-for="(cat, index) in allCategories" :key="index">
-          <a href="#" class="dis-block category-link cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
+          <nuxt-link :to="cat.name" class="dis-block category-link cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
             {{cat.name}}
-          </a>
+          </nuxt-link>
         </li>
       </ul>
     </div>
@@ -27,9 +27,9 @@
 
             <ul>
               <li class="p-b-6" v-for="(cat, index) in allCategories" :key="index">
-                <a href="#" class="filter-link stext-106 trans-04">
+                <nuxt-link @click.native="toggleFilters()" :to="cat.name" class="filter-link stext-106 trans-04">
                   {{ cat.name }}
-                </a>
+                </nuxt-link>
               </li>
             </ul>
           </div>

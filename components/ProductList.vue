@@ -21,7 +21,7 @@
           </div>
       </div>
       </div>
-    <bucket-pop-up v-if="productPreview" :product="productPreview" @close-pop-up="hideProductPreview()"/>
+    <bucket-pop-up :product="productPreview" @close-pop-up="hideProductPreview()"/>
     </section> 
 </template>
 

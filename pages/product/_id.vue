@@ -18,7 +18,7 @@
         <p> Высота {{product.height}} см </p>
         <button @click.prevent="showProductPreview(product)" class="btn btn-primary">Купить</button>
       </div>
-      <bucket-pop-up v-if="productPreview" :product="productPreview" @close-pop-up="hideProductPreview()" />
+      <bucket-pop-up :product="productPreview" @close-pop-up="hideProductPreview()" />
     </div>
   </section>
 </template>
