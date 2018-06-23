@@ -19,7 +19,7 @@
               <div class="col-10">
                 <div class="main-img-wrapper position-relative">
                   <img :src="product.images[photoIndex]" :alt="product.description">
-                  <div class="open-preview position-absolute d-flex align-items-center justify-content-center pointer">
+                  <div class="open-preview position-absolute d-flex align-items-center justify-content-center pointer" @click="toggleBigPopUp()">
                     <i class="zmdi zmdi-swap"></i>
                   </div>
                   <div class="left position-absolute pointer" @click="changeImage(-1)">
@@ -157,14 +157,20 @@
       </div>
     </div> -->
     </section>
+  <zoom-product :photo-index="photoIndex" @change-image="changeImage($event)" @close-big-popup="toggleBigPopUp()" :photo-amount="product.images.length" :src="product.images[photoIndex]" v-if="product && showBigPopUp"/>
   </div>
 </template>
 <script>
+import ZoomProduct from "~/components/ZoomProduct.vue";
 export default {
+  components: {
+    ZoomProduct
+  },
   data() {
     return {
       quantity: 1,
-      photoIndex: 0
+      photoIndex: 0,
+      showBigPopUp: false
     };
   },
   computed: {
@@ -193,6 +199,7 @@ export default {
     hidePopUp() {
       this.$emit("close-pop-up");
       this.quantity = 1;
+      this.photoIndex = 0;
       document.removeEventListener("keyup", this.closeWithEsc);
     },
     addToBucket(product, quantity) {
@@ -213,6 +220,9 @@ export default {
       } else if (this.photoIndex < 0) {
         this.photoIndex = this.product.images.length - 1;
       }
+    },
+    toggleBigPopUp() {
+      this.showBigPopUp = !this.showBigPopUp;
     }
   },
   mounted() {
