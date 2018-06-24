@@ -17,7 +17,11 @@
               <p class="card-text"> {{product.price}} грн </p>
             </div>
           </nuxt-link>
-          <button @click.prevent="showProductPreview(product)" class="btn black-button">В корзину</button>
+
+          <button @click.prevent="showProductPreview(product)" class="btn black-button d-none d-sm-block">В корзину</button>
+          <nuxt-link :to="`/product/${product._id}`" class="d-flex my-link">
+            <button class="btn black-button d-block d-sm-none flex-grow-1">В корзину</button>
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -89,5 +93,9 @@ export default {
 .visibility-visible {
   visibility: visible;
   background-color: rgba(0, 0, 0, 0.6);
+}
+.my-link {
+  text-decoration: none;
+  cursor: auto;
 }
 </style>
