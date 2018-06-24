@@ -33,6 +33,10 @@ let schema = new mongoose.Schema({
   price: {
     type: Number,
     required: true
+  },
+  color: {
+    type: String,
+    required: true
   }
 });
 schema.index({title: "text"});

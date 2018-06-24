@@ -51,6 +51,13 @@
       <span class="error-default" v-show="errors.has('price')"> {{errors.first('price')}} </span>
     </div>
   </section>
+  <section class="row">
+    <div class="col-xs-12 col-sm-12 col-md-4 d-flex align-items-center flex-wrap">
+      <input type="text" name="color" v-model="requestData.color" class="form-control col-6" placeholder="Укажите цвет" v-validate="'required'">
+      <span class="col-6">Цвет изделия</span>
+      <span class="error-default" v-show="errors.has('color')"> {{errors.first('color')}} </span>
+    </div>
+  </section>
   <section>
       <select class="custom-select" name="product" v-model="requestData.selectedCategories.product" v-validate="'required'">
         <option value="" disabled>Категория товара</option>
