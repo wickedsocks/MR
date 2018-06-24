@@ -43,19 +43,16 @@
               {{product.description}}
             </p>
 
-            <p class="product-description cl3 pt-1">
-              Икона: {{productCategory}}
+            <p class="product-description cl3">
+              {{manufactureCategory}}, {{productCategory}}
             </p>
-            <p class="product-description cl3 pt-1">
-              Категория: {{manufactureCategory}}
-            </p>
-            <p class="product-description cl3 pt-1">
+            <p class="product-description cl3">
               Высота: {{product.height}}
             </p>
-            <p class="product-description cl3 pt-1">
+            <p class="product-description cl3">
               Ширина: {{product.width}}
             </p>
-            <p class="product-description cl3 pt-1">
+            <p class="product-description cl3">
               Цвет: {{product.color}}
             </p>
 
