@@ -22,6 +22,7 @@ router.post("/products", (req, res) => {
     title: req.body.title,
     description: req.body.description,
     images: req.body.images,
+    color: req.body.color,
     width: req.body.width,
     height: req.body.height,
     productCategory: req.body.productCategory,

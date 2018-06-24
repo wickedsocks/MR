@@ -111,6 +111,7 @@ export default {
         width: null,
         height: null,
         price: null,
+        color: '',
         imagesUrlsArray: [],
         selectedCategories: {
           product: "",
@@ -162,6 +163,7 @@ export default {
         images: this.requestData.imagesUrlsArray,
         title: this.requestData.title,
         description: this.requestData.description,
+        color: this.requestData.color,
         height: this.requestData.height,
         width: this.requestData.width,
         price: this.requestData.price
