@@ -150,9 +150,9 @@ export default {
             behavior: "smooth",
             block: "end"
           });
-          console.log("error occurs");
         }
       } catch (error) {
+        this.showLoader = false;
         console.log("error ", error);
       }
     },
