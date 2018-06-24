@@ -12,7 +12,7 @@
           <nav class="limiter-menu-desktop container">
 
             <!-- Logo desktop -->
-            <nuxt-link  to="/" class="logo">
+            <nuxt-link to="/" class="logo">
               <!-- <img src="img/icons/logo-01.png" alt="IMG-LOGO"> -->
               Логотип
             </nuxt-link>
@@ -47,7 +47,7 @@
       </div>
 
       <!-- Header Mobile -->
-      <div class="wrap-header-mobile">
+      <div class="wrap-header-mobile flex-wrap">
         <!-- Logo moblie -->
         <div class="logo-mobile">
           <nuxt-link to='/'>
@@ -56,36 +56,38 @@
           </nuxt-link>
         </div>
 
-        <!-- Icon header -->
-        <div class="wrap-icon-header flex-w flex-r-m m-r-15">
-          <search-input/>
-          <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" :class="{'icon-header-noti': bucketLength > 0}" :data-notify="bucketLength" @click="showSideBarBucket()">
-            <i class="zmdi zmdi-shopping-cart"></i>
+        <div class="d-flex justify-content-center col-12 col-sm-8">
+          <!-- Icon header -->
+          <div class="wrap-icon-header d-flex align-items-center justify-content-end m-r-15">
+            <search-input/>
+            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" :class="{'icon-header-noti': bucketLength > 0}" :data-notify="bucketLength" @click="showSideBarBucket()">
+              <i class="zmdi zmdi-shopping-cart"></i>
+            </div>
+          </div>
+
+          <!-- Button show menu -->
+          <div class="btn-show-menu-mobile hamburger hamburger--squeeze" @click="showMobileMenu()" :class="{'is-active': showMobile}">
+            <span class="hamburger-box">
+              <span class="hamburger-inner"></span>
+            </span>
           </div>
         </div>
 
-        <!-- Button show menu -->
-        <div class="btn-show-menu-mobile hamburger hamburger--squeeze" @click="showMobileMenu()" :class="{'is-active': showMobile}">
-          <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-          </span>
+        <!-- Menu Mobile -->
+        <div class="menu-mobile dis-block my-menu-mobile" ref="mobileMenu">
+          <ul class="main-menu-m">
+            <li>
+              <nuxt-link to="/">Главная</nuxt-link>
+            </li>
+            <li>
+              <nuxt-link to="/create/product">Создать товар</nuxt-link>
+            </li>
+
+            <li>
+              <nuxt-link to="/orders">Заказы</nuxt-link>
+            </li>
+          </ul>
         </div>
-      </div>
-
-      <!-- Menu Mobile -->
-      <div class="menu-mobile dis-block my-menu-mobile" ref="mobileMenu">
-        <ul class="main-menu-m">
-          <li>
-            <nuxt-link to="/">Главная</nuxt-link>
-          </li>
-          <li>
-            <nuxt-link to="/create/product">Создать товар</nuxt-link>
-          </li>
-
-          <li>
-            <nuxt-link to="/orders">Заказы</nuxt-link>
-          </li>
-        </ul>
       </div>
 
       <!-- Modal Search -->
