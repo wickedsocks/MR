@@ -109,12 +109,14 @@
                       <i class="fs-16 zmdi zmdi-plus"></i>
                     </div>
                   </div>
-                  <div class="py-3 total-price default-font-family">
-                    Всего: {{product.price * quantity}} грн
+                  <div class="d-flex flex-column">
+                    <div class="py-3 total-price default-font-family">
+                      Всего: {{product.price * quantity}} грн
+                    </div>
+                    <button class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04" @click="addToBucket(product, quantity); hidePopUp()">
+                      В КОЗРИНУ
+                    </button>
                   </div>
-                  <button class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04" @click="addToBucket(product, quantity); hidePopUp()">
-                    В КОЗРИНУ
-                  </button>
                 </div>
               </div>
             </div>
@@ -203,7 +205,6 @@ export default {
   border-radius: 4px;
   padding: 4px;
 }
-
 
 .image {
   display: block;
