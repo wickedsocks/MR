@@ -64,6 +64,29 @@ export const mutations = {
     if (state.bucket) {
       state.bucket.splice(payload.index, 1);
     }
+  },
+  icreaseBucketItemQuantity(state, payload) {
+    state.bucket.forEach((item) => {
+      if (item.product._id == payload.item.product._id) {
+        item.quantity += payload.amount;
+      }
+    });
+  },
+  decreaseBucketItemQuantity(state, payload) {
+    state.bucket.forEach((item) => {
+      if (item.product._id == payload.item.product._id) {
+        if (item.quantity > 0) {
+          item.quantity += -payload.amount;
+        }
+      }
+    });
+  },
+  setBucketItemQuantity(state, payload) {
+    state.bucket.forEach((item) => {
+      if (item.product._id == payload.item.product._id) {
+        item.quantity = parseInt(payload.amount);
+      }
+    });
   }
 };
 
