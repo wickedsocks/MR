@@ -39,7 +39,7 @@ router.post('/orders', async (req, res) => {
     Promise.all(sortedProducts).then((products) => {
       let productText = products.map((item) => {
         return `${item.product.title} в количестве - ${item.quantity}`;
-      }).join(', ');
+      }).join(',\n');
 
       const customerMessage = {
         from: 'Заказ на сайте MR <mrvuejs@support.com>',
@@ -51,7 +51,14 @@ router.post('/orders', async (req, res) => {
         from: 'Заказ на сайте MR <mrvuejs@support.com>',
         to: 'mykhailovpm@gmail.com',
         subject: 'Новый заказ',
-        text: `Новый заказ от ${req.body.name}, контактная информация: эл. почта - ${req.body.email}, телефон - ${req.body.tel}. Заказали: ${productText}, общей стоимостью ${req.body.totalPrice} грн, пожелания к заказу: ${req.body.comment}`
+        text:
+        `Новый заказ от ${req.body.name},
+         Контактная информация:
+         - Эл. почта - ${req.body.email},
+         - Телефон - ${req.body.tel}.
+          Заказали: ${productText},
+          - общей стоимостью: ${req.body.totalPrice} грн,
+          - пожелания к заказу: ${req.body.comment}`
       };
       mailgun.messages().send(ownerMessage, (err, body) => {
       });
