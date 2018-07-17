@@ -17,8 +17,10 @@
               <tbody>
                 <tr class="vertical-align-child-center" v-for="(item, index) in bucket" :key="index">
                   <th scope="row">
-                    <div class="d-flex align-items-center justify-content-center">
-                      <img :src="item.product.images[0]" class="product-image pr-2" :alt="item.product.title">{{item.product.title}}</div>
+                    <nuxt-link :to="'/product/'+ item.product._id" class="purple-hover">
+                      <div class="d-flex align-items-center justify-content-center">
+                        <img :src="item.product.images[0]" class="product-image pr-2" :alt="item.product.title">{{item.product.title}}</div>
+                    </nuxt-link>
                   </th>
                   <td>{{item.product.price}} грн</td>
                   <td>
@@ -35,7 +37,7 @@
                     </div>
                   </td>
                   <td>{{item.product.price * item.quantity}} грн</td>
-                  <td @click="removeItemFromBucket(index)" class="pointer delete-button">Удалить</td>
+                  <td @click="removeItemFromBucket(index)" class="pointer delete-button purple-hover">Удалить</td>
                 </tr>
               </tbody>
             </table>
@@ -150,13 +152,16 @@ export default {
   },
   methods: {
     onInput(event, item) {
-      this.$store.commit('setBucketItemQuantity', {item, amount: event.target.value});
+      this.$store.commit("setBucketItemQuantity", {
+        item,
+        amount: event.target.value
+      });
     },
     increase(item) {
-        this.$store.commit('icreaseBucketItemQuantity', {item, amount: 1});
+      this.$store.commit("icreaseBucketItemQuantity", { item, amount: 1 });
     },
     decrease(item) {
-      this.$store.commit('decreaseBucketItemQuantity', {item, amount: 1});
+      this.$store.commit("decreaseBucketItemQuantity", { item, amount: 1 });
     },
     async makeOrder() {
       let valid = await this.$validator.validateAll();
@@ -174,7 +179,7 @@ export default {
         storeService.removeCookie("mrbucket");
         storeService.cleanBucket(this.$store);
         // need for redirecting and cleaning bu
-        window.location.href = '/';
+        window.location.href = "/";
         alert("Заказ оформлен");
       }
     },
@@ -235,6 +240,13 @@ tr {
     border-radius: 3px;
     width: 100%;
     padding: 10px;
+  }
+}
+.purple-hover {
+  &:hover {
+    div {
+      color: #717fe0;
+    }
   }
 }
 </style>
