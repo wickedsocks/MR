@@ -37,6 +37,10 @@ let schema = new mongoose.Schema({
   color: {
     type: String,
     required: true
+  },
+  categories: {
+    type: [String],
+    required: true
   }
 });
 schema.index({title: "text"});

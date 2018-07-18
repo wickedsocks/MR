@@ -66,9 +66,10 @@
             <div class="flex-w flex-t bor12 p-t-15">
 
               <div class="p-r-0-sm w-full-ssm">
-                <p class="stext-111 cl6 p-t-2">
-                  При заказе от такой то суммы доставка бесплатная Самовывоз оттуда Дни доставки такие то
-                </p>
+                <!-- TODO: place for message maybe for delivery options -->
+                <!-- <p class="stext-111 cl6 p-t-2"> -->
+                  <!-- При заказе от такой то суммы доставка бесплатная Самовывоз оттуда Дни доставки такие то -->
+                <!-- </p> -->
 
                 <div class="p-t-15">
                   <span class="stext-112 cl8">

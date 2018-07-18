@@ -40,15 +40,33 @@ router.post("/products", (req, res) => {
 });
 
 router.get("/products", (req, res) => {
+  const promiseArray = [];
   Product.find({}).then(
     (products) => {
-      res.send(products);
+      products.forEach((item) => {
+        let categories = [];
+        categories.push(item.productCategory);
+        categories.push(item.manufactureCategory);
+        promiseArray.push(Product.updateMany({title: item.title}, {categories}));
+      });
+      Promise.all(promiseArray).then((success) => {
+       res.send(success);
+      });
     },
     (err) => {
       res.status(400).send(err);
     }
   );
 });
+
+router.get('/products/:category', (req, res) => {
+  console.log('req ', req.params.category);
+ Product.find({productCategory: req.params.category}).then((products) => {
+  res.send(products);
+ }, (err) => {
+  res.status(400).send(err);
+ })
+})
 
 router.get("/products/search", (req, res) => {
   Product.find({
@@ -60,7 +78,7 @@ router.get("/products/search", (req, res) => {
 
     res.send(products);
   }, (err) => {
-    res.send(err);
+    res.status(400).send(err);
   });
 })
 
@@ -73,7 +91,7 @@ router.post("/products/upload-image", (req, res) => {
     cloudinary.v2.uploader.upload(files.file.path, {
       public_id: fields.name
     }, function (err, result) {
-      res.send(result);
+      res.status(400).send(result);
     });
   });
 });
