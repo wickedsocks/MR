@@ -43,15 +43,7 @@ router.get("/products", (req, res) => {
   const promiseArray = [];
   Product.find({}).then(
     (products) => {
-      products.forEach((item) => {
-        let categories = [];
-        categories.push(item.productCategory);
-        categories.push(item.manufactureCategory);
-        promiseArray.push(Product.updateMany({title: item.title}, {categories}));
-      });
-      Promise.all(promiseArray).then((success) => {
-       res.send(success);
-      });
+      res.send(products);
     },
     (err) => {
       res.status(400).send(err);
