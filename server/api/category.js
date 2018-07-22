@@ -72,16 +72,15 @@ router.get("/categories/product", (req, res) => {
   let categoriesArray = [];
   CategoryProduct.find({}).then((categories) => {
     categories.forEach((item) => {
-      categoriesArray.push(CategoryManufacture.updateMany({
+      categoriesArray.push(CategoryProduct.updateMany({
         name: item.name
       }, {
-        url: CategoryManufacture.categoryURLNaming(item.name)
+        url: CategoryProduct.categoryURLNaming(item.name)
       }));
     });
     Promise.all(categoriesArray).then(() => {
       res.send(categories);
     });
-    res.send(categories);
   }, (err) => {
     res.status(400).send(err);
   })
