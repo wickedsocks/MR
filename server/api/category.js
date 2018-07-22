@@ -11,11 +11,12 @@ const {
 const router = Router();
 
 router.post("/categories/manufacture", (req, res) => {
+  let trimmedName = req.body.name.trim();
   CategoryManufacture.collection.count({}).then((length) => {
     let newCategory = new CategoryManufacture({
       description: req.body.description,
-      name: req.body.name,
-      url: CategoryManufacture.categoryURLNaming(req.body.name)
+      name: trimmedName,
+      url: CategoryManufacture.categoryURLNaming(trimmedName)
     });
 
     newCategory.save().then(
@@ -41,10 +42,11 @@ router.get("/categories/manufacture", (req, res) => {
 });
 
 router.post("/categories/product", (req, res) => {
+  let trimmedName = req.body.name.trim();
   let newProductCategory = new CategoryProduct({
     description: req.body.description,
-    name: req.body.name,
-    url: CategoryProduct.categoryURLNaming(req.body.name)
+    name: trimmedName,
+    url: CategoryProduct.categoryURLNaming(trimmedName)
   });
   newProductCategory.save().then(
     (success) => {
