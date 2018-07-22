@@ -31,13 +31,16 @@ router.post("/categories/manufacture", (req, res) => {
 });
 
 router.get("/categories/manufacture", (req, res) => {
-  let categoriesArray = [];
+  let primiseArray = [];
   CategoryManufacture.find({}).then(
     (categories) => {
       categories.forEach((item) => {
-        categoriesArray.push(CategoryManufacture.updateMany({url: CategoryManufacture.categoryURLNaming(item.name)}));
+        console.log('item name ', item.name);
+        primiseArray.push(CategoryManufacture.updateMany({
+          url: CategoryManufacture.categoryURLNaming(item.name)
+        }));
       });
-      Promise.all(categoriesArray).then(() => {
+      Promise.all(primiseArray).then(() => {
         res.send(categories);
       });
     },
@@ -68,7 +71,9 @@ router.get("/categories/product", (req, res) => {
   let categoriesArray = [];
   CategoryProduct.find({}).then((categories) => {
     categories.forEach((item) => {
-      categoriesArray.push(CategoryManufacture.updateMany({url: CategoryManufacture.categoryURLNaming(item.name)}));
+      categoriesArray.push(CategoryManufacture.updateMany({
+        url: CategoryManufacture.categoryURLNaming(item.name)
+      }));
     });
     Promise.all(categoriesArray).then(() => {
       res.send(categories);
