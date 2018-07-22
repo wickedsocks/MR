@@ -35,8 +35,9 @@ router.get("/categories/manufacture", (req, res) => {
   CategoryManufacture.find({}).then(
     (categories) => {
       categories.forEach((item) => {
-        console.log('item name ', item.name);
         primiseArray.push(CategoryManufacture.updateMany({
+          name: item.name
+        }, {
           url: CategoryManufacture.categoryURLNaming(item.name)
         }));
       });
@@ -72,6 +73,8 @@ router.get("/categories/product", (req, res) => {
   CategoryProduct.find({}).then((categories) => {
     categories.forEach((item) => {
       categoriesArray.push(CategoryManufacture.updateMany({
+        name: item.name
+      }, {
         url: CategoryManufacture.categoryURLNaming(item.name)
       }));
     });

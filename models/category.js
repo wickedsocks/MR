@@ -16,7 +16,7 @@ let categoryShema = new mongoose.Schema({
 });
 
 function categoryURLNaming(categoryName) {
-  return categoryName.toLowerCase().trim().replace(' ', '_');
+  return categoryName.toLowerCase().trim().split(' ').join('_');
 }
 
 categoryShema.statics.categoryURLNaming = categoryURLNaming;
