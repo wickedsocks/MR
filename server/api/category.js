@@ -31,9 +31,15 @@ router.post("/categories/manufacture", (req, res) => {
 });
 
 router.get("/categories/manufacture", (req, res) => {
+  let categoriesArray = [];
   CategoryManufacture.find({}).then(
     (categories) => {
-      res.send(categories);
+      categories.forEach((item) => {
+        categoriesArray.push(CategoryManufacture.updateMany({url: CategoryManufacture.categoryURLNaming(item.name)}));
+      });
+      Promise.all(categoriesArray).then(() => {
+        res.send(categories);
+      });
     },
     (err) => {
       res.status(400).send(err);
@@ -59,7 +65,14 @@ router.post("/categories/product", (req, res) => {
 });
 
 router.get("/categories/product", (req, res) => {
+  let categoriesArray = [];
   CategoryProduct.find({}).then((categories) => {
+    categories.forEach((item) => {
+      categoriesArray.push(CategoryManufacture.updateMany({url: CategoryManufacture.categoryURLNaming(item.name)}));
+    });
+    Promise.all(categoriesArray).then(() => {
+      res.send(categories);
+    });
     res.send(categories);
   }, (err) => {
     res.status(400).send(err);
