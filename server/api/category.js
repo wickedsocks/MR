@@ -75,7 +75,8 @@ router.get("/categories/product", (req, res) => {
       categoriesArray.push(CategoryProduct.updateMany({
         name: item.name
       }, {
-        url: CategoryProduct.categoryURLNaming(item.name)
+        url: CategoryProduct.categoryURLNaming(item.name),
+        description: item.name
       }));
     });
     Promise.all(categoriesArray).then(() => {
