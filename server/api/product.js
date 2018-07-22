@@ -40,7 +40,6 @@ router.post("/products", (req, res) => {
 });
 
 router.get("/products", (req, res) => {
-  const promiseArray = [];
   Product.find({}).then(
     (products) => {
       res.send(products);

@@ -14,8 +14,8 @@ router.post("/categories/manufacture", (req, res) => {
   CategoryManufacture.collection.count({}).then((length) => {
     let newCategory = new CategoryManufacture({
       description: req.body.description,
-      name: req.body.name.trim(),
-      url: CategoryManufacture.categoryURLNaming(req.body.name.trim())
+      name: req.body.name,
+      url: CategoryManufacture.categoryURLNaming(req.body.name)
     });
 
     newCategory.save().then(
@@ -43,8 +43,8 @@ router.get("/categories/manufacture", (req, res) => {
 router.post("/categories/product", (req, res) => {
   let newProductCategory = new CategoryProduct({
     description: req.body.description,
-    name: req.body.name.trim(),
-    url: CategoryProduct.categoryURLNaming(req.body.name.trim())
+    name: req.body.name,
+    url: CategoryProduct.categoryURLNaming(req.body.name)
   });
   newProductCategory.save().then(
     (success) => {
