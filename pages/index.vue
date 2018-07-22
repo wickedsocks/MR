@@ -1,21 +1,26 @@
 <template>
-  <section class='row no-gutters'>
+  <section class='row'>
     <div class="col-12 col-sm-12  col-md-2 col-lg-2">
-      <naviagation-side-bar/>
+      <navigation-side-bar :activeCat="activeCat" />
     </div>
     <div class="col-12 col-sm-12 col-md-10 col-lg-10">
-      <my-product-list :products='products' />
+      <h3 class="my-4">Каталог товара
+        <small>продукции</small>
+      </h3>
+      <div class="row">
+        <product :product="product" v-for="(product, index) in products" :key="index" />
+      </div>
     </div>
   </section>
 </template>
 
 <script>
-import MyProductList from "~/components/ProductList.vue";
-import NaviagationSideBar from "~/components/NaviagationSideBar.vue";
+import Product from "~/components/Product.vue";
+import NavigationSideBar from "~/components/NavigationSideBar.vue";
 export default {
   components: {
-    MyProductList,
-    NaviagationSideBar
+    Product,
+    NavigationSideBar
   },
   computed: {
     products() {
@@ -24,7 +29,8 @@ export default {
   },
   data() {
     return {
-      data: {}
+      data: {},
+      activeCat: ""
     };
   },
   head() {

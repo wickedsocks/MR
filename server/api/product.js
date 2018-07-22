@@ -5,6 +5,10 @@ const {
 const {
   Product
 } = require("../../models/product");
+const {
+  CategoryProduct,
+  CategoryManufacture
+} = require('../../models/category');
 const formidable = require("formidable");
 
 const cloudinary = require("cloudinary");
@@ -52,11 +56,13 @@ router.get("/products", (req, res) => {
 
 router.get('/products/:category', (req, res) => {
   console.log('req ', req.params.category);
- Product.find({productCategory: req.params.category}).then((products) => {
-  res.send(products);
- }, (err) => {
-  res.status(400).send(err);
- })
+  Product.find({
+    productCategory: req.params.category
+  }).then((products) => {
+    res.send(products);
+  }, (err) => {
+    res.status(400).send(err);
+  })
 })
 
 router.get("/products/search", (req, res) => {
@@ -71,7 +77,30 @@ router.get("/products/search", (req, res) => {
   }, (err) => {
     res.status(400).send(err);
   });
-})
+});
+
+router.get('/category/products', async (req, res) => {
+  let categoryFound;
+  // request prod cat
+  categoryFound = await CategoryProduct.find({
+    url: req.query.url
+  });
+  // if not found request manufacture cat
+  if (categoryFound && categoryFound.length == 0) {
+    categoryFound = await CategoryManufacture.find({
+      url: req.query.url
+    });
+  }
+  // then try to get products with category
+  try {
+    let products = await Product.find({
+      categories: categoryFound[0]._id
+    });
+    res.send(products);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
 
 router.post("/products/upload-image", (req, res) => {
   let form = new formidable.IncomingForm();

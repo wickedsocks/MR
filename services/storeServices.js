@@ -53,5 +53,12 @@ export default {
         title
       }
     });
+  },
+  async getCategoryProducts(url) {
+    return await axios.get('/api/category/products', {
+      params: {
+        url
+      }
+    });
   }
 };
