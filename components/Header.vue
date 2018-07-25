@@ -6,9 +6,19 @@
       <div class="container-menu-desktop">
         <!-- Topbar (black bar in the top of page) -->
         <div class="top-bar">
+          <div class="container">
+            <div class="row justify-content-end login-wrapper align-items-center">
+              <div class="text-white">
+                <nuxt-link to="/">логин</nuxt-link>
+              </div>
+              <div class="text-white">
+                <nuxt-link to="/">регистрация</nuxt-link>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="wrap-menu-desktop" :class="{'fixed-top': scroll}">
+        <div class="wrap-menu-desktop" :class="{'shadow': scroll}">
           <nav class="limiter-menu-desktop container">
 
             <!-- Logo desktop -->
@@ -160,8 +170,16 @@ export default {
 a {
   color: inherit;
 }
-.fixed-top {
+.top-bar {
+  position: fixed;
   top: 0;
+  width: 100%;
+  z-index: 1;
+  & > .container {
+    height: 100%;
+  }
+}
+.shadow {
   box-shadow: 0 0px 3px 0px rgba(0, 0, 0, 0.2);
   background-color: #ffffff;
 }
@@ -185,6 +203,20 @@ label {
   .nuxt-link-exact-active {
     color: #ffffff;
     text-decoration: underline;
+  }
+}
+
+.login-wrapper {
+  margin: 0 15px;
+  height: 100%;
+  div {
+    a {
+      color: #ffffff;
+      text-transform: capitalize;
+    }
+    & + div {
+      margin-left: 20px;
+    }
   }
 }
 </style>
