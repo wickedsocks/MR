@@ -9,10 +9,10 @@
           <div class="container">
             <div class="row justify-content-end login-wrapper align-items-center">
               <div class="text-white">
-                <nuxt-link to="/">логин</nuxt-link>
+                <nuxt-link to="/login">логин</nuxt-link>
               </div>
               <div class="text-white">
-                <nuxt-link to="/">регистрация</nuxt-link>
+                <nuxt-link to="/registration">регистрация</nuxt-link>
               </div>
             </div>
           </div>
