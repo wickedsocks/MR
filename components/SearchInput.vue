@@ -1,7 +1,7 @@
 <template>
   <div class="position-relative flex-grow-1 ml-5 search-input-wrapper">
     <div class="icon-header-item cl2 hov-cl1 trans-04 pr-2 d-flex align-items-center">
-      <input type="text" id='search' ref='input' v-model="title" class="form-control" placeholder="Искать..." autocomplete="off">
+      <input type="text" :id='id' ref='input' v-model="title" class="form-control" placeholder="Искать..." autocomplete="off">
       <label for="search" class="input-group-btn pl-2 mb-0" ref="label">
         <i class="zmdi zmdi-search" ref="icon"></i>
       </label>
@@ -20,6 +20,7 @@ import StoreServices from "~/services/storeServices.js";
 import ProductItemForSearchDropdown from "~/components/ProductItemForSearchDropdown.vue";
 import _ from "lodash";
 export default {
+  props: ['id'],
   components: {
     ProductItemForSearchDropdown
   },

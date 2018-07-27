@@ -46,7 +46,7 @@
 
             <!-- Icon header -->
             <div class="wrap-icon-header flex-w flex-r-m">
-              <search-input/>
+              <search-input :id="'search2'" />
 
               <div class="icon-header-item cl2 hov-cl1 trans-04 pl-3 pr-2 js-show-cart" :class="{'icon-header-noti': bucketLength > 0}" :data-notify="bucketLength" @click="showSideBarBucket()">
                 <i class="zmdi zmdi-shopping-cart"></i>
@@ -69,7 +69,7 @@
         <div class="d-flex justify-content-center col-12 col-sm-8">
           <!-- Icon header -->
           <div class="wrap-icon-header d-flex align-items-center justify-content-end m-r-15">
-            <search-input/>
+            <search-input :id='"search1"' />
             <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" :class="{'icon-header-noti': bucketLength > 0}" :data-notify="bucketLength" @click="showSideBarBucket()">
               <i class="zmdi zmdi-shopping-cart"></i>
             </div>
