@@ -41,6 +41,15 @@ router.post('/users/login', async (req, res) => {
   } catch (e) {
     res.status(401).send(e);
   }
+});
+
+router.delete('/users/logout', authenticate, async (req, res) => { 
+ try {
+  await req.user.removeToken(req.token);
+  res.send();
+ } catch (e) {
+   res.status(400).send(e);
+ }
 })
 
 module.exports = router;
