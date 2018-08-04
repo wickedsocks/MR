@@ -16,6 +16,7 @@
 
 <script>
 import axios from "~/plugins/axios";
+import axiosService from "~/services/axiosService.js";
 export default {
   data() {
     return {
@@ -32,7 +33,8 @@ export default {
             email: this.email,
             password: this.password
           });
-          console.log("user saved ", user);
+          this.$store.commit('setUser', user);
+          axiosService.setDefaultHeader(user.headers['x-auth']);
         } catch (e) {
           console.log("error occures ", e);
         }

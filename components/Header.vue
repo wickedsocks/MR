@@ -9,7 +9,8 @@
           <div class="container">
             <div class="row justify-content-end login-wrapper align-items-center">
               <div class="text-white">
-                <nuxt-link to="/login">логин</nuxt-link>
+                <nuxt-link v-if="!currentUser" to="/login">Войти</nuxt-link>
+                <nuxt-link v-if="currentUser" @click.native="logout" to="/">Выйти</nuxt-link>
               </div>
               <div class="text-white">
                 <nuxt-link to="/registration">регистрация</nuxt-link>
@@ -121,6 +122,7 @@
 </template>
 
 <script>
+import axios from "~/plugins/axios";
 import { mapGetters } from "vuex";
 import SideBucketBar from "~/components/SideBucketBar.vue";
 import SearchInput from "~/components/SearchInput.vue";
@@ -130,7 +132,7 @@ export default {
     SideBucketBar,
     SearchInput
   },
-  computed: mapGetters(["bucketLength"]),
+  computed: mapGetters(["bucketLength", "currentUser"]),
   data() {
     return {
       scroll: false,
@@ -153,6 +155,15 @@ export default {
       this.$refs.mobileMenu.style.height = this.$refs.mobileMenu.style.height
         ? ""
         : this.$refs.mobileMenu.scrollHeight + "px";
+    },
+    async logout() {
+      try {
+        await axios.delete("/api/users/logout");
+        console.log("logged out");
+        this.$store.commit("removeUser");
+      } catch (e) {
+        console.log("error occurs ", e);
+      }
     }
   },
   mounted() {

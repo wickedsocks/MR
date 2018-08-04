@@ -5,7 +5,8 @@ export const state = () => ({
   bucket: [],
   products: [],
   categories: {},
-  orders: []
+  orders: [],
+  user: null
 });
 
 // Like a computed properties
@@ -34,6 +35,9 @@ export const getters = {
       })
       return findCategory;
     }
+  },
+  currentUser(state) {
+    return state.user;
   }
 }
 
@@ -87,6 +91,12 @@ export const mutations = {
         item.quantity = parseInt(payload.amount);
       }
     });
+  },
+  setUser(state, payload) {
+    state.user = payload;
+  },
+  removeUser(state) {
+    state.user = null;
   }
 };
 
