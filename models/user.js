@@ -19,6 +19,7 @@ let userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
     trim: true,
     minlength: 4,
     validate: {
@@ -79,14 +80,36 @@ userSchema.statics.findByToken = function (token) {
   });
 }
 
-userSchema.pre('save', function(next) {
+userSchema.statics.findByCredentials = async function (email, password) {
+  const user = this;
+
+  let foundUser = await user.findOne({
+    email
+  });
+  if (!foundUser) {
+    return Promise.reject();
+  }
+
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(password, foundUser.password, (err, res) => {
+      if (res) {
+        resolve(foundUser); 
+      } else {
+        reject();
+      }
+    });
+  })
+
+};
+
+userSchema.pre('save', function (next) {
   const user = this;
   if (user.isModified('password')) {
     bcrypt.genSalt(10, (err, salt) => {
-     bcrypt.hash(user.password, salt, (err, hash) => {
-      user.password = hash;
-      next();
-     });
+      bcrypt.hash(user.password, salt, (err, hash) => {
+        user.password = hash;
+        next();
+      });
     });
   } else {
     next();

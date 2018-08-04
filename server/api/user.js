@@ -1,7 +1,7 @@
+require('../../dbconfig/config');
 const {
   pick
 } = require('lodash');
-require('../../dbconfig/config');
 const {
   Router
 } = require('express');
@@ -11,6 +11,9 @@ const {
 const {
   authenticate
 } = require('./middleware/middleware.service');
+const {
+  compare
+} = require('bcryptjs');
 
 const router = Router();
 
@@ -28,5 +31,16 @@ router.post('/users', async (req, res) => {
 router.get('/users/me', authenticate, async (req, res) => {
   res.send(req.user);
 });
+
+router.post('/users/login', async (req, res) => {
+  let body = pick(req.body, ['email', 'password']);
+  try {
+    let user = await User.findByCredentials(body.email, body.password);
+    let token = await user.generateAuthToken();
+    res.header('x-auth', token).send(user);
+  } catch (e) {
+    res.status(401).send(e);
+  }
+})
 
 module.exports = router;
