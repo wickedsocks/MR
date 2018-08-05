@@ -52,9 +52,4 @@ router.delete('/users/logout', authenticate, async (req, res) => {
    res.status(400).send(e);
  }
 });
-
-router.get('/is-admin', authenticate, isAdmin, async (req, res) => {
-  res.send(req.user);
-});
-
 module.exports = router;
