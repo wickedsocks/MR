@@ -35,6 +35,7 @@ export default {
           });
           this.$store.commit('setUser', user);
           axiosService.setDefaultHeader(user.headers['x-auth']);
+          this.$router.push('/');
         } catch (e) {
           console.log("error occures ", e);
         }

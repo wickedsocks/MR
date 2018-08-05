@@ -41,7 +41,8 @@ let userSchema = new mongoose.Schema({
       type: String,
       required: true
     }
-  }]
+  }],
+  admin: Boolean
 });
 
 userSchema.methods.toJSON = function () {

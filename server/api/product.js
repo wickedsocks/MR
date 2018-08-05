@@ -9,6 +9,10 @@ const {
   CategoryProduct,
   CategoryManufacture
 } = require('../../models/category');
+const {
+  authenticate,
+  isAdmin
+} = require('./middleware/middleware.service');
 const formidable = require("formidable");
 
 const cloudinary = require("cloudinary");
@@ -21,7 +25,7 @@ cloudinary.config({
 
 const router = Router();
 
-router.post("/products", (req, res) => {
+router.post("/products", authenticate, isAdmin, (req, res) => {
   let newProduct = new Product({
     title: req.body.title,
     description: req.body.description,
@@ -102,7 +106,7 @@ router.get('/category/products', async (req, res) => {
   }
 });
 
-router.post("/products/upload-image", (req, res) => {
+router.post("/products/upload-image", authenticate, isAdmin, (req, res) => {
   let form = new formidable.IncomingForm();
   form.parse(req, function (err, fields, files) {
     if (err) {
@@ -111,7 +115,10 @@ router.post("/products/upload-image", (req, res) => {
     cloudinary.v2.uploader.upload(files.file.path, {
       public_id: fields.name
     }, function (err, result) {
-      res.status(400).send(result);
+      if (err) {
+        res.status(400).send(err);
+      }
+      res.send(result);
     });
   });
 });
