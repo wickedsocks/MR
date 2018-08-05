@@ -1,64 +1,60 @@
 <template>
-<form class="container" novalidate @submit.prevent="sendForm">
-  <section class="row">
-    <header class="col-12">
-      <h2>Создание нового товара</h2>
-    </header>  
-  </section>
-  <section class="row">
-    <div class="col-12 image-wrapper d-flex flex-wrap">
-      <label class="image-select-button" for="images">
-        <span class="choose-image">Выберите фотографию</span>
-        <input type="file" id="images" name='images' v-validate:images="'required'" @change="getFileData($event, images)" multiple accept="image/*">
-      </label>
-      <div class="image-preview d-flex justify-content-center" v-if="images && images.length > 0" v-for="(image, index) in images" :key="index" @click="removeImage(index, images)">
-        <div class="close-main"></div>
+  <form class="container" novalidate @submit.prevent="sendForm">
+    <section class="row">
+      <header class="col-12">
+        <h2>Создание нового товара</h2>
+      </header>
+    </section>
+    <section class="row">
+      <div class="col-12 image-wrapper d-flex flex-wrap">
+        <label class="image-select-button" for="images">
+          <span class="choose-image">Выберите фотографию</span>
+          <input type="file" id="images" name='images' v-validate:images="'required'" @change="getFileData($event, images)" multiple accept="image/*">
+        </label>
+        <div class="image-preview d-flex justify-content-center" v-if="images && images.length > 0" v-for="(image, index) in images" :key="index" @click="removeImage(index, images)">
+          <div class="close-main"></div>
           <img :src="image.url">
+        </div>
+        <span class="error-default" v-show="errors.has('images')"> {{errors.first('images')}} </span>
       </div>
-      <span class="error-default" v-show="errors.has('images')"> {{errors.first('images')}} </span>
-    </div>
-  </section>
-  <section class="row">
-    <div class="col-12 d-flex flex-wrap">
-      <input class="form-control col-8" v-model="requestData.title" type="text" v-validate="'required|min:10'" name='title' placeholder="Имя и краткое описание товара">
-      <span class="error-default" v-show="errors.has('title')"> {{errors.first('title')}} </span>
-    </div>
-  </section>
-  <section class="row">
-    <div class="col-12 d-flex justify-content-center flex-wrap">
-      <textarea class="form-control"
-        v-model="requestData.description"
-        cols="30" rows="10" placeholder="Подробное описание, добавить пример извне"
-        name="description"
-        v-validate="'required|min:30'"></textarea>
-      <span class="error-default" v-show="errors.has('description')"> {{errors.first('description')}} </span>
-    </div>
-  </section>
-  <section class="row size-option">
-    <div class="col-xs-12 col-sm-12 col-md-4 d-flex align-items-center flex-wrap">
-      <input type="number" v-model="requestData.width" name="width" class="form-control col-6" placeholder="Укажите ширину" v-validate="'required'">
-      <span class="col-6">Ширина в см</span>
-      <span class="error-default" v-show="errors.has('width')"> {{errors.first('width')}} </span>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 d-flex align-items-center flex-wrap">
-      <input type="number" name="height" v-model="requestData.height" class="form-control col-6" placeholder="Укажите высоту" v-validate="'required'">
-      <span class="col-6">Высота в см</span>
-      <span class="error-default" v-show="errors.has('height')"> {{errors.first('height')}} </span>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 d-flex align-items-center flex-wrap">
-      <input type="number" name="price" v-model="requestData.price" class="form-control col-6" placeholder="Укажите цену" v-validate="'required'">
-      <span class="col-6">Грн</span>
-      <span class="error-default" v-show="errors.has('price')"> {{errors.first('price')}} </span>
-    </div>
-  </section>
-  <section class="row">
-    <div class="col-xs-12 col-sm-12 col-md-4 d-flex align-items-center flex-wrap">
-      <input type="text" name="color" v-model="requestData.color" class="form-control col-6" placeholder="Укажите цвет" v-validate="'required'">
-      <span class="col-6">Цвет изделия</span>
-      <span class="error-default" v-show="errors.has('color')"> {{errors.first('color')}} </span>
-    </div>
-  </section>
-  <section>
+    </section>
+    <section class="row">
+      <div class="col-12 d-flex flex-wrap">
+        <input class="form-control col-8" v-model="requestData.title" type="text" v-validate="'required|min:10'" name='title' placeholder="Имя и краткое описание товара">
+        <span class="error-default" v-show="errors.has('title')"> {{errors.first('title')}} </span>
+      </div>
+    </section>
+    <section class="row">
+      <div class="col-12 d-flex justify-content-center flex-wrap">
+        <textarea class="form-control" v-model="requestData.description" cols="30" rows="10" placeholder="Подробное описание, добавить пример извне" name="description" v-validate="'required|min:30'"></textarea>
+        <span class="error-default" v-show="errors.has('description')"> {{errors.first('description')}} </span>
+      </div>
+    </section>
+    <section class="row size-option">
+      <div class="col-xs-12 col-sm-12 col-md-4 d-flex align-items-center flex-wrap">
+        <input type="number" v-model="requestData.width" name="width" class="form-control col-6" placeholder="Укажите ширину" v-validate="'required'">
+        <span class="col-6">Ширина в см</span>
+        <span class="error-default" v-show="errors.has('width')"> {{errors.first('width')}} </span>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 d-flex align-items-center flex-wrap">
+        <input type="number" name="height" v-model="requestData.height" class="form-control col-6" placeholder="Укажите высоту" v-validate="'required'">
+        <span class="col-6">Высота в см</span>
+        <span class="error-default" v-show="errors.has('height')"> {{errors.first('height')}} </span>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 d-flex align-items-center flex-wrap">
+        <input type="number" name="price" v-model="requestData.price" class="form-control col-6" placeholder="Укажите цену" v-validate="'required'">
+        <span class="col-6">Грн</span>
+        <span class="error-default" v-show="errors.has('price')"> {{errors.first('price')}} </span>
+      </div>
+    </section>
+    <section class="row">
+      <div class="col-xs-12 col-sm-12 col-md-4 d-flex align-items-center flex-wrap">
+        <input type="text" name="color" v-model="requestData.color" class="form-control col-6" placeholder="Укажите цвет" v-validate="'required'">
+        <span class="col-6">Цвет изделия</span>
+        <span class="error-default" v-show="errors.has('color')"> {{errors.first('color')}} </span>
+      </div>
+    </section>
+    <section>
       <select class="custom-select" name="product" v-model="requestData.selectedCategories.product" v-validate="'required'">
         <option value="" disabled>Категория товара</option>
         <option :value="prodCat._id" v-for="prodCat in productCategory" :key="prodCat._id">
@@ -66,26 +62,26 @@
         </option>
       </select>
       <span class="error-default" v-show="errors.has('product')"> {{errors.first('product')}} </span>
-  </section>
-  <section> 
-    <select class="custom-select" name="manufacture" v-model="requestData.selectedCategories.manufacture" v-validate="'required'">
-      <option value="" disabled>Производственная категория</option>
-      <option :value="manufactureCat._id" v-for="manufactureCat in manufactureCategory" :key="manufactureCat._id">
-        {{manufactureCat.name}}
-      </option>
-    </select>
-    <span class="error-default" v-show="errors.has('manufacture')"> {{errors.first('manufacture')}} </span>
-  </section>
-  <button type="submit" class="btn btn-success">Добавить товар</button>
-  <div v-show="showLoader" class="loader-wrapper">
-    <div class="loader"></div>
-  </div>
-  <div v-show="showSuccessMessage" class="success-message-wrapper">
-    <div class="success-message">
-      Товар успешно сохранен
+    </section>
+    <section>
+      <select class="custom-select" name="manufacture" v-model="requestData.selectedCategories.manufacture" v-validate="'required'">
+        <option value="" disabled>Производственная категория</option>
+        <option :value="manufactureCat._id" v-for="manufactureCat in manufactureCategory" :key="manufactureCat._id">
+          {{manufactureCat.name}}
+        </option>
+      </select>
+      <span class="error-default" v-show="errors.has('manufacture')"> {{errors.first('manufacture')}} </span>
+    </section>
+    <button type="submit" class="btn btn-success">Добавить товар</button>
+    <div v-show="showLoader" class="loader-wrapper">
+      <div class="loader"></div>
     </div>
-  </div>
-</form>
+    <div v-show="showSuccessMessage" class="success-message-wrapper">
+      <div class="success-message">
+        Товар успешно сохранен
+      </div>
+    </div>
+  </form>
 </template>
 
 <script>
@@ -111,7 +107,7 @@ export default {
         width: null,
         height: null,
         price: null,
-        color: '',
+        color: "",
         imagesUrlsArray: [],
         selectedCategories: {
           product: "",
@@ -120,6 +116,11 @@ export default {
       }
     };
   },
+  fetch({ store, redirect }) {
+    if (!store.state.user || !store.state.user.data.admin) {
+      redirect("/");
+    }
+  },
   methods: {
     async sendForm() {
       try {
@@ -127,11 +128,11 @@ export default {
         if (valid) {
           this.showLoader = true;
           let imagesUploaded = await this.uploadImagesToServer(this.images);
-          imagesUploaded.forEach((img) => {
+          imagesUploaded.forEach(img => {
             this.requestData.imagesUrlsArray.push(img.data.url);
           });
           let response = await this.serverRequestUploadData();
-          this.$store.commit('addProduct',response.data);
+          this.$store.commit("addProduct", response.data);
           setTimeout(() => {
             this.showSuccessMessage = false;
           }, 2000);
@@ -172,7 +173,7 @@ export default {
     uploadImagesToServer(images) {
       var promiseArray = [];
       if (images && images.length > 0) {
-        images.forEach((item) => {
+        images.forEach(item => {
           let form = new FormData();
           form.append("file", item.file);
           promiseArray.push(axios.post("/api/products/upload-image", form));
@@ -198,7 +199,7 @@ export default {
     // remove fire from array
     removeImage(index, arr) {
       // clearing input value available readding same image
-      document.getElementById('images').value = '';
+      document.getElementById("images").value = "";
       arr.splice(index, 1);
     },
     // Renew data after success upload

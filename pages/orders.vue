@@ -40,6 +40,11 @@ export default {
         return { customer, products };
       });
     }
+  },
+  fetch({ store, redirect }) {
+    if (!store.state.user || !store.state.user.data.admin) {
+      redirect("/");
+    }
   }
 };
 </script>

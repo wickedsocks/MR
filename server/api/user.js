@@ -9,7 +9,8 @@ const {
   User
 } = require('../../models/user');
 const {
-  authenticate
+  authenticate,
+  isAdmin
 } = require('./middleware/middleware.service');
 const {
   compare
@@ -50,6 +51,10 @@ router.delete('/users/logout', authenticate, async (req, res) => {
  } catch (e) {
    res.status(400).send(e);
  }
-})
+});
+
+router.get('/is-admin', authenticate, isAdmin, async (req, res) => {
+  res.send(req.user);
+});
 
 module.exports = router;
