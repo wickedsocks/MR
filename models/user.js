@@ -9,6 +9,8 @@ const {
 } = require('lodash');
 const bcrypt = require('bcryptjs');
 
+const tokenSecret = process.env.TOKEN_SECRET;
+
 
 let userSchema = new mongoose.Schema({
   name: {
@@ -56,7 +58,7 @@ userSchema.methods.generateAuthToken = function (params) {
   let token = sign({
     id: user._id.toHexString(),
     access
-  }, 'abc123').toString();
+  }, tokenSecret).toString();
   user.tokens = user.tokens.concat([{
     token,
     access
@@ -70,7 +72,7 @@ userSchema.statics.findByToken = function (token) {
   let decoded;
 
   try {
-    decoded = verify(token, 'abc123');
+    decoded = verify(token, tokenSecret);
   } catch (e) {
     return Promise.reject();
   }
