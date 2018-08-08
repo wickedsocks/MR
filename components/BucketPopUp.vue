@@ -230,9 +230,15 @@ button {
 
 // --------------------------------- new styles
 .main-img-wrapper {
+  height: 100%;
+  display: flex;
+  width: 100%;
+  max-height: 400px;
+  align-items: center;
   img {
-    height: auto;
-    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
   }
 }
 
@@ -310,6 +316,7 @@ button {
   height: 40px;
   width: 40px;
   font-size: 25px;
+  box-shadow: 0 0 3px black;
   transition: all 0.3s ease-in-out;
   &:hover {
     color: #ffffff;
