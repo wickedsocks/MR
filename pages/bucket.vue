@@ -1,127 +1,129 @@
 <template>
-  <form novalidate @submit.prevent="makeOrder">
+  <div>
     <div v-if="bucket.length == 0">
-      <h4>Ваш заказ не содержит товаров</h4>
+      <h4 class="no-orders">Ваш заказ не содержит товаров</h4>
     </div>
-    <div class="container" v-if="bucket.length > 0">
-      <div class="row">
-        <div class="col-12 col-lg-8">
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Название</th>
-                  <th scope="col">Цена</th>
-                  <th scope="col">Количество</th>
-                  <th scope="col">Всего</th>
-                  <th scope="col">Удалить</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="vertical-align-child-center" v-for="(item, index) in bucket" :key="index">
-                  <th scope="row">
-                    <nuxt-link :to="'/product/'+ item.product._id" class="purple-hover">
-                      <div class="d-flex align-items-center justify-content-center">
-                        <img :src="item.product.images[0]" class="product-image pr-2" :alt="item.product.title">{{item.product.title}}</div>
-                    </nuxt-link>
-                  </th>
-                  <td>{{item.product.price}} грн</td>
-                  <td>
-                    <div class="wrap-num-product my-1 flex-nowrap d-flex">
-                      <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m" @click="decrease(item)">
-                        <i class="fs-16 zmdi zmdi-minus"></i>
+    <form novalidate @submit.prevent="makeOrder">
+      <div class="container" v-if="bucket.length > 0">
+        <div class="row">
+          <div class="col-12 col-lg-8">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Название</th>
+                    <th scope="col">Цена</th>
+                    <th scope="col">Количество</th>
+                    <th scope="col">Всего</th>
+                    <th scope="col">Удалить</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="vertical-align-child-center" v-for="(item, index) in bucket" :key="index">
+                    <th scope="row">
+                      <nuxt-link :to="'/product/'+ item.product._id" class="purple-hover">
+                        <div class="d-flex align-items-center justify-content-center">
+                          <img :src="item.product.images[0]" class="product-image pr-2" :alt="item.product.title">{{item.product.title}}</div>
+                      </nuxt-link>
+                    </th>
+                    <td>{{item.product.price}} грн</td>
+                    <td>
+                      <div class="wrap-num-product my-1 flex-nowrap d-flex">
+                        <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m" @click="decrease(item)">
+                          <i class="fs-16 zmdi zmdi-minus"></i>
+                        </div>
+
+                        <input class="mtext-104 cl3 txt-center num-product" :value="item.quantity" type="number" name="num-product" @input="onInput($event, item)">
+
+                        <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m" @click="increase(item)">
+                          <i class="fs-16 zmdi zmdi-plus"></i>
+                        </div>
                       </div>
-
-                      <input class="mtext-104 cl3 txt-center num-product" :value="item.quantity" type="number" name="num-product" @input="onInput($event, item)">
-
-                      <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m" @click="increase(item)">
-                        <i class="fs-16 zmdi zmdi-plus"></i>
-                      </div>
-                    </div>
-                  </td>
-                  <td>{{item.product.price * item.quantity}} грн</td>
-                  <td @click="removeItemFromBucket(index)" class="pointer delete-button purple-hover">Удалить</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="col-12 col-lg-4">
-          <div class="main-border p-4">
-            <h4 class="mtext-109 font-weight-bold">
-              Всего
-            </h4>
-
-            <div class="flex-w flex-t bor12 p-b-13">
-              <div class="size-208">
-                <span class="stext-110 cl2">
-                  Итого:
-                </span>
-              </div>
-
-              <div class="size-209">
-                <span class="mtext-110 cl2">
-                  {{totalBucketPrice}} грн
-                </span>
-              </div>
+                    </td>
+                    <td>{{item.product.price * item.quantity}} грн</td>
+                    <td @click="removeItemFromBucket(index)" class="pointer delete-button purple-hover">Удалить</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
+          </div>
+          <div class="col-12 col-lg-4">
+            <div class="main-border p-4">
+              <h4 class="mtext-109 font-weight-bold">
+                Всего
+              </h4>
 
-            <div class="flex-w flex-t bor12 p-t-15">
-
-              <div class="p-r-0-sm w-full-ssm">
-                <!-- TODO: place for message maybe for delivery options -->
-                <!-- <p class="stext-111 cl6 p-t-2"> -->
-                <!-- При заказе от такой то суммы доставка бесплатная Самовывоз оттуда Дни доставки такие то -->
-                <!-- </p> -->
-
-                <div class="p-t-15">
-                  <span class="stext-112 cl8">
-                    Оформить заказ
+              <div class="flex-w flex-t bor12 p-b-13">
+                <div class="size-208">
+                  <span class="stext-110 cl2">
+                    Итого:
                   </span>
+                </div>
 
-                  <div class="bg0 m-b-12">
-                    <input class="stext-111 bor8 cl8 plh3 size-111 p-lr-15" type="text" v-validate:name="'required'" name="name" placeholder="Введите имя и фамилию" v-model="name">
-                    <span class="error-default" v-show="errors.has('name')"> {{errors.first('name')}} </span>
-                  </div>
+                <div class="size-209">
+                  <span class="mtext-110 cl2">
+                    {{totalBucketPrice}} грн
+                  </span>
+                </div>
+              </div>
 
-                  <div class=" bg0 m-b-22">
-                    <input class="stext-111 bor8 cl8 plh3 size-111 p-lr-15" type="text" name="email" v-validate:email="'required|email'" placeholder="Введите эл. почту" v-model="email">
-                    <span class="error-default" v-show="errors.has('email')"> {{errors.first('email')}} </span>
-                  </div>
+              <div class="flex-w flex-t bor12 p-t-15">
 
-                  <div class=" bg0 m-b-22">
-                    <input class="stext-111 bor8 cl8 plh3 size-111 p-lr-15" v-mask="'+(##)-###-###-##-##'" id="tel" type="tel" v-validate:tel="'required|phoneNumber'" name="tel" placeholder="Введите номер телефона" v-model="tel">
-                    <span class="error-default" v-show="errors.has('tel')"> {{errors.first('tel')}} </span>
-                  </div>
-                  <div class="form-input-wrapper mb-4">
-                    <textarea type="text" name="comment" placeholder="Добавьте пожелания к заказу, если таковые имеются" v-model="comment"></textarea>
+                <div class="p-r-0-sm w-full-ssm">
+                  <!-- TODO: place for message maybe for delivery options -->
+                  <!-- <p class="stext-111 cl6 p-t-2"> -->
+                  <!-- При заказе от такой то суммы доставка бесплатная Самовывоз оттуда Дни доставки такие то -->
+                  <!-- </p> -->
+
+                  <div class="p-t-15">
+                    <span class="stext-112 cl8">
+                      Оформить заказ
+                    </span>
+
+                    <div class="bg0 m-b-12">
+                      <input class="stext-111 bor8 cl8 plh3 size-111 p-lr-15" type="text" v-validate:name="'required'" name="name" placeholder="Введите имя и фамилию" v-model="name">
+                      <span class="error-default" v-show="errors.has('name')"> {{errors.first('name')}} </span>
+                    </div>
+
+                    <div class=" bg0 m-b-22">
+                      <input class="stext-111 bor8 cl8 plh3 size-111 p-lr-15" type="text" name="email" v-validate:email="'required|email'" placeholder="Введите эл. почту" v-model="email">
+                      <span class="error-default" v-show="errors.has('email')"> {{errors.first('email')}} </span>
+                    </div>
+
+                    <div class=" bg0 m-b-22">
+                      <input class="stext-111 bor8 cl8 plh3 size-111 p-lr-15" v-mask="'+(##)-###-###-##-##'" id="tel" type="tel" v-validate:tel="'required|phoneNumber'" name="tel" placeholder="Введите номер телефона" v-model="tel">
+                      <span class="error-default" v-show="errors.has('tel')"> {{errors.first('tel')}} </span>
+                    </div>
+                    <div class="form-input-wrapper mb-4">
+                      <textarea type="text" name="comment" placeholder="Добавьте пожелания к заказу, если таковые имеются" v-model="comment"></textarea>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="flex-w flex-t p-t-27 p-b-33">
-              <div class="size-208">
-                <span class="mtext-101 cl2">
-                  Итого:
-                </span>
+              <div class="flex-w flex-t p-t-27 p-b-33">
+                <div class="size-208">
+                  <span class="mtext-101 cl2">
+                    Итого:
+                  </span>
+                </div>
+
+                <div class="size-209 p-t-1">
+                  <span class="mtext-110 cl2">
+                    {{totalBucketPrice}} грн
+                  </span>
+                </div>
               </div>
 
-              <div class="size-209 p-t-1">
-                <span class="mtext-110 cl2">
-                  {{totalBucketPrice}} грн
-                </span>
-              </div>
+              <button type="submit" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer my-btn">
+                Оформить заказ
+              </button>
             </div>
-
-            <button type="submit" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer my-btn">
-              Оформить заказ
-            </button>
           </div>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </template>
 <script>
 import axios from "~/plugins/axios";
@@ -253,41 +255,10 @@ tr {
     }
   }
 }
+.no-orders {
+  height: 150px;
+  align-items: center;
+  text-align: center;
+  line-height: 150px;
+}
 </style>
-
-<section class="container">
-    <div class="row">
-      <h3 class="col-12">Корзина</h3>
-    </div>
-    <div class="row">
-      <h5 class="col-12">Заказ</h5>
-      <div class="col-12">
-        <div class="product-item" @click="removeItemFromBucket(index)" v-for="(item, index) in bucket" :key="index">
-          <img :src="item.product.images[0]" :alt="item.product.title"> {{item.product.title}}
-          <span> {{item.quantity}}</span>
-          <div class="close-main"></div>
-        </div>
-        <h5> Сумма к оплате: {{totalBucketPrice}} грн </h5>
-      </div>
-    </div>
-    <form class="row" novalidate @submit.prevent="makeOrder">
-      <div class="col-12 form-input-wrapper">
-        <input class="form-control" type="text" v-validate:name="'required'" name="name" placeholder="Введите имя и фамилию" v-model="name">
-        <span class="error-default" v-show="errors.has('name')"> {{errors.first('name')}} </span>
-      </div>
-      <div class="col-12 form-input-wrapper">
-        <input class="form-control" type="text" name="email" v-validate:email="'required|email'" placeholder="Введите эл. почту" v-model="email">
-        <span class="error-default" v-show="errors.has('email')"> {{errors.first('email')}} </span>
-      </div>
-      <div class="col-12 form-input-wrapper">
-        <input class="form-control" v-mask="'+(##)-###-###-##-##'" id="tel" type="tel" v-validate:tel="'required|phoneNumber'" name="tel" placeholder="Введите номер телефона" v-model="tel">
-        <span class="error-default" v-show="errors.has('tel')"> {{errors.first('tel')}} </span>
-      </div>
-      <div class="col-12 form-input-wrapper">
-        <textarea class="form-control" type="text" name="comment" placeholder="Добавьте пожелания к заказу, если таковые имеются" v-model="comment"></textarea>
-      </div>
-      <div class="col-12">
-        <button type="submit" class="btn btn-success">Заказать</button>
-      </div>
-    </form>
-  </section>
