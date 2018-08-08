@@ -1,6 +1,9 @@
 <template>
   <form novalidate @submit.prevent="makeOrder">
-    <div class="container">
+    <div v-if="bucket.length == 0">
+      <h4>Ваш заказ не содержит товаров</h4>
+    </div>
+    <div class="container" v-if="bucket.length > 0">
       <div class="row">
         <div class="col-12 col-lg-8">
           <div class="table-responsive">
@@ -68,7 +71,7 @@
               <div class="p-r-0-sm w-full-ssm">
                 <!-- TODO: place for message maybe for delivery options -->
                 <!-- <p class="stext-111 cl6 p-t-2"> -->
-                  <!-- При заказе от такой то суммы доставка бесплатная Самовывоз оттуда Дни доставки такие то -->
+                <!-- При заказе от такой то суммы доставка бесплатная Самовывоз оттуда Дни доставки такие то -->
                 <!-- </p> -->
 
                 <div class="p-t-15">
