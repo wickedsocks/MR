@@ -58,17 +58,6 @@ router.get("/products", (req, res) => {
   );
 });
 
-router.get('/products/:category', (req, res) => {
-  console.log('req ', req.params.category);
-  Product.find({
-    productCategory: req.params.category
-  }).then((products) => {
-    res.send(products);
-  }, (err) => {
-    res.status(400).send(err);
-  })
-})
-
 router.get("/products/search", (req, res) => {
   Product.find({
     title: {
@@ -121,6 +110,17 @@ router.post("/products/upload-image", authenticate, isAdmin, (req, res) => {
       res.send(result);
     });
   });
+});
+
+router.get('/products/:category', (req, res) => {
+  console.log('category r ', req.query.title);
+  Product.find({
+    productCategory: req.params.category
+  }).then((products) => {
+    res.send(products);
+  }, (err) => {
+    res.status(400).send(err);
+  })
 });
 
 module.exports = router;
