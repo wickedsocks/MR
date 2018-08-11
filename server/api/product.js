@@ -32,6 +32,7 @@ router.post("/products", authenticate, isAdmin, (req, res) => {
     images: req.body.images,
     color: req.body.color,
     width: req.body.width,
+    categories: [req.body.productCategory, req.body.manufactureCategory],
     height: req.body.height,
     productCategory: req.body.productCategory,
     manufactureCategory: req.body.manufactureCategory,
