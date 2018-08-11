@@ -73,6 +73,7 @@ router.get("/products/search", (req, res) => {
 });
 
 router.get('/category/products', async (req, res) => {
+  // FIXME: rewrite to find category in category array
   let categoryFound;
   // request prod cat
   categoryFound = await CategoryProduct.find({
@@ -111,16 +112,4 @@ router.post("/products/upload-image", authenticate, isAdmin, (req, res) => {
     });
   });
 });
-
-router.get('/products/:category', (req, res) => {
-  console.log('category r ', req.query.title);
-  Product.find({
-    productCategory: req.params.category
-  }).then((products) => {
-    res.send(products);
-  }, (err) => {
-    res.status(400).send(err);
-  })
-});
-
 module.exports = router;

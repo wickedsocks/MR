@@ -35,7 +35,6 @@ export default {
       StoreServices.searchProductsByTitle(this.title).then(
         success => {
           this.products = success.data;
-          console.log("success ", success.data);
         },
         err => {
           console.log("err ", err);

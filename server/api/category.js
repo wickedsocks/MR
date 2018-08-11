@@ -31,19 +31,8 @@ router.post("/categories/manufacture", (req, res) => {
 });
 
 router.get("/categories/manufacture", (req, res) => {
-  // let primiseArray = [];
   CategoryManufacture.find({}).then(
     (categories) => {
-      // categories.forEach((item) => {
-      //   primiseArray.push(CategoryManufacture.updateMany({
-      //     name: item.name
-      //   }, {
-      //     url: CategoryManufacture.categoryURLNaming(item.name)
-      //   }));
-      // });
-      // Promise.all(primiseArray).then(() => {
-      //   res.send(categories);
-      // });
       res.send(categories);
     },
     (err) => {
@@ -70,19 +59,7 @@ router.post("/categories/product", (req, res) => {
 });
 
 router.get("/categories/product", (req, res) => {
-  // let categoriesArray = [];
   CategoryProduct.find({}).then((categories) => {
-    // categories.forEach((item) => {
-    //   categoriesArray.push(CategoryProduct.updateMany({
-    //     name: item.name
-    //   }, {
-    //     url: CategoryProduct.categoryURLNaming(item.name),
-    //     description: item.name
-    //   }));
-    // });
-    // Promise.all(categoriesArray).then(() => {
-    //   res.send(categories);
-    // });
     res.send(categories);
   }, (err) => {
     res.status(400).send(err);
