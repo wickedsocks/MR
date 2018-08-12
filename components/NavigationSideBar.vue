@@ -5,7 +5,7 @@
         Категории
       </h4>
       <ul>
-        <li v-for="(cat, index) in allCategories" :key="index">
+        <li v-for="(cat, index) in allCategories" :key="index" v-if="cat.used">
           <nuxt-link :to="'/categories/' + cat.url" class="dis-block category-link cl6 hov-cl1 trans-04 p-tb-8 p-lr-4"
            :class="{'active-category': lowerCase(activeCat) == lowerCase(cat.name)}">
             {{cat.name}}
@@ -27,7 +27,7 @@
             </div>
 
             <ul>
-              <li class="p-b-6" v-for="(cat, index) in allCategories" :key="index">
+              <li class="p-b-6" v-for="(cat, index) in allCategories" :key="index" v-if="cat.used">
                 <nuxt-link @click.native="toggleFilters()" :to="'/categories/' + cat.url" class="filter-link stext-106 trans-04 active-category"
                 :class="{'active-category': lowerCase(activeCat) == lowerCase(cat.name)}">
                   {{ cat.name }}
