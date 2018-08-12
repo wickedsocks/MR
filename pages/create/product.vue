@@ -86,6 +86,7 @@
 
 <script>
 import axios from "~/plugins/axios";
+import storeService from "~/services/storeServices";
 
 export default {
   computed: {
@@ -142,6 +143,8 @@ export default {
           this.showSuccessMessage = true;
           this.showLoader = false;
           this.clearAndSetInitValues();
+          let categories = await storeService.getCategories();
+          this.$store.commit('setCategories', categories);
         } else {
           console.log("this.$validator.error ", this.$validator.errors.items);
           let firstError = this.$validator.errors.items[0].field;
