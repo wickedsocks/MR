@@ -16,7 +16,8 @@ router.post("/categories/manufacture", (req, res) => {
     let newCategory = new CategoryManufacture({
       description: req.body.description,
       name: trimmedName,
-      url: CategoryManufacture.categoryURLNaming(trimmedName)
+      url: CategoryManufacture.categoryURLNaming(trimmedName),
+      used: false
     });
 
     newCategory.save().then(
@@ -46,7 +47,8 @@ router.post("/categories/product", (req, res) => {
   let newProductCategory = new CategoryProduct({
     description: req.body.description,
     name: trimmedName,
-    url: CategoryProduct.categoryURLNaming(trimmedName)
+    url: CategoryProduct.categoryURLNaming(trimmedName),
+    used: false
   });
   newProductCategory.save().then(
     (success) => {
