@@ -1,4 +1,6 @@
-require("../dbconfig/config");
+if (process.env.NODE_ENV == 'development') {
+  require("../dbconfig/config"); 
+}
 require("../db/mongoose");
 const { CategoryProduct, CategoryManufacture } = require("../models/category");
 const { Product } = require("../models/product");
