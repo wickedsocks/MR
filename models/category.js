@@ -14,6 +14,9 @@ let categoryShema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true
+  },
+  used: {
+    type: Boolean
   }
 });
 
