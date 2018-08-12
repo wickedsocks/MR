@@ -17,7 +17,8 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "heroku-postbuild": "npm run build",
     "update-categories": "node scripts/update-categories.js",
-    "deploy": "now -e API_KEY_CLOUDINARY=@api_key_cloudinary -e API_SECRET_CLOUDINARY=@api_secret_cloudinary -e CLOUD_NAME_CLOUDINARY=@cloud_name_cloudinary -e MAILGUN_API_KEY=@mailgun_api_key -e MAILGUN_DOMAIN=@mailgun_domain -e NODE_ENV=@node_env -e NPM_CONFIG_PRODUCTION=@npm_config_production -e TOKEN_SECRET=@token_secret -e MONGODB_URI=@mongodb_uri"
+    "deploy": "now -e API_KEY_CLOUDINARY=@api_key_cloudinary -e API_SECRET_CLOUDINARY=@api_secret_cloudinary -e CLOUD_NAME_CLOUDINARY=@cloud_name_cloudinary -e MAILGUN_API_KEY=@mailgun_api_key -e MAILGUN_DOMAIN=@mailgun_domain -e NODE_ENV=@node_env -e NPM_CONFIG_PRODUCTION=@npm_config_production -e TOKEN_SECRET=@token_secret -e MONGODB_URI=@mongodb_uri",
+    "alias": "node scripts/alias.js"
   },
   "dependencies": {
     "axios": "^0.16.2",
