@@ -1,18 +1,11 @@
-require('../../dbconfig/config');
-const {
-  Router
-} = require('express');
-const {
-  Product
-} = require("../../models/product");
+require("../../dbconfig/config");
+const { Router } = require("express");
+const { Product } = require("../../models/product");
 const {
   CategoryProduct,
   CategoryManufacture
-} = require('../../models/category');
-const {
-  authenticate,
-  isAdmin
-} = require('./middleware/middleware.service');
+} = require("../../models/category");
+const { authenticate, isAdmin } = require("./middleware/middleware.service");
 const formidable = require("formidable");
 
 const cloudinary = require("cloudinary");
@@ -26,6 +19,7 @@ cloudinary.config({
 const router = Router();
 
 router.post("/products", authenticate, isAdmin, (req, res) => {
+  let promiseCategories = [];
   let newProduct = new Product({
     title: req.body.title,
     description: req.body.description,
@@ -38,11 +32,28 @@ router.post("/products", authenticate, isAdmin, (req, res) => {
     manufactureCategory: req.body.manufactureCategory,
     price: req.body.price
   });
-  newProduct.save().then(
-    (success) => {
-      res.send(success);
+  promiseCategories.push(
+    CategoryManufacture.findByIdAndUpdate(req.body.manufactureCategory, {
+      $set: { used: true }
+    })
+  );
+  promiseCategories.push(
+    CategoryProduct.findByIdAndUpdate(req.body.productCategory, {
+      $set: { used: true }
+    })
+  );
+  Promise.all(promiseCategories).then(
+    () => {
+      newProduct.save().then(
+        success => {
+          res.send(success);
+        },
+        err => {
+          res.status(400).send(err);
+        }
+      );
     },
-    (err) => {
+    err => {
       res.status(400).send(err);
     }
   );
@@ -50,10 +61,10 @@ router.post("/products", authenticate, isAdmin, (req, res) => {
 
 router.get("/products", (req, res) => {
   Product.find({}).then(
-    (products) => {
+    products => {
       res.send(products);
     },
-    (err) => {
+    err => {
       res.status(400).send(err);
     }
   );
@@ -63,17 +74,19 @@ router.get("/products/search", (req, res) => {
   Product.find({
     title: {
       $regex: `${req.query.title}.*`,
-      $options: 'i'
+      $options: "i"
     }
-  }).then((products) => {
-
-    res.send(products);
-  }, (err) => {
-    res.status(400).send(err);
-  });
+  }).then(
+    products => {
+      res.send(products);
+    },
+    err => {
+      res.status(400).send(err);
+    }
+  );
 });
 
-router.get('/category/products', async (req, res) => {
+router.get("/category/products", async (req, res) => {
   // FIXME: rewrite to find category in category array
   let categoryFound;
   // request prod cat
@@ -99,18 +112,22 @@ router.get('/category/products', async (req, res) => {
 
 router.post("/products/upload-image", authenticate, isAdmin, (req, res) => {
   let form = new formidable.IncomingForm();
-  form.parse(req, function (err, fields, files) {
+  form.parse(req, function(err, fields, files) {
     if (err) {
       res.status(400).send(err);
     }
-    cloudinary.v2.uploader.upload(files.file.path, {
-      public_id: fields.name
-    }, function (err, result) {
-      if (err) {
-        res.status(400).send(err);
+    cloudinary.v2.uploader.upload(
+      files.file.path,
+      {
+        public_id: fields.name
+      },
+      function(err, result) {
+        if (err) {
+          res.status(400).send(err);
+        }
+        res.send(result);
       }
-      res.send(result);
-    });
+    );
   });
 });
 module.exports = router;
