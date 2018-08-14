@@ -91,11 +91,11 @@
               <nuxt-link to="/">Главная</nuxt-link>
             </li>
             <li>
-              <nuxt-link to="/create/product">Создать товар</nuxt-link>
+              <nuxt-link to="/create/product" v-if="currentUser && currentUser.data.admin">Создать товар</nuxt-link>
             </li>
 
             <li>
-              <nuxt-link to="/orders">Заказы</nuxt-link>
+              <nuxt-link to="/orders" v-if="currentUser && currentUser.data.admin">Заказы</nuxt-link>
             </li>
           </ul>
         </div>
