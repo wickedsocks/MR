@@ -130,7 +130,8 @@ export default {
           this.showLoader = true;
           let imagesUploaded = await this.uploadImagesToServer(this.images);
           imagesUploaded.forEach(img => {
-            this.requestData.imagesUrlsArray.push(img.data.url);
+            // NOTE: replace http with https to save in DB for production
+            this.requestData.imagesUrlsArray.push(img.data.url.replace('http://', 'https://'));
           });
           let response = await this.serverRequestUploadData();
           this.$store.commit("addProduct", response.data);
