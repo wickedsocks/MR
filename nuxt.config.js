@@ -4,8 +4,17 @@ module.exports = {
    */
   head: {
     title: "MRVueJS",
-    meta: [{
+    meta: [
+      {
         charset: "utf-8"
+      },
+      {
+        name: "yandex-verification",
+        content: "dc57b376f54cc382"
+      },
+      {
+        name: "google-site-verification",
+        content: "exPk0XYDFqeyLfSc0sRP-g7OCCGARfltaMKeLHgrMyU"
       },
       {
         name: "viewport",
