@@ -23,9 +23,10 @@
           <nav class="limiter-menu-desktop container">
 
             <!-- Logo desktop -->
-            <nuxt-link to="/" class="logo">
-              <!-- <img src="img/icons/logo-01.png" alt="IMG-LOGO"> -->
-              Логотип
+            <nuxt-link to="/" class="logo-link">
+              <div class="logo-icon">
+                <span class="capital-letter">М</span><span class="logo-text">ихайловские ряды</span>
+              </div>
             </nuxt-link>
 
             <!-- Menu desktop -->
@@ -61,9 +62,10 @@
       <div class="wrap-header-mobile flex-wrap">
         <!-- Logo moblie -->
         <div class="logo-mobile">
-          <nuxt-link to='/'>
-            Логотип
-            <!-- <img src="img/icons/logo-01.png" alt="IMG-LOGO"> -->
+          <nuxt-link to='/' class="logo-link">
+            <div class="logo-icon">
+              <span class="capital-letter">М</span><span class="logo-text">ихайловские ряды</span>
+            </div>
           </nuxt-link>
         </div>
 
@@ -122,17 +124,17 @@
 </template>
 
 <script>
-import axios from "~/plugins/axios";
-import { mapGetters } from "vuex";
-import SideBucketBar from "~/components/SideBucketBar.vue";
-import SearchInput from "~/components/SearchInput.vue";
+import axios from '~/plugins/axios';
+import { mapGetters } from 'vuex';
+import SideBucketBar from '~/components/SideBucketBar.vue';
+import SearchInput from '~/components/SearchInput.vue';
 
 export default {
   components: {
     SideBucketBar,
     SearchInput
   },
-  computed: mapGetters(["bucketLength", "currentUser"]),
+  computed: mapGetters(['bucketLength', 'currentUser']),
   data() {
     return {
       scroll: false,
@@ -153,26 +155,26 @@ export default {
     showMobileMenu() {
       this.showMobile = !this.showMobile;
       this.$refs.mobileMenu.style.height = this.$refs.mobileMenu.style.height
-        ? ""
-        : this.$refs.mobileMenu.scrollHeight + "px";
+        ? ''
+        : this.$refs.mobileMenu.scrollHeight + 'px';
     },
     async logout() {
       try {
-        await axios.delete("/api/users/logout");
-        console.log("logged out");
-        this.$store.commit("removeUser");
+        await axios.delete('/api/users/logout');
+        console.log('logged out');
+        this.$store.commit('removeUser');
       } catch (e) {
-        console.log("error occurs ", e);
+        console.log('error occurs ', e);
       }
     }
   },
   mounted() {
     if (process.browser) {
-      document.addEventListener("scroll", this.scrollEvent);
+      document.addEventListener('scroll', this.scrollEvent);
     }
   },
   destroyed() {
-    document.removeEventListener("scroll", this.scrollEvent);
+    document.removeEventListener('scroll', this.scrollEvent);
   }
 };
 </script>
@@ -228,6 +230,33 @@ label {
     & + div {
       margin-left: 20px;
     }
+  }
+}
+
+.logo-link {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.logo-icon {
+  display: flex;
+  align-items: center;
+  color: #000;
+  font-weight: 500;
+  &:hover {
+    .capital-letter {
+      text-decoration: none;
+    }
+    .logo-text {
+      text-decoration: underline;
+    }
+  }
+  .capital-letter {
+    font-weight: bold;
+    font-size: 24px;
+    border: 2px solid #000;
+    padding: 3px 8px;
   }
 }
 </style>

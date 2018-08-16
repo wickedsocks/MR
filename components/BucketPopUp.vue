@@ -29,8 +29,8 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-lg-5 p-b-30">
-          <div class="p-r-50 p-t-5 p-lr-0-lg">
+        <div class="col-md-6 col-lg-5 p-b-30 overflow-hidden">
+          <div>
             <h4 class="p-b-14 product-title">
               {{product.title}}
             </h4>
@@ -349,6 +349,9 @@ button {
 }
 .container-margins {
   margin-top: 50px;
+}
+.overflow-hidden {
+  overflow: hidden;
 }
 // --------------------------------- new styles end
 </style>
