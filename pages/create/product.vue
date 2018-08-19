@@ -30,28 +30,44 @@
         <span class="error-default" v-show="errors.has('description')"> {{errors.first('description')}} </span>
       </div>
     </section>
-    <section class="row size-option">
-      <div class="col-xs-12 col-sm-12 col-md-4 d-flex align-items-center flex-wrap">
-        <input type="number" v-model="requestData.width" name="width" class="form-control col-6" placeholder="Укажите ширину" v-validate="'required'">
-        <span class="col-6">Ширина в см</span>
-        <span class="error-default" v-show="errors.has('width')"> {{errors.first('width')}} </span>
+    <section class="row size-option" v-for="(property, index) in requestData.productProperties" :key='index'>
+      <div class="col-xs-12 col-sm-12 col-md-6 d-flex align-items-center flex-wrap no-gutters">
+        <div class="col-xs-12 col-sm-12 d-flex align-items-center flex-wrap mb-1">
+          <input type="number" v-model="property.width" name="width" class="form-control col-6" placeholder="Укажите ширину" v-validate="'required'">
+          <span class="col-6">Ширина в см</span>
+          <span class="error-default" v-show="errors.has('width')"> {{errors.first('width')}} </span>
+        </div>
+        <div class="col-xs-12 col-sm-12 d-flex align-items-center flex-wrap mb-1">
+          <input type="number" name="height" v-model="property.height" class="form-control col-6" placeholder="Укажите высоту" v-validate="'required'">
+          <span class="col-6">Высота в см</span>
+          <span class="error-default" v-show="errors.has('height')"> {{errors.first('height')}} </span>
+        </div>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 d-flex align-items-center flex-wrap">
-        <input type="number" name="height" v-model="requestData.height" class="form-control col-6" placeholder="Укажите высоту" v-validate="'required'">
-        <span class="col-6">Высота в см</span>
-        <span class="error-default" v-show="errors.has('height')"> {{errors.first('height')}} </span>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 d-flex align-items-center flex-wrap">
-        <input type="number" name="price" v-model="requestData.price" class="form-control col-6" placeholder="Укажите цену" v-validate="'required'">
-        <span class="col-6">Грн</span>
-        <span class="error-default" v-show="errors.has('price')"> {{errors.first('price')}} </span>
+      <div class="col-xs-12 col-sm-12 col-md-6 d-flex align-items-center flex-wrap no-gutters">
+        <div class="col-xs-12 col-sm-12 d-flex align-items-center flex-wrap mb-1">
+          <input type="number" name="price" v-model="property.price" class="form-control col-6" placeholder="Укажите цену" v-validate="'required'">
+          <span class="col-6">Грн</span>
+          <span class="error-default" v-show="errors.has('price')"> {{errors.first('price')}} </span>
+        </div>
       </div>
     </section>
     <section class="row">
-      <div class="col-xs-12 col-sm-12 col-md-4 d-flex align-items-center flex-wrap">
-        <input type="text" name="color" v-model="requestData.color" class="form-control col-6" placeholder="Укажите цвет" v-validate="'required'">
-        <span class="col-6">Цвет изделия</span>
-        <span class="error-default" v-show="errors.has('color')"> {{errors.first('color')}} </span>
+      <div class="col-12">
+        <button type="button" class="btn btn-success mr-2" @click="addOneMoreProductProperty()">Добавить ещё размер и цену</button>
+        <button type="button" class="btn btn-danger" @click="removeOneMoreProductProperty()">Удалить последнюю запись из списка</button>
+      </div>
+    </section>
+    <section class="row">
+      <div class="col-xs-12 col-sm-12 d-flex align-items-center flex-wrap mb-1" v-for="(item, index) in requestData.colorArray" :key="index">
+          <input type="text" name="color" class="form-control col-6" v-model="requestData.colorArray[index]" placeholder="Укажите цвет" v-validate="'required'">
+          <span class="col-6">Цвет изделия</span>
+          <span class="error-default" v-show="errors.has('color')"> {{errors.first('color')}} </span>
+        </div>
+    </section>
+    <section class="row">
+      <div class="col-12">
+        <button type="button" class="btn btn-success mr-2" @click="addOneMoreColor()">Добавить ещё цвет</button>
+        <button type="button" class="btn btn-danger" @click="removeOneColor()">Удалить последний цвет</button>
       </div>
     </section>
     <section>
@@ -85,8 +101,8 @@
 </template>
 
 <script>
-import axios from "~/plugins/axios";
-import storeService from "~/services/storeServices";
+import axios from '~/plugins/axios';
+import storeService from '~/services/storeServices';
 
 export default {
   computed: {
@@ -103,26 +119,60 @@ export default {
       showSuccessMessage: false,
       images: [],
       requestData: {
-        title: "",
-        description: "",
-        width: null,
-        height: null,
-        price: null,
-        color: "",
+        title: '',
+        description: '',
+        productProperties: [
+          {
+            height: '',
+            width: '',
+            color: '',
+            price: ''
+          }
+        ],
+        colorArray: [
+          ''
+        ],
         imagesUrlsArray: [],
         selectedCategories: {
-          product: "",
-          manufacture: ""
+          product: '',
+          manufacture: ''
         }
       }
     };
   },
   fetch({ store, redirect }) {
     if (!store.state.user || !store.state.user.data.admin) {
-      redirect("/");
+      redirect('/');
     }
   },
   methods: {
+    addOneMoreProductProperty() {
+      this.requestData.productProperties.push({
+        height: '',
+        width: '',
+        color: '',
+        price: ''
+      });
+    },
+    removeOneMoreProductProperty() {
+      this.requestData.productProperties.length > 1
+        ? this.requestData.productProperties.splice(
+            this.requestData.productProperties.length - 1,
+            1
+          )
+        : this.requestData.productProperties;
+    },
+    addOneMoreColor() {
+      this.requestData.colorArray.push('');
+    },
+    removeOneColor() {
+      this.requestData.colorArray.length > 1
+        ? this.requestData.colorArray.splice(
+            this.requestData.colorArray.length - 1,
+            1
+          )
+        : this.requestData.colorArray;
+    },
     async sendForm() {
       try {
         let valid = await this.$validator.validateAll();
@@ -131,10 +181,12 @@ export default {
           let imagesUploaded = await this.uploadImagesToServer(this.images);
           imagesUploaded.forEach(img => {
             // NOTE: replace http with https to save in DB for production
-            this.requestData.imagesUrlsArray.push(img.data.url.replace('http://', 'https://'));
+            this.requestData.imagesUrlsArray.push(
+              img.data.url.replace('http://', 'https://')
+            );
           });
           let response = await this.serverRequestUploadData();
-          this.$store.commit("addProduct", response.data);
+          this.$store.commit('addProduct', response.data);
           setTimeout(() => {
             this.showSuccessMessage = false;
           }, 2000);
@@ -147,31 +199,26 @@ export default {
           let categories = await storeService.getCategories();
           this.$store.commit('setCategories', categories);
         } else {
-          console.log("this.$validator.error ", this.$validator.errors.items);
+          console.log('this.$validator.error ', this.$validator.errors.items);
           let firstError = this.$validator.errors.items[0].field;
           let el = document.querySelector(`[name=${firstError}]`);
-          console.log("el ", el);
+          console.log('el ', el);
           el.scrollIntoView({
-            behavior: "smooth",
-            block: "end"
+            behavior: 'smooth',
+            block: 'end'
           });
         }
       } catch (error) {
         this.showLoader = false;
-        console.log("error ", error);
+        console.log('error ', error);
       }
     },
     serverRequestUploadData() {
-      return axios.post("/api/products", {
+      return axios.post('/api/products', {
+        ...this.requestData,
         productCategory: this.requestData.selectedCategories.product,
         manufactureCategory: this.requestData.selectedCategories.manufacture,
-        images: this.requestData.imagesUrlsArray,
-        title: this.requestData.title,
-        description: this.requestData.description,
-        color: this.requestData.color,
-        height: this.requestData.height,
-        width: this.requestData.width,
-        price: this.requestData.price
+        images: this.requestData.imagesUrlsArray
       });
     },
     uploadImagesToServer(images) {
@@ -179,11 +226,11 @@ export default {
       if (images && images.length > 0) {
         images.forEach(item => {
           let form = new FormData();
-          form.append("file", item.file);
-          promiseArray.push(axios.post("/api/products/upload-image", form));
+          form.append('file', item.file);
+          promiseArray.push(axios.post('/api/products/upload-image', form));
         });
       } else {
-        promiseArray.push(Promise.reject("Images array empty"));
+        promiseArray.push(Promise.reject('Images array empty'));
       }
       return Promise.all(promiseArray);
     },
@@ -203,22 +250,30 @@ export default {
     // remove fire from array
     removeImage(index, arr) {
       // clearing input value available readding same image
-      document.getElementById("images").value = "";
+      document.getElementById('images').value = '';
       arr.splice(index, 1);
     },
     // Renew data after success upload
     clearAndSetInitValues() {
       this.images = [];
       this.requestData = {
-        title: "",
-        description: "",
-        width: null,
-        height: null,
-        price: null,
+        title: '',
+        description: '',
+        productProperties: [
+          {
+            height: '',
+            width: '',
+            color: '',
+            price: ''
+          }
+        ],
+        colorArray: [
+          ''
+        ],
         imagesUrlsArray: [],
         selectedCategories: {
-          product: "",
-          manufacture: ""
+          product: '',
+          manufacture: ''
         }
       };
     }
@@ -246,7 +301,7 @@ section {
   padding: 20px 60px;
   cursor: pointer;
   border: 4px dashed #1fb264;
-  background-image: url("~/assets/img/camera.png");
+  background-image: url('~/assets/img/camera.png');
   background-position: 50% 30%;
   background-size: 30px;
   background-repeat: no-repeat;
@@ -277,7 +332,7 @@ section {
   &:after {
     position: absolute;
     left: 6px;
-    content: " ";
+    content: ' ';
     height: 12px;
     width: 4px;
     top: 2px;

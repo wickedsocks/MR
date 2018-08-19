@@ -21,16 +21,14 @@ const router = Router();
 router.post("/products", authenticate, isAdmin, (req, res) => {
   let promiseCategories = [];
   let newProduct = new Product({
-    title: req.body.title,
+    color: req.body.colorArray.map(item => item.toLowerCase()),
+    productProperties: req.body.productProperties,
     description: req.body.description,
+    title: req.body.title,
     images: req.body.images,
-    color: req.body.color,
-    width: req.body.width,
     categories: [req.body.productCategory, req.body.manufactureCategory],
-    height: req.body.height,
     productCategory: req.body.productCategory,
     manufactureCategory: req.body.manufactureCategory,
-    price: req.body.price
   });
   promiseCategories.push(
     CategoryManufacture.findByIdAndUpdate(req.body.manufactureCategory, {

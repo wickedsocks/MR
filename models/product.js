@@ -14,14 +14,6 @@ let schema = new mongoose.Schema({
     type: String,
     required: true
   },
-  width: {
-    type: Number,
-    required: true
-  },
-  height: {
-    type: Number,
-    required: true
-  },
   productCategory: {
     type: String,
     required: true
@@ -30,23 +22,37 @@ let schema = new mongoose.Schema({
     type: String,
     required: true
   },
-  price: {
-    type: Number,
-    required: true
-  },
-  color: {
-    type: String,
-    required: true
-  },
+  color: [
+    {
+      type: String,
+      required: true
+    }
+  ],
+  productProperties: [
+    {
+      price: {
+        type: Number,
+        required: true
+      },
+      width: {
+        type: Number,
+        required: true
+      },
+      height: {
+        type: Number,
+        required: true
+      }
+    }
+  ],
   categories: {
     type: [String],
     required: true
   }
 });
-schema.index({title: 1});
+schema.index({ title: 1 });
 
-const Product = mongoose.model("Product", schema);
+const Product = mongoose.model('Product', schema);
 
 module.exports = {
   Product
-}
+};

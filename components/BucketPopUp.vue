@@ -47,58 +47,53 @@
               {{manufactureCategory}}, {{productCategory}}
             </p>
             <p class="product-description cl3">
-              Высота: {{product.height}}
+              Высота: {{product.productProperties[sizeIndex].height}}
             </p>
             <p class="product-description cl3">
-              Ширина: {{product.width}}
+              Ширина: {{product.productProperties[sizeIndex].width}}
             </p>
             <p class="product-description cl3">
-              Цвет: {{product.color}}
+              Цвет: {{product.productProperties[sizeIndex].color}}
             </p>
 
             <!--  -->
             <div class="p-t-33">
               <div class="flex-w flex-r-m p-b-10">
                 <div class="size-203 flex-c-m respon6">
-                  Size
+                  Размер {{sizeModel}}
                 </div>
 
                 <div class="size-204 respon6-next">
                   <div>
-                    <select class="custom-select pointer" name="time">
-                      <option>Choose an option</option>
-                      <option>Size S</option>
-                      <option>Size M</option>
-                      <option>Size L</option>
-                      <option>Size XL</option>
+                    <select class="custom-select pointer" name="size" @change='sizeSelectChange($event)'>
+                      <option :value="{height: item.height, width: item.width}" v-for="(item, index) in product.productProperties" :key="index">
+                        {{item.height}} x {{item.width}} см
+                      </option>
                     </select>
-                    <div class="dropDownSelect2"></div>
                   </div>
                 </div>
               </div>
 
               <div class="flex-w flex-r-m p-b-10">
                 <div class="size-203 flex-c-m respon6">
-                  Color
+                  Цвет
                 </div>
 
                 <div class="size-204 respon6-next">
                   <div>
-                    <select class="custom-select pointer" name="time">
-                      <option>Choose an option</option>
-                      <option>Red</option>
-                      <option>Blue</option>
-                      <option>White</option>
-                      <option>Grey</option>
-                    </select>
-                    <div class="dropDownSelect2"></div>
+                    <!-- FIXME: fix this in case color will be array  -->
+                    <!-- <select class="custom-select pointer" name="color">
+                      <option :value="item.color" v-for="(color, index) in product.productProperties[sizeIndex].color" :key="index">
+                        {{color}}
+                      </option>
+                    </select> -->
                   </div>
                 </div>
               </div>
 
               <div class="flex-w flex-r-m p-b-10">
                 <div class="size-204 flex-w flex-m respon6-next">
-                  <div class="wrap-num-product flex-w m-r-20 m-tb-10">
+                  <div class="wrap-num-product align-self-end d-flex m-r-20">
                     <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m" @click="decrease()">
                       <i class="fs-16 zmdi zmdi-minus"></i>
                     </div>
@@ -128,7 +123,7 @@
   </div>
 </template>
 <script>
-import ZoomProduct from "~/components/ZoomProduct.vue";
+import ZoomProduct from '~/components/ZoomProduct.vue';
 export default {
   components: {
     ZoomProduct
@@ -137,10 +132,15 @@ export default {
     return {
       quantity: 1,
       photoIndex: 0,
-      showBigPopUp: false
+      showBigPopUp: false,
+      colorModel: null,
+      sizeIndex: 0
     };
   },
   computed: {
+    sizeModel() {
+      return this.product.productProperties[this.sizeIndex];
+    },
     productCategory() {
       return this.$store.getters.getCategoryById(this.product.productCategory)
         .name;
@@ -151,8 +151,11 @@ export default {
       ).name;
     }
   },
-  props: ["product", "pagePreviewStyling"],
+  props: ['product', 'pagePreviewStyling'],
   methods: {
+    sizeSelectChange(event) {
+      this.sizeIndex = event.target.selectedIndex;
+    },
     increase() {
       if (!this.quantity) {
         this.quantity = 1;
@@ -164,13 +167,13 @@ export default {
       this.quantity -= 1;
     },
     hidePopUp() {
-      this.$emit("close-pop-up");
+      this.$emit('close-pop-up');
       this.quantity = 1;
       this.photoIndex = 0;
-      document.removeEventListener("keyup", this.closeWithEsc);
+      document.removeEventListener('keyup', this.closeWithEsc);
     },
     addToBucket(product, quantity) {
-      this.$store.commit("addNewBucketItem", { product, quantity });
+      this.$store.commit('addNewBucketItem', { product, quantity });
     },
     closeWithEsc(event) {
       if (event.keyCode == 27) {
@@ -193,7 +196,7 @@ export default {
     }
   },
   mounted() {
-    document.addEventListener("keyup", this.closeWithEsc);
+    document.addEventListener('keyup', this.closeWithEsc);
   }
 };
 </script>
