@@ -53,19 +53,19 @@
               Ширина: {{product.productProperties[sizeIndex].width}}
             </p>
             <p class="product-description cl3">
-              Цвет: {{product.productProperties[sizeIndex].color}}
+              Цвет: {{colorModel}}
             </p>
 
             <!--  -->
             <div class="p-t-33">
               <div class="flex-w flex-r-m p-b-10">
                 <div class="size-203 flex-c-m respon6">
-                  Размер {{sizeModel}}
+                  Размер
                 </div>
 
                 <div class="size-204 respon6-next">
                   <div>
-                    <select class="custom-select pointer" name="size" @change='sizeSelectChange($event)'>
+                    <select class="custom-select pointer" name="size" @change='sizeSelectOnChange($event)'>
                       <option :value="{height: item.height, width: item.width}" v-for="(item, index) in product.productProperties" :key="index">
                         {{item.height}} x {{item.width}} см
                       </option>
@@ -82,11 +82,11 @@
                 <div class="size-204 respon6-next">
                   <div>
                     <!-- FIXME: fix this in case color will be array  -->
-                    <!-- <select class="custom-select pointer" name="color">
-                      <option :value="item.color" v-for="(color, index) in product.productProperties[sizeIndex].color" :key="index">
+                    <select class="custom-select pointer" name="color" @change="colorSelectOnChange($event)">
+                      <option :value="color" v-for="(color, index) in product.color" :key="index">
                         {{color}}
                       </option>
-                    </select> -->
+                    </select>
                   </div>
                 </div>
               </div>
@@ -106,9 +106,9 @@
                   </div>
                   <div class="d-flex flex-column">
                     <div class="py-3 total-price default-font-family">
-                      Всего: {{product.price * quantity}} грн
+                      Всего: {{price * quantity}} грн
                     </div>
-                    <button class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04" @click="addToBucket(product, quantity); hidePopUp()">
+                    <button class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04" @click="addToBucket(product, quantity, sizeIndex, colorIndex); hidePopUp()">
                       В КОЗРИНУ
                     </button>
                   </div>
@@ -133,13 +133,19 @@ export default {
       quantity: 1,
       photoIndex: 0,
       showBigPopUp: false,
-      colorModel: null,
+      colorIndex: 0,
       sizeIndex: 0
     };
   },
   computed: {
     sizeModel() {
       return this.product.productProperties[this.sizeIndex];
+    },
+    colorModel() {
+      return this.product.color[this.colorIndex];
+    },
+    price() {
+      return this.product.productProperties[this.sizeIndex].price;
     },
     productCategory() {
       return this.$store.getters.getCategoryById(this.product.productCategory)
@@ -153,8 +159,11 @@ export default {
   },
   props: ['product', 'pagePreviewStyling'],
   methods: {
-    sizeSelectChange(event) {
+    sizeSelectOnChange(event) {
       this.sizeIndex = event.target.selectedIndex;
+    },
+    colorSelectOnChange(event) {
+      this.colorIndex = event.target.selectedIndex;
     },
     increase() {
       if (!this.quantity) {
@@ -172,8 +181,8 @@ export default {
       this.photoIndex = 0;
       document.removeEventListener('keyup', this.closeWithEsc);
     },
-    addToBucket(product, quantity) {
-      this.$store.commit('addNewBucketItem', { product, quantity });
+    addToBucket(product, quantity, sizeIndex, colorIndex) {
+      this.$store.commit('addNewBucketItem', { product, quantity, sizeIndex, colorIndex });
     },
     closeWithEsc(event) {
       if (event.keyCode == 27) {
@@ -197,6 +206,7 @@ export default {
   },
   mounted() {
     document.addEventListener('keyup', this.closeWithEsc);
+    console.log(this.product);
   }
 };
 </script>
