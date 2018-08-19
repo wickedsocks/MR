@@ -20,7 +20,7 @@ export const getters = {
   totalBucketPrice(state) {
     let price = 0;
     state.bucket.forEach((item) => {
-      price += item.product.price * item.quantity;
+      price += item.product.productProperties[item.sizeIndex].price * item.quantity;
     });
     return price;
   },
@@ -71,14 +71,14 @@ export const mutations = {
   },
   icreaseBucketItemQuantity(state, payload) {
     state.bucket.forEach((item) => {
-      if (item.product._id == payload.item.product._id) {
+      if (item.product._id == payload.item.product._id && item.sizeIndex == payload.item.sizeIndex && item.colorIndex == payload.item.colorIndex) {
         item.quantity += payload.amount;
       }
     });
   },
   decreaseBucketItemQuantity(state, payload) {
     state.bucket.forEach((item) => {
-      if (item.product._id == payload.item.product._id) {
+      if (item.product._id == payload.item.product._id && item.sizeIndex == payload.item.sizeIndex && item.colorIndex == payload.item.colorIndex) {
         if (item.quantity > 0) {
           item.quantity += -payload.amount;
         }

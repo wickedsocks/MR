@@ -6,7 +6,7 @@ export default {
   increaseSameBucketItemQuantity(bucketArray, product) {
     let sameBucketItem;
     bucketArray.forEach((item) => {
-      if (item.product._id == product.product._id) {
+      if (item.product._id == product.product._id && item.sizeIndex == product.sizeIndex && item.colorIndex == product.colorIndex) {
         item.quantity += product.quantity;
         sameBucketItem = item;
       }

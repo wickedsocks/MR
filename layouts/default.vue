@@ -22,13 +22,15 @@ export default {
     // Check if cookie is available and set bucket data
     // FIXME: rewrite
     let localStorageData = storeServices.getLocalStorageBucket('mrbucket');
-    let bucketData = localStorageData.slice(0, localStorageData.length - 1);
-    if (bucketData) {
-      let parsedLocalStorage = JSON.parse(bucketData);
-      if (!this.$store.state.bucket.length) {
-        parsedLocalStorage.forEach(bucketItem => {
-          this.$store.commit('addNewBucketItem', bucketItem);
-        });
+    if (localStorageData) {
+      let bucketData = localStorageData.slice(0, localStorageData.length - 1);
+      if (bucketData) {
+        let parsedLocalStorage = JSON.parse(bucketData);
+        if (!this.$store.state.bucket.length) {
+          parsedLocalStorage.forEach(bucketItem => {
+            this.$store.commit('addNewBucketItem', bucketItem);
+          });
+        }
       }
     }
   }

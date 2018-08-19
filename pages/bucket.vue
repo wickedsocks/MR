@@ -23,24 +23,25 @@
                     <th scope="row">
                       <nuxt-link :to="'/product/'+ item.product._id" class="purple-hover">
                         <div class="d-flex align-items-center justify-content-center">
-                          <img :src="item.product.images[0]" class="product-image pr-2" :alt="item.product.title">{{item.product.title}}</div>
+                          <img :src="item.product.images[0]" class="product-image pr-2" :alt="item.product.title">{{item.product.title}}
+                        </div>
                       </nuxt-link>
+                      <div class="size">Размер: {{item.product.productProperties[item.sizeIndex].height}} x {{item.product.productProperties[item.sizeIndex].width}} см</div>
+                      <div class="color">Цвет: {{item.product.color[item.colorIndex]}}</div>
                     </th>
-                    <td>{{item.product.price}} грн</td>
+                    <td>{{item.product.productProperties[item.sizeIndex].price}} грн</td>
                     <td>
                       <div class="wrap-num-product my-1 flex-nowrap d-flex">
                         <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m" @click="decrease(item)">
                           <i class="fs-16 zmdi zmdi-minus"></i>
                         </div>
-
                         <input class="mtext-104 cl3 txt-center num-product" :value="item.quantity" type="number" name="num-product" @input="onInput($event, item)">
-
                         <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m" @click="increase(item)">
                           <i class="fs-16 zmdi zmdi-plus"></i>
                         </div>
                       </div>
                     </td>
-                    <td>{{item.product.price * item.quantity}} грн</td>
+                    <td>{{item.product.productProperties[item.sizeIndex].price * item.quantity}} грн</td>
                     <td @click="removeItemFromBucket(index)" class="pointer delete-button purple-hover">Удалить</td>
                   </tr>
                 </tbody>
@@ -126,9 +127,9 @@
   </div>
 </template>
 <script>
-import axios from "~/plugins/axios";
-import storeService from "~/services/storeServices";
-import { mask } from "vue-the-mask";
+import axios from '~/plugins/axios';
+import storeService from '~/services/storeServices';
+import { mask } from 'vue-the-mask';
 
 export default {
   directives: {
@@ -136,11 +137,11 @@ export default {
   },
   data() {
     return {
-      name: "",
-      email: "",
-      tel: "",
-      comment: "",
-      quantity: ""
+      name: '',
+      email: '',
+      tel: '',
+      comment: '',
+      quantity: ''
     };
   },
   computed: {
@@ -158,23 +159,23 @@ export default {
   },
   methods: {
     onInput(event, item) {
-      this.$store.commit("setBucketItemQuantity", {
+      this.$store.commit('setBucketItemQuantity', {
         item,
         amount: event.target.value
       });
     },
     increase(item) {
-      this.$store.commit("icreaseBucketItemQuantity", { item, amount: 1 });
+      this.$store.commit('icreaseBucketItemQuantity', { item, amount: 1 });
     },
     decrease(item) {
-      this.$store.commit("decreaseBucketItemQuantity", { item, amount: 1 });
+      this.$store.commit('decreaseBucketItemQuantity', { item, amount: 1 });
     },
     async makeOrder() {
       let valid = await this.$validator.validateAll();
       if (valid && this.bucket && this.bucket.length > 0) {
         let regExp = new RegExp(/(\(|\)|\+|-)/g);
-        this.tel = this.tel.replace(regExp, "");
-        await axios.post("/api/orders", {
+        this.tel = this.tel.replace(regExp, '');
+        await axios.post('/api/orders', {
           name: this.name,
           email: this.email,
           products: this.products,
@@ -182,16 +183,16 @@ export default {
           comment: this.comment,
           totalPrice: this.totalBucketPrice
         });
-        storeService.removeLocalStorageBucket("mrbucket");
+        storeService.removeLocalStorageBucket('mrbucket');
         storeService.cleanBucket(this.$store);
         // need for redirecting and cleaning bu
-        window.location.href = "/";
-        alert("Заказ оформлен");
+        window.location.href = '/';
+        alert('Заказ оформлен');
       }
     },
     removeItemFromBucket(index) {
-      this.$store.commit("removeItemFromBucketByIndex", { index });
-      storeService.removeLocalStorageBucket("mrbucket");
+      this.$store.commit('removeItemFromBucketByIndex', { index });
+      storeService.removeLocalStorageBucket('mrbucket');
       storeService.setLocalStorageBucket(this.$store.state);
     }
   },
@@ -260,5 +261,9 @@ tr {
   align-items: center;
   text-align: center;
   line-height: 150px;
+}
+.size, .color {
+  font-weight: normal;
+  margin-left: 60px;
 }
 </style>
