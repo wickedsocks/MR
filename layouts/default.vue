@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import MyFooter from "~/components/Footer.vue";
-import MyHeader from "~/components/Header.vue";
-import storeServices from "~/services/storeServices";
+import MyFooter from '~/components/Footer.vue';
+import MyHeader from '~/components/Header.vue';
+import storeServices from '~/services/storeServices';
 
 export default {
   components: {
@@ -20,12 +20,14 @@ export default {
   },
   mounted() {
     // Check if cookie is available and set bucket data
-    if (!this.$store.state.bucket.length) {
-      let cookieString = storeServices.getCookie("mrbucket");
-      if (cookieString) {
-        let parsedCookie = JSON.parse(cookieString);
-        parsedCookie.forEach(bucketItem => {
-          this.$store.commit("addNewBucketItem", bucketItem);
+    // FIXME: rewrite
+    let localStorageData = storeServices.getLocalStorageBucket('mrbucket');
+    let bucketData = localStorageData.slice(0, localStorageData.length - 1);
+    if (bucketData) {
+      let parsedLocalStorage = JSON.parse(bucketData);
+      if (!this.$store.state.bucket.length) {
+        parsedLocalStorage.forEach(bucketItem => {
+          this.$store.commit('addNewBucketItem', bucketItem);
         });
       }
     }

@@ -50,7 +50,7 @@ export const mutations = {
     if (!sameBucketItem) {
       state.bucket.push(payload);
     }
-    storeService.setCookieBucket(state);
+    storeService.setLocalStorageBucket(state);
   },
   setProducts(state, payload) {
     state.products = payload.slice();

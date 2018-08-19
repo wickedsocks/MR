@@ -58,8 +58,8 @@ export default {
     },
     removeItemFromBucket(index) {
       this.$store.commit("removeItemFromBucketByIndex", { index });
-      storeService.removeCookie("mrbucket");
-      storeService.setCookieBucket(this.$store.state);
+      storeService.removeLocalStorageBucket("mrbucket");
+      storeService.setLocalStorageBucket(this.$store.state);
     }
   }
 };

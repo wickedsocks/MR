@@ -13,24 +13,17 @@ export default {
     });
     return sameBucketItem ? sameBucketItem : false;
   },
-  setCookieBucket(state) {
-    // Setting expiring date to one day
-    let date = new Date;
-    date.setDate(date.getDate() + 1);
-    let cookieExpireDate = `expires=${date.toUTCString()};`;
-    let cookieData = `mrbucket=${JSON.stringify(state.bucket)};`
-    // Setting cookie
-    document.cookie = cookieData + cookieExpireDate;
+  setLocalStorageBucket(state) {
+    // creating local storage data
+    let localData = `${JSON.stringify(state.bucket)};`
+    localStorage.setItem('mrbucket', localData);
+    localStorage.setItem('bucketTime', new Date());
   },
-  getCookie(name) {
-    let matches = document.cookie.match(new RegExp(
-      "(?:^|; )" + name.replace(/([$?*|{}\\^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
+  getLocalStorageBucket(name) {
+    return localStorage.getItem(name);
   },
-  removeCookie(name) {
-    let date = new Date(0);
-    document.cookie = `${name}=;expires=${date.toUTCString()}`;
+  removeLocalStorageBucket(name) {
+    localStorage.removeItem(name);
   },
   cleanBucket(store) {
     if (store.bucket) {

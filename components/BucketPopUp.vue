@@ -81,7 +81,6 @@
 
                 <div class="size-204 respon6-next">
                   <div>
-                    <!-- FIXME: fix this in case color will be array  -->
                     <select class="custom-select pointer" name="color" @change="colorSelectOnChange($event)">
                       <option :value="color" v-for="(color, index) in product.color" :key="index">
                         {{color}}
@@ -206,7 +205,6 @@ export default {
   },
   mounted() {
     document.addEventListener('keyup', this.closeWithEsc);
-    console.log(this.product);
   }
 };
 </script>

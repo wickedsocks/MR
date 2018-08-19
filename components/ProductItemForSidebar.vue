@@ -10,7 +10,7 @@
       </nuxt-link>
       <div class="d-flex">
         <span class="header-cart-item-info">
-          {{item.quantity}} x {{item.product.price}} грн
+          {{item.quantity}} x {{item.product.productProperties[item.sizeIndex].price}} грн
         </span>
         <span class="delete-word header-cart-item-info pointer" @click="deleteItemFromBucket()">
           удалить

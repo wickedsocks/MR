@@ -182,7 +182,7 @@ export default {
           comment: this.comment,
           totalPrice: this.totalBucketPrice
         });
-        storeService.removeCookie("mrbucket");
+        storeService.removeLocalStorageBucket("mrbucket");
         storeService.cleanBucket(this.$store);
         // need for redirecting and cleaning bu
         window.location.href = "/";
@@ -191,8 +191,8 @@ export default {
     },
     removeItemFromBucket(index) {
       this.$store.commit("removeItemFromBucketByIndex", { index });
-      storeService.removeCookie("mrbucket");
-      storeService.setCookieBucket(this.$store.state);
+      storeService.removeLocalStorageBucket("mrbucket");
+      storeService.setLocalStorageBucket(this.$store.state);
     }
   },
   mounted() {}
