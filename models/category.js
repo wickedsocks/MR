@@ -17,6 +17,9 @@ let categoryShema = new mongoose.Schema({
   },
   used: {
     type: Boolean
+  },
+  url_updated: {
+    type: Boolean
   }
 });
 
