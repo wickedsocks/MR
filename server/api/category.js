@@ -1,5 +1,4 @@
 require("../../dbconfig/config");
-const { exec } = require("child_process");
 const {
   Router
 } = require("express");
@@ -32,8 +31,6 @@ router.post("/categories/manufacture", (req, res) => {
 });
 
 router.get("/categories/manufacture", (req, res) => {
-exec(`npm run update-categories`);
-exec(`npm run update-categories-url`);
   CategoryManufacture.find({}).then(
     (categories) => {
       res.send(categories);

@@ -1,6 +1,7 @@
 require('../dbconfig/config');
 require('../db/mongoose');
-const convert = require('cyrillic-to-latin');
+// const convert = require('cyrillic-to-latin');
+// FIXME: change convert libruary to valid function
 const { CategoryProduct, CategoryManufacture } = require('../models/category');
 
 async function updateCategories() {
