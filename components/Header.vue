@@ -50,9 +50,9 @@
             <div class="wrap-icon-header flex-w flex-r-m">
               <search-input :id="'search2'" />
 
-              <div class="icon-header-item cl2 hov-cl1 trans-04 pl-3 pr-2 js-show-cart" :class="{'icon-header-noti': bucketLength > 0}" :data-notify="bucketLength" @click="showSideBarBucket()">
+              <nuxt-link to='bucket' class="icon-header-item cl2 hov-cl1 trans-04 pl-3 pr-2 js-show-cart" :class="{'icon-header-noti': bucketLength > 0}" :data-notify="bucketLength">
                 <i class="zmdi zmdi-shopping-cart"></i>
-              </div>
+              </nuxt-link>
             </div>
           </nav>
         </div>
@@ -73,9 +73,9 @@
           <!-- Icon header -->
           <div class="wrap-icon-header d-flex align-items-center justify-content-end m-r-15">
             <search-input :id='"search1"' />
-            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" :class="{'icon-header-noti': bucketLength > 0}" :data-notify="bucketLength" @click="showSideBarBucket()">
+            <nuxt-link to='bucket' class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" :class="{'icon-header-noti': bucketLength > 0}" :data-notify="bucketLength">
               <i class="zmdi zmdi-shopping-cart"></i>
-            </div>
+            </nuxt-link>
           </div>
 
           <!-- Button show menu -->
@@ -106,10 +106,6 @@
       <!-- Modal Search -->
       <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
         <div class="container-search-header">
-          <!-- <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-            <img src="img/icons/icon-close2.png" alt="CLOSE">
-          </button> -->
-
           <form class="wrap-search-header flex-w p-l-15">
             <button class="flex-c-m trans-04">
               <i class="zmdi zmdi-search"></i>
@@ -119,38 +115,28 @@
         </div>
       </div>
     </header>
-    <side-bucket-bar :showHide='showHide' @close='close' />
   </div>
 </template>
 
 <script>
 import axios from '~/plugins/axios';
 import { mapGetters } from 'vuex';
-import SideBucketBar from '~/components/SideBucketBar.vue';
 import SearchInput from '~/components/SearchInput.vue';
 
 export default {
   components: {
-    SideBucketBar,
     SearchInput
   },
   computed: mapGetters(['bucketLength', 'currentUser']),
   data() {
     return {
       scroll: false,
-      showHide: false,
       showMobile: false
     };
   },
   methods: {
     scrollEvent() {
       this.scroll = window.pageYOffset > 0;
-    },
-    showSideBarBucket() {
-      this.showHide = true;
-    },
-    close() {
-      this.showHide = false;
     },
     showMobileMenu() {
       this.showMobile = !this.showMobile;
