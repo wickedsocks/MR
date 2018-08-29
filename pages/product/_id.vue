@@ -2,23 +2,25 @@
   <bucket-pop-up :product="product" :page-preview-styling="false" />
 </template>
 <script>
-import BucketPopUp from "~/components/BucketPopUp.vue";
+import BucketPopUp from '~/components/BucketPopUp.vue';
 export default {
   async asyncData({ params, store }) {
-    return { product: store.getters.getProductById(params.id) };
+    let urlArray = params.id.split('_');
+    let currentPropertyId = urlArray[urlArray.length - 1];
+    return { product: store.getters.getProductById(currentPropertyId) };
   },
   components: {
     BucketPopUp
   },
   data() {
     return {
-      product: "",
-      productPreview: ""
+      product: '',
+      productPreview: ''
     };
   },
   methods: {
     hideProductPreview() {
-      this.productPreview = "";
+      this.productPreview = '';
     },
     showProductPreview(product) {
       this.productPreview = product;

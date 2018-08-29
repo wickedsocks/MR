@@ -1,7 +1,7 @@
 <template>
   <div class="col-lg-3 col-md-4 col-6 product-item">
     <div class="card">
-      <nuxt-link :to="'/product/'+ product._id" class="d-flex flex-column">
+      <nuxt-link :to="'/product/'+ product.url" class="d-flex flex-column">
         <img class="card-img-top" v-if="product.images && product.images.length > 0" :src="product.images[0]" :alt="product.title">
         <div class="card-body">
           <h5 class="card-title"> {{product.title | limitTo(15)}}... </h5>
@@ -11,7 +11,7 @@
       </nuxt-link>
 
       <button @click.prevent="showProductPreview(product)" class="btn black-button d-none d-sm-block">В корзину</button>
-      <nuxt-link :to="`/product/${product._id}`" class="d-flex my-link">
+      <nuxt-link :to="`/product/${product.url}`" class="d-flex my-link">
         <button class="btn black-button d-block d-sm-none flex-grow-1">В корзину</button>
       </nuxt-link>
     </div>

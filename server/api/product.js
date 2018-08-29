@@ -9,6 +9,8 @@ const { authenticate, isAdmin } = require("./middleware/middleware.service");
 const formidable = require("formidable");
 
 const cloudinary = require("cloudinary");
+const cyrillicToTranslit = require('cyrillic-to-translit-js');
+const {Types} = require('mongoose');
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME_CLOUDINARY,
@@ -20,7 +22,9 @@ const router = Router();
 
 router.post("/products", authenticate, isAdmin, (req, res) => {
   let promiseCategories = [];
+  const myId = Types.ObjectId();
   let newProduct = new Product({
+    _id: myId,
     color: req.body.colorArray.map(item => item.toLowerCase()),
     productProperties: req.body.productProperties,
     description: req.body.description,
@@ -29,6 +33,7 @@ router.post("/products", authenticate, isAdmin, (req, res) => {
     categories: [req.body.productCategory, req.body.manufactureCategory],
     productCategory: req.body.productCategory,
     manufactureCategory: req.body.manufactureCategory,
+    url: cyrillicToTranslit().transform(`${req.body.title}_${myId}`, "_")
   });
   promiseCategories.push(
     CategoryManufacture.findByIdAndUpdate(req.body.manufactureCategory, {

@@ -20,26 +20,22 @@
 import storeServices from '~/services/storeServices.js';
 import Product from '~/components/Product.vue';
 import NavigationSideBar from '~/components/NavigationSideBar.vue';
-import _ from "lodash";
+import _ from 'lodash';
 export default {
   props: [],
-  async asyncData({ params }) {
+  async asyncData({ params, store }) {
     let products = await storeServices.getCategoryProducts(params.url);
+    let urlArray = params.url.split('_');
+    let currentPropertyId = urlArray[urlArray.length - 1];
+    let title = _.capitalize(store.getters.getCategoryById(currentPropertyId).name);
     return {
-      products: products.data
+      products: products.data,
+      title
     };
   },
   components: {
     Product,
     NavigationSideBar
-  },
-  computed: {
-    title() {
-      let urlArray = this.$route.params.url.split('_');
-      let currentPropertyId = urlArray[urlArray.length - 1];
-      let title = _.capitalize(this.$store.getters.getCategoryById(currentPropertyId).name);
-      return title;
-    }
   }
 };
 </script>

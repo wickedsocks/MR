@@ -47,6 +47,10 @@ let schema = new mongoose.Schema({
   categories: {
     type: [String],
     required: true
+  },
+  url: {
+    type: String,
+    required: true
   }
 });
 schema.index({ title: 1 });
