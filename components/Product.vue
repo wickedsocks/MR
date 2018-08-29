@@ -6,7 +6,7 @@
         <div class="card-body">
           <h5 class="card-title"> {{product.title | limitTo(15)}}... </h5>
           <p class="card-text d-none d-sm-block"> {{product.description | limitTo(30)}}... </p>
-          <p class="card-text"> {{product.price}} грн </p>
+          <p class="card-text"> {{product.productProperties[0].price}} грн </p>
         </div>
       </nuxt-link>
 
