@@ -1,47 +1,43 @@
-require("../../dbconfig/config");
-const {
-  Router
-} = require("express");
+require('../../dbconfig/config');
+const { Router } = require('express');
 const {
   CategoryManufacture,
   CategoryProduct
-} = require("../../models/category");
+} = require('../../models/category');
 
 const router = Router();
 
-router.post("/categories/manufacture", (req, res) => {
+router.post('/categories/manufacture', (req, res) => {
   let trimmedName = req.body.name.trim();
-  CategoryManufacture.collection.count({}).then((length) => {
-    let newCategory = new CategoryManufacture({
-      description: req.body.description,
-      name: trimmedName,
-      url: CategoryManufacture.categoryURLNaming(trimmedName),
-      used: false
-    });
-
-    newCategory.save().then(
-      (success) => {
-        res.send(success);
-      },
-      (err) => {
-        res.status(400).send(err);
-      }
-    );
+  let newCategory = new CategoryManufacture({
+    description: req.body.description,
+    name: trimmedName,
+    url: CategoryManufacture.categoryURLNaming(trimmedName),
+    used: false
   });
-});
 
-router.get("/categories/manufacture", (req, res) => {
-  CategoryManufacture.find({}).then(
-    (categories) => {
-      res.send(categories);
+  newCategory.save().then(
+    success => {
+      res.send(success);
     },
-    (err) => {
+    err => {
       res.status(400).send(err);
     }
   );
 });
 
-router.post("/categories/product", (req, res) => {
+router.get('/categories/manufacture', (req, res) => {
+  CategoryManufacture.find({}).then(
+    categories => {
+      res.send(categories);
+    },
+    err => {
+      res.status(400).send(err);
+    }
+  );
+});
+
+router.post('/categories/product', (req, res) => {
   let trimmedName = req.body.name.trim();
   let newProductCategory = new CategoryProduct({
     description: req.body.description,
@@ -50,21 +46,24 @@ router.post("/categories/product", (req, res) => {
     used: false
   });
   newProductCategory.save().then(
-    (success) => {
+    success => {
       res.send(success);
     },
-    (err) => {
+    err => {
       res.status(400).send(err);
     }
   );
 });
 
-router.get("/categories/product", (req, res) => {
-  CategoryProduct.find({}).then((categories) => {
-    res.send(categories);
-  }, (err) => {
-    res.status(400).send(err);
-  })
+router.get('/categories/product', (req, res) => {
+  CategoryProduct.find({}).then(
+    categories => {
+      res.send(categories);
+    },
+    err => {
+      res.status(400).send(err);
+    }
+  );
 });
 
 module.exports = router;

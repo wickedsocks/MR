@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const cyrillicToTranslit = require('cyrillic-to-translit-js');
 
 // Creation and validation for database entity
 let schema = new mongoose.Schema({
@@ -8,7 +9,8 @@ let schema = new mongoose.Schema({
   },
   title: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   description: {
     type: String,
@@ -50,10 +52,17 @@ let schema = new mongoose.Schema({
   },
   url: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   }
 });
 schema.index({ title: 1 });
+
+function productUrlNaming(productName) {
+  let trimmedName =  productName.toLowerCase().trim();
+  return cyrillicToTranslit().transform(`${trimmedName}`, "_");
+}
+schema.statics.productUrlNaming = productUrlNaming;
 
 const Product = mongoose.model('Product', schema);
 
