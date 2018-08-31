@@ -5,9 +5,7 @@
 import BucketPopUp from '~/components/BucketPopUp.vue';
 export default {
   async asyncData({ params, store }) {
-    let urlArray = params.id.split('_');
-    let currentPropertyId = urlArray[urlArray.length - 1];
-    return { product: store.getters.getProductById(currentPropertyId) };
+    return { product: store.getters.getProductByUrl(params.id) };
   },
   components: {
     BucketPopUp

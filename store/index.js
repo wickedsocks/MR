@@ -17,6 +17,9 @@ export const getters = {
   getProductById(state) {
     return (id) => state.products.find((item) => item._id == id);
   },
+  getProductByUrl(state) {
+    return (url) => state.products.find((item) => item.url == url);
+  },
   totalBucketPrice(state) {
     let price = 0;
     state.bucket.forEach((item) => {
