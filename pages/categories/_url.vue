@@ -25,9 +25,7 @@ export default {
   props: [],
   async asyncData({ params, store }) {
     let products = await storeServices.getCategoryProducts(params.url);
-    let urlArray = params.url.split('_');
-    let currentPropertyId = urlArray[urlArray.length - 1];
-    let title = _.capitalize(store.getters.getCategoryById(currentPropertyId).name);
+    let title = _.capitalize(store.getters.getCategoryByUrl(params.url).name);
     return {
       products: products.data,
       title

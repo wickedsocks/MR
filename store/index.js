@@ -39,6 +39,18 @@ export const getters = {
       return findCategory;
     }
   },
+  getCategoryByUrl(state) {
+    return (url) => {
+      let categoriesNames = Object.keys(state.categories);
+      let findCategory;
+      categoriesNames.some((catName) => {
+        if (!findCategory) {
+          findCategory = state.categories[catName].find((item) => item.url == url);
+        }
+      })
+      return findCategory;
+    }
+  },
   currentUser(state) {
     return state.user;
   }

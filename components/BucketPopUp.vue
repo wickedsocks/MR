@@ -1,6 +1,6 @@
 <template>
   <div class="container container-margins" v-if="product">
-    <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
+    <div class="bg0 py-5 px-5 how-pos3-parent">
       <button class="close-button hov3 trans-04 position-absolute" @click="hidePopUp()" v-if="pagePreviewStyling">
         <i class="zmdi zmdi-close"></i>
       </button>
