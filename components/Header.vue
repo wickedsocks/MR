@@ -50,7 +50,7 @@
             <div class="wrap-icon-header flex-w flex-r-m">
               <search-input :id="'search2'" />
 
-              <nuxt-link to='bucket' class="icon-header-item cl2 hov-cl1 trans-04 pl-3 pr-2 js-show-cart" :class="{'icon-header-noti': bucketLength > 0}" :data-notify="bucketLength">
+              <nuxt-link to='/bucket' class="icon-header-item cl2 hov-cl1 trans-04 pl-3 pr-2 js-show-cart" :class="{'icon-header-noti': bucketLength > 0}" :data-notify="bucketLength">
                 <i class="zmdi zmdi-shopping-cart"></i>
               </nuxt-link>
             </div>
