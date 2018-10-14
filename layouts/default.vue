@@ -12,6 +12,7 @@
 import MyFooter from '~/components/Footer.vue';
 import MyHeader from '~/components/Header.vue';
 import storeServices from '~/services/storeServices';
+import axiosService from "~/services/axiosService";
 
 export default {
   components: {
@@ -21,17 +22,19 @@ export default {
   mounted() {
     // Check if cookie is available and set bucket data
     // FIXME: rewrite
-    let localStorageData = storeServices.getLocalStorageBucket('mrbucket');
-    if (localStorageData) {
-      let bucketData = localStorageData.slice(0, localStorageData.length - 1);
-      if (bucketData) {
-        let parsedLocalStorage = JSON.parse(bucketData);
+    let parsedLocalStorage = storeServices.getLocalStorageItem('mrbucket');
+    if (parsedLocalStorage) {
         if (!this.$store.state.bucket.length) {
           parsedLocalStorage.forEach(bucketItem => {
             this.$store.commit('addNewBucketItem', bucketItem);
           });
         }
-      }
+    }
+    let currentUser = storeServices.getLocalStorageUser();
+    if (currentUser) {
+      this.$store.commit('setUser', currentUser);
+      axiosService.setDefaultHeader(currentUser);
+     console.log('ccurrentUser', currentUser); 
     }
   }
 };

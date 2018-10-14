@@ -110,6 +110,10 @@
                     <button class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04" @click="addToBucket(product, quantity, sizeIndex, colorIndex); hidePopUp()">
                       В КОЗРИНУ
                     </button>
+
+                    <nuxt-link :to="editUrl" class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 btn-danger mt-3">
+                      РЕДАКТИРОВАТЬ
+                    </nuxt-link>
                   </div>
                 </div>
               </div>
@@ -137,6 +141,9 @@ export default {
     };
   },
   computed: {
+    editUrl() {
+      return `/product/edit/${this.$route.params.id}`;
+    },
     sizeModel() {
       return this.product.productProperties[this.sizeIndex];
     },
@@ -181,7 +188,12 @@ export default {
       document.removeEventListener('keyup', this.closeWithEsc);
     },
     addToBucket(product, quantity, sizeIndex, colorIndex) {
-      this.$store.commit('addNewBucketItem', { product, quantity, sizeIndex, colorIndex });
+      this.$store.commit('addNewBucketItem', {
+        product,
+        quantity,
+        sizeIndex,
+        colorIndex
+      });
     },
     closeWithEsc(event) {
       if (event.keyCode == 27) {

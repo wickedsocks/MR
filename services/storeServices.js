@@ -19,8 +19,11 @@ export default {
     localStorage.setItem('mrbucket', localData);
     localStorage.setItem('bucketTime', new Date());
   },
-  getLocalStorageBucket(name) {
-    return localStorage.getItem(name);
+  getLocalStorageItem(name) {
+    const localCopy = localStorage.getItem(name);
+    const removeLastColon = localCopy.slice(0, localCopy.length - 1);
+    const parsedCopy = JSON.parse(removeLastColon);
+    return parsedCopy;
   },
   removeLocalStorageBucket(name) {
     localStorage.removeItem(name);
@@ -29,6 +32,17 @@ export default {
     if (store.bucket) {
       store.bucket.splice(0);
     }
+  },
+  setLocalStorageUser(user) {
+    let localUser = `${JSON.stringify(user)};`
+    localStorage.setItem('mrUser', localUser);
+    localStorage.setItem('mrUserTime', new Date());
+  },
+  getLocalStorageUser() {
+    const localUser = localStorage.getItem('mrUser');
+    const removeLastColon = localUser.slice(0, localUser.length - 1);
+    const parsedUser = JSON.parse(removeLastColon);
+    return parsedUser;
   },
   async getCategories() {
     let [productCategory, manufactureCategory] = await Promise.all([axios.get("/api/categories/product"), axios.get("/api/categories/manufacture")]);

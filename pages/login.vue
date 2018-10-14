@@ -15,13 +15,14 @@
 </template>
 
 <script>
-import axios from "~/plugins/axios";
-import axiosService from "~/services/axiosService.js";
+import axios from '~/plugins/axios';
+import axiosService from '~/services/axiosService';
+import storeService from '~/services/storeServices';
 export default {
   data() {
     return {
-      email: "",
-      password: ""
+      email: '',
+      password: ''
     };
   },
   methods: {
@@ -29,15 +30,22 @@ export default {
       let valid = await this.$validator.validateAll();
       if (valid) {
         try {
-          let user = await axios.post("/api/users/login", {
-            email: this.email,
-            password: this.password
-          });
-          this.$store.commit('setUser', user);
-          axiosService.setDefaultHeader(user.headers['x-auth']);
-          this.$router.push('/');
+          axios
+            .post('/api/users/login', {
+              email: this.email,
+              password: this.password
+            })
+            .then((user) => {
+              let localUser = user.data;
+              localUser.token = user.headers['x-auth'];
+              this.$store.commit('setUser', localUser);
+              storeService.setLocalStorageUser(localUser);
+              axiosService.setDefaultHeader(localUser.token);
+              console.log('this store', this.$store.state);
+              this.$router.push('/');
+            });
         } catch (e) {
-          console.log("error occures ", e);
+          console.log('error occures ', e);
         }
       }
     }

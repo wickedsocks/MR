@@ -2,7 +2,7 @@
   <form class="container" novalidate @submit.prevent="sendForm">
     <section class="row">
       <header class="col-12">
-        <h2>Создание нового товара</h2>
+        <h2>Редактирование товара</h2>
       </header>
     </section>
     <section class="row">
@@ -105,6 +105,9 @@ import axios from '~/plugins/axios';
 import storeService from '~/services/storeServices';
 
 export default {
+  mounted() {
+    console.log('this ', this.$store.getters.getProductByUrl(this.$route.params.id));
+  },
   computed: {
     productCategory() {
       return this.$store.state.categories.productCategory;

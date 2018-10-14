@@ -7,7 +7,7 @@
       <div class="container" v-if="bucket.length > 0">
         <div class="row">
           <div class="col-12 col-lg-8">
-            <div class="table-responsive">
+            <div class="table-responsive border-gray-default">
               <table class="table">
                 <thead>
                   <tr>
@@ -21,7 +21,7 @@
                 <tbody>
                   <tr class="vertical-align-child-center" v-for="(item, index) in bucket" :key="index">
                     <th scope="row">
-                      <nuxt-link :to="'/product/'+ item.product._id" class="purple-hover">
+                      <nuxt-link :to="'/product/'+ item.product.url" class="purple-hover">
                         <div class="d-flex align-items-center justify-content-center">
                           <img :src="item.product.images[0]" class="product-image pr-2" :alt="item.product.title">{{item.product.title}}
                         </div>
@@ -150,7 +150,7 @@ export default {
     },
     products() {
       return this.bucket.map(item => {
-        return { id: item.product._id, quantity: item.quantity };
+        return { url: item.product.url, quantity: item.quantity };
       });
     },
     totalBucketPrice() {

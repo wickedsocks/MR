@@ -1,7 +1,7 @@
 <template>
   <div class="col-lg-3 col-md-4 col-6 product-item">
     <div class="card">
-      <nuxt-link :to="'/product/'+ product.url" class="d-flex flex-column">
+      <nuxt-link :to="`/product/${product.url}`" class="d-flex flex-column">
         <img class="card-img-top" v-if="product.images && product.images.length > 0" :src="product.images[0]" :alt="product.title">
         <div class="card-body">
           <h5 class="card-title"> {{product.title | limitTo(15)}}... </h5>

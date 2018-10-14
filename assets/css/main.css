@@ -66,3 +66,7 @@ textarea {
 .default-font-family {
   font-family: sans-serif;
 }
+
+.border-gray-default {
+  border: 1px solid #e6e6e6;
+}

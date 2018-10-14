@@ -42,7 +42,7 @@ export default {
     }
   },
   fetch({ store, redirect }) {
-    if (!store.state.user || !store.state.user.data.admin) {
+    if (!store.state.user || !store.state.user.admin) {
       redirect("/");
     }
   }
