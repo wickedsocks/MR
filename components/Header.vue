@@ -122,6 +122,7 @@
 import axios from '~/plugins/axios';
 import { mapGetters } from 'vuex';
 import SearchInput from '~/components/SearchInput.vue';
+import storeServices from '~/services/storeServices';
 
 export default {
   components: {
@@ -149,6 +150,7 @@ export default {
         await axios.delete('/api/users/logout');
         console.log('logged out');
         this.$store.commit('removeUser');
+        storeServices.removeLocalStorageUser();
       } catch (e) {
         console.log('error occurs ', e);
       }

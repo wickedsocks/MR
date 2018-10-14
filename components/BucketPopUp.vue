@@ -111,7 +111,8 @@
                       В КОЗРИНУ
                     </button>
 
-                    <nuxt-link :to="editUrl" class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 btn-danger mt-3">
+                    <nuxt-link :to="editUrl" class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 btn-danger mt-3"
+                    v-if="currentUser && currentUser.admin">
                       РЕДАКТИРОВАТЬ
                     </nuxt-link>
                   </div>
@@ -141,6 +142,9 @@ export default {
     };
   },
   computed: {
+    currentUser() {
+      return this.$store.getters.currentUser;
+    },
     editUrl() {
       return `/product/edit/${this.$route.params.id}`;
     },

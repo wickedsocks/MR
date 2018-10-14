@@ -33,7 +33,7 @@ export default {
     let currentUser = storeServices.getLocalStorageUser();
     if (currentUser) {
       this.$store.commit('setUser', currentUser);
-      axiosService.setDefaultHeader(currentUser);
+      axiosService.setDefaultHeader(currentUser.token);
      console.log('ccurrentUser', currentUser); 
     }
   }
