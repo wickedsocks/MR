@@ -9,6 +9,7 @@ const {Product} = require('../../models/product');
 const router = Router();
 
 router.post('/categories/manufacture', (req, res) => {
+  let trimmedName = req.body.name.trim();
   let newCategory = new CategoryManufacture({
     description: req.body.description,
     name: trimmedName,
@@ -38,6 +39,7 @@ router.get('/categories/manufacture', (req, res) => {
 });
 
 router.post('/categories/product', (req, res) => {
+  let trimmedName = req.body.name.trim();
   let newProductCategory = new CategoryProduct({
     description: req.body.description,
     name: trimmedName,
