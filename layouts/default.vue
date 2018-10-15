@@ -1,10 +1,10 @@
 <template>
   <div>
-    <my-header/>
+    <my-header />
     <div class="main-wrapper container">
-      <nuxt/>
+      <nuxt />
     </div>
-    <my-footer/>
+    <my-footer />
   </div>
 </template>
 
@@ -12,7 +12,7 @@
 import MyFooter from '~/components/Footer.vue';
 import MyHeader from '~/components/Header.vue';
 import storeServices from '~/services/storeServices';
-import axiosService from "~/services/axiosService";
+import axiosService from '~/services/axiosService';
 
 export default {
   components: {
@@ -24,17 +24,16 @@ export default {
     // FIXME: rewrite
     let parsedLocalStorage = storeServices.getLocalStorageItem('mrbucket');
     if (parsedLocalStorage) {
-        if (!this.$store.state.bucket.length) {
-          parsedLocalStorage.forEach(bucketItem => {
-            this.$store.commit('addNewBucketItem', bucketItem);
-          });
-        }
+      if (!this.$store.state.bucket.length) {
+        parsedLocalStorage.forEach(bucketItem => {
+          this.$store.commit('addNewBucketItem', bucketItem);
+        });
+      }
     }
     let currentUser = storeServices.getLocalStorageUser();
     if (currentUser) {
       this.$store.commit('setUser', currentUser);
       axiosService.setDefaultHeader(currentUser.token);
-     console.log('ccurrentUser', currentUser); 
     }
   }
 };

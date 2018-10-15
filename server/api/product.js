@@ -6,6 +6,7 @@ const {
   CategoryManufacture
 } = require("../../models/category");
 const { authenticate, isAdmin } = require("./middleware/middleware.service");
+const cyrillicToTranslit = require('cyrillic-to-translit-js');
 const formidable = require("formidable");
 
 const cloudinary = require("cloudinary");
@@ -115,18 +116,18 @@ router.post("/products/upload-image", authenticate, isAdmin, (req, res) => {
     if (err) {
       res.status(400).send(err);
     }
-    cloudinary.v2.uploader.upload(
-      files.file.path,
-      {
-        public_id: fields.name
-      },
-      function(err, result) {
-        if (err) {
-          res.status(400).send(err);
+      cloudinary.v2.uploader.upload(
+        files.file.path,
+        {
+          public_id: Product.productUrlNaming(fields.name)
+        },
+        function(err, result) {
+          if (err) {
+            res.status(400).send(err);
+          }
+          res.send(result);
         }
-        res.send(result);
-      }
-    );
+      ); 
   });
 });
 module.exports = router;

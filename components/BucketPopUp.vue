@@ -27,6 +27,9 @@
                 <i class="zmdi zmdi-chevron-right"></i>
               </div>
             </div>
+            <p class="product-description cl3 pt-5">
+              {{product.description }}
+            </p>
           </div>
         </div>
         <div class="col-md-6 col-lg-5 p-b-30 overflow-hidden">
@@ -36,27 +39,8 @@
             </h4>
 
             <span class="product-price cl2">
-              {{product.price}} грн
+              {{product.productProperties[sizeIndex].price}} грн
             </span>
-
-            <p class="product-description cl3 pt-5">
-              {{product.description}}
-            </p>
-
-            <p class="product-description cl3">
-              {{manufactureCategory}}, {{productCategory}}
-            </p>
-            <p class="product-description cl3">
-              Высота: {{product.productProperties[sizeIndex].height}}
-            </p>
-            <p class="product-description cl3">
-              Ширина: {{product.productProperties[sizeIndex].width}}
-            </p>
-            <p class="product-description cl3">
-              Цвет: {{colorModel}}
-            </p>
-
-            <!--  -->
             <div class="p-t-33">
               <div class="flex-w flex-r-m p-b-10">
                 <div class="size-203 flex-c-m respon6">
@@ -89,36 +73,46 @@
                   </div>
                 </div>
               </div>
-
-              <div class="flex-w flex-r-m p-b-10">
-                <div class="size-204 flex-w flex-m respon6-next">
-                  <div class="wrap-num-product align-self-end d-flex m-r-20">
-                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m" @click="decrease()">
-                      <i class="fs-16 zmdi zmdi-minus"></i>
-                    </div>
-
-                    <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" v-model="quantity">
-
-                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m" @click="increase()">
-                      <i class="fs-16 zmdi zmdi-plus"></i>
-                    </div>
+            </div>
+            <div class="flex-w flex-r-m p-b-10">
+              <div class="size-204 flex-w flex-m respon6-next">
+                <div class="wrap-num-product align-self-end d-flex m-r-20">
+                  <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m" @click="decrease()">
+                    <i class="fs-16 zmdi zmdi-minus"></i>
                   </div>
-                  <div class="d-flex flex-column">
-                    <div class="py-3 total-price default-font-family">
-                      Всего: {{price * quantity}} грн
-                    </div>
-                    <button class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04" @click="addToBucket(product, quantity, sizeIndex, colorIndex); hidePopUp()">
-                      В КОЗРИНУ
-                    </button>
 
-                    <nuxt-link :to="editUrl" class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 btn-danger mt-3"
-                    v-if="currentUser && currentUser.admin">
-                      РЕДАКТИРОВАТЬ
-                    </nuxt-link>
+                  <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" v-model="quantity">
+
+                  <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m" @click="increase()">
+                    <i class="fs-16 zmdi zmdi-plus"></i>
                   </div>
+                </div>
+                <div class="d-flex flex-column">
+                  <div class="py-3 total-price default-font-family">
+                    Всего: {{price * quantity}} грн
+                  </div>
+                  <button class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04" @click="addToBucket(product, quantity, sizeIndex, colorIndex); hidePopUp()">
+                    В КОЗРИНУ
+                  </button>
+
+                  <nuxt-link :to="editUrl" class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 btn-danger mt-3" v-if="currentUser && currentUser.admin">
+                    РЕДАКТИРОВАТЬ
+                  </nuxt-link>
                 </div>
               </div>
             </div>
+            <p class="product-description cl3">
+              {{manufactureCategory}}, {{productCategory}}
+            </p>
+            <p class="product-description cl3">
+              Высота: {{product.productProperties[sizeIndex].height}}
+            </p>
+            <p class="product-description cl3">
+              Ширина: {{product.productProperties[sizeIndex].width}}
+            </p>
+            <p class="product-description cl3">
+              Цвет: {{colorModel}}
+            </p>
           </div>
         </div>
       </div>
@@ -203,6 +197,7 @@ export default {
       if (event.keyCode == 27) {
         this.hidePopUp();
       }
+      console.log('hello');
     },
     setCurrentImage(index) {
       this.photoIndex = index;
@@ -221,6 +216,7 @@ export default {
   },
   mounted() {
     document.addEventListener('keyup', this.closeWithEsc);
+    console.log('this product ', this.product);
   }
 };
 </script>

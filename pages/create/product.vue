@@ -178,7 +178,7 @@ export default {
         let valid = await this.$validator.validateAll();
         if (valid) {
           this.showLoader = true;
-          let imagesUploaded = await this.uploadImagesToServer(this.images);
+          let imagesUploaded = await this.uploadImagesToServer(this.images, this.requestData.title);
           imagesUploaded.forEach(img => {
             // NOTE: replace http with https to save in DB for production
             this.requestData.imagesUrlsArray.push(
@@ -221,12 +221,13 @@ export default {
         images: this.requestData.imagesUrlsArray
       });
     },
-    uploadImagesToServer(images) {
+    uploadImagesToServer(images, name) {
       var promiseArray = [];
       if (images && images.length > 0) {
-        images.forEach(item => {
+        images.forEach((item, index) => {
           let form = new FormData();
           form.append('file', item.file);
+          form.append('name', `${name + index}`);
           promiseArray.push(axios.post('/api/products/upload-image', form));
         });
       } else {

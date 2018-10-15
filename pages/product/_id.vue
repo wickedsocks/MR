@@ -24,6 +24,9 @@ export default {
       this.productPreview = product;
     }
   },
+  mounted() {
+    console.log('this products ', this.product);
+  },
   computed: {
     productCategory() {
       return this.$store.getters.getCategoryById(this.product.productCategory)
