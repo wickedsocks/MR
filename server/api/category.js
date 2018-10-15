@@ -4,15 +4,15 @@ const {
   CategoryManufacture,
   CategoryProduct
 } = require('../../models/category');
+const {Product} = require('../../models/product');
 
 const router = Router();
 
 router.post('/categories/manufacture', (req, res) => {
-  let trimmedName = req.body.name.trim();
   let newCategory = new CategoryManufacture({
     description: req.body.description,
     name: trimmedName,
-    url: CategoryManufacture.categoryURLNaming(trimmedName),
+    url: Product.productUrlNaming(req.body.name),
     used: false
   });
 
@@ -38,11 +38,10 @@ router.get('/categories/manufacture', (req, res) => {
 });
 
 router.post('/categories/product', (req, res) => {
-  let trimmedName = req.body.name.trim();
   let newProductCategory = new CategoryProduct({
     description: req.body.description,
     name: trimmedName,
-    url: CategoryProduct.categoryURLNaming(trimmedName),
+    url: Product.productUrlNaming(req.body.name),
     used: false
   });
   newProductCategory.save().then(
