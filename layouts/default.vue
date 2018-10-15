@@ -41,7 +41,7 @@ export default {
 
 <style lang="scss" scoped>
 .main-wrapper {
-  min-height: calc(100vh - 112px);
+  min-height: calc(100vh - 52px);
   padding-bottom: 50px;
   margin-top: 124px;
 }

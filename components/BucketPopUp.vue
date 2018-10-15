@@ -94,10 +94,11 @@
                   <button class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04" @click="addToBucket(product, quantity, sizeIndex, colorIndex); hidePopUp()">
                     В КОЗРИНУ
                   </button>
-
-                  <nuxt-link :to="editUrl" class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 btn-danger mt-3" v-if="currentUser && currentUser.admin">
-                    РЕДАКТИРОВАТЬ
-                  </nuxt-link>
+                  <span class="edit-button-placeholder">
+                    <nuxt-link :to="editUrl" class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 btn-danger mt-3" v-if="currentUser && currentUser.admin">
+                      РЕДАКТИРОВАТЬ
+                    </nuxt-link>
+                  </span>
                 </div>
               </div>
             </div>
@@ -105,10 +106,10 @@
               {{manufactureCategory}}, {{productCategory}}
             </p>
             <p class="product-description cl3">
-              Высота: {{product.productProperties[sizeIndex].height}}
+              Высота: {{product.productProperties[sizeIndex].height}} см
             </p>
             <p class="product-description cl3">
-              Ширина: {{product.productProperties[sizeIndex].width}}
+              Ширина: {{product.productProperties[sizeIndex].width}} см
             </p>
             <p class="product-description cl3">
               Цвет: {{colorModel}}
@@ -375,6 +376,13 @@ button {
 }
 .overflow-hidden {
   overflow: hidden;
+}
+.edit-button-placeholder {
+  min-height: 61px;
+  display: block;
+  a:hover {
+    text-decoration: none;
+  }
 }
 // --------------------------------- new styles end
 </style>
