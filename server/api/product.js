@@ -10,6 +10,10 @@ const cyrillicToTranslit = require('cyrillic-to-translit-js');
 const formidable = require("formidable");
 
 const cloudinary = require("cloudinary");
+const imagemin = require('imagemin');
+const imageminJpegtran = require('imagemin-jpegtran');
+const imageminPngquant = require('imagemin-pngquant');
+const {writeFile} = require('fs');
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME_CLOUDINARY,
@@ -112,15 +116,30 @@ router.get("/category/products", async (req, res) => {
 
 router.post("/products/upload-image", authenticate, isAdmin, (req, res) => {
   let form = new formidable.IncomingForm();
-  form.parse(req, function(err, fields, files) {
+  form.parse(req, async function(err, fields, files) {
     if (err) {
       res.status(400).send(err);
     }
+
+    // const aaa = await imagemin([`${files.file.path}`], {
+    //   plugins: [
+    //     imageminJpegtran(),
+    //     imageminPngquant({quality:'60'})
+    //   ]
+    // });
+    // let buffer = aaa[0].data.toString('base64')
+    // let fromBase = Buffer.from(buffer,'base64');
+    // writeFile('build/images.jpg', fromBase, (err) => {
+    //   if (err) {
+    //     res.status(400).send(err);
+    //   }
+    //   console.log(aaa);
+    //   res.send(aaa);
+    // });
       cloudinary.v2.uploader.upload(
         files.file.path,
         {
-          public_id: Product.productUrlNaming(fields.name),
-          quality: 30
+          public_id: Product.productUrlNaming(fields.name)
         },
         function(err, result) {
           if (err) {
