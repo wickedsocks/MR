@@ -51,7 +51,7 @@ export default {
 .card-img-top {
   height: 180px;
   width: auto;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .card-body {
