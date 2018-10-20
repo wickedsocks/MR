@@ -59,7 +59,7 @@ let schema = new mongoose.Schema({
 schema.index({ title: 1 });
 
 function productUrlNaming(productName) {
-  let trimmedName =  productName.toLowerCase().trim();
+  let trimmedName =  productName.toLowerCase().trim().replace(',', '');
   return cyrillicToTranslit().transform(`${trimmedName}`, "_");
 }
 schema.statics.productUrlNaming = productUrlNaming;
