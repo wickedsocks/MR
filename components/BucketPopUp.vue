@@ -51,7 +51,7 @@
                   <div>
                     <select class="custom-select pointer" name="size" @change='sizeSelectOnChange($event)'>
                       <option :value="{height: item.height, width: item.width}" v-for="(item, index) in product.productProperties" :key="index">
-                        {{item.height}} x {{item.width}} см
+                        {{item.width}} x {{item.height}} см
                       </option>
                     </select>
                   </div>
