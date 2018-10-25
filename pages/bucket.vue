@@ -266,4 +266,7 @@ tr {
   font-weight: normal;
   margin-left: 60px;
 }
+.table {
+  margin-bottom: 0;
+}
 </style>
