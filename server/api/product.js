@@ -139,7 +139,9 @@ router.post("/products/upload-image", authenticate, isAdmin, (req, res) => {
       cloudinary.v2.uploader.upload(
         files.file.path,
         {
-          public_id: Product.productUrlNaming(fields.name)
+          public_id: Product.productUrlNaming(fields.name),
+          width: 600,
+          quality: "auto"
         },
         function(err, result) {
           if (err) {

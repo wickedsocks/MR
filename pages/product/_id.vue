@@ -10,6 +10,23 @@ export default {
   components: {
     BucketPopUp
   },
+  head() {
+    return {
+      title: `${this.product.title} - купить за ${this.price} грн. в православном интернет магазине икон, доставка по Киеву, Москве, в Россию и Украину -  Михайловские ряды`,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: `${this.product.title} - купить за ${this.price} грн. в православном интернет магазине икон и православной утвари, доставка по Киеву, Москве, в Россию и Украину -  Михайловские ряды`,
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content: `${this.product.title} - купить за ${this.price} грн. ${this.productCategory}, ${this.manufactureCategory}`,
+        }
+      ]
+    };
+  },
   data() {
     return {
       product: '',

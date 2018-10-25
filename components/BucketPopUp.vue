@@ -18,7 +18,7 @@
             <div class="main-img-wrapper position-relative">
               <img :src="product.images[photoIndex]" :alt="product.description">
               <div class="open-preview position-absolute d-flex align-items-center justify-content-center pointer" @click="toggleBigPopUp()">
-                <i class="zmdi zmdi-swap"></i>
+                <i class="zmdi zmdi-zoom-in"></i>
               </div>
               <div class="left position-absolute pointer" @click="changeImage(-1)">
                 <i class="zmdi zmdi-chevron-left"></i>
@@ -150,14 +150,14 @@ export default {
       return this.product.color[this.colorIndex];
     },
     price() {
-      return this.product.productProperties[this.sizeIndex].price;
+       return this.product.productProperties[this.sizeIndex].price;
     },
     productCategory() {
-      return this.$store.getters.getCategoryById(this.product.productCategory)
+       return this.$store.getters.getCategoryById(this.product.productCategory)
         .name;
     },
     manufactureCategory() {
-      return this.$store.getters.getCategoryById(
+       return this.$store.getters.getCategoryById(
         this.product.manufactureCategory
       ).name;
     }
@@ -184,7 +184,6 @@ export default {
       this.$emit('close-pop-up');
       this.quantity = 1;
       this.photoIndex = 0;
-      document.removeEventListener('keyup', this.closeWithEsc);
     },
     addToBucket(product, quantity, sizeIndex, colorIndex) {
       this.$store.commit('addNewBucketItem', {
@@ -193,12 +192,6 @@ export default {
         sizeIndex,
         colorIndex
       });
-    },
-    closeWithEsc(event) {
-      if (event.keyCode == 27) {
-        this.hidePopUp();
-      }
-      console.log('hello');
     },
     setCurrentImage(index) {
       this.photoIndex = index;
@@ -216,8 +209,6 @@ export default {
     }
   },
   mounted() {
-    document.addEventListener('keyup', this.closeWithEsc);
-    console.log('this product ', this.product);
   }
 };
 </script>
@@ -345,9 +336,6 @@ button {
   &:hover {
     color: #ffffff;
     background-color: #717fe0;
-  }
-  .zmdi {
-    transform: rotate(-45deg);
   }
 }
 .zoom-preview {

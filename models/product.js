@@ -62,7 +62,11 @@ function productUrlNaming(productName) {
   let trimmedName =  productName.toLowerCase().trim().replace(',', '');
   return cyrillicToTranslit().transform(`${trimmedName}`, "_");
 }
+function removeUnnecessaryCharacters(string) {
+  return string.trim().replace(',', '').replace('.', '');
+}
 schema.statics.productUrlNaming = productUrlNaming;
+schema.statics.removeUnnecessaryCharacters = removeUnnecessaryCharacters;
 
 const Product = mongoose.model('Product', schema);
 
