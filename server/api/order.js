@@ -22,23 +22,29 @@ router.post('/orders', async (req, res) => {
     totalPrice: req.body.totalPrice
   });
   try {
-    let orderStatus = await newOrder.save();
-    // res.send(orderStatus);
+    let newOrder = await newOrder.save();
 
-    function getProductNameAndQuantityById(id, quantity) {
+    function getProductNameAndQuantityById(id, quantity, colorIndex, sizeIndex) {
       return Product.findById(id).then((product) => {
         return {
           product,
-          quantity
+          quantity,
+          color: product.color[colorIndex],
+          size: product.productProperties[sizeIndex]
         };
       })
     }
     let sortedProducts = req.body.products.map((item) => {
-      return getProductNameAndQuantityById(item.id, item.quantity);
+      return getProductNameAndQuantityById(item.id, item.quantity, item.colorIndex, item.sizeIndex);
     });
     Promise.all(sortedProducts).then((products) => {
       let productText = products.map((item) => {
-        return `${item.product.title} в количестве - ${item.quantity}`;
+        return `${item.product.title} в количестве - ${item.quantity}
+        Цвет - ${item.product.color},
+        Размер:
+        Ширина - ${item.size.width} см,
+        Высота - ${item.size.height} см,
+        Цена - ${item.size.price} грн`;
       }).join(',\n');
 
       const customerMessage = {
@@ -61,6 +67,7 @@ router.post('/orders', async (req, res) => {
           - пожелания к заказу: ${req.body.comment}`
       };
       mailgun.messages().send(ownerMessage, (err, body) => {
+        console.log('message send ', body);
         if (err) {
           res.status(400).send(err);
         }
@@ -68,6 +75,7 @@ router.post('/orders', async (req, res) => {
       });
     });
   } catch (error) {
+    console.log('error occurs');
     res.status(400).send(error);
   }
 });

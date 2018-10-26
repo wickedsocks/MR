@@ -150,7 +150,8 @@ export default {
     },
     products() {
       return this.bucket.map(item => {
-        return { url: item.product.url, quantity: item.quantity };
+        console.log('item ', item);
+        return { url: item.product.url, id: item.product._id, colorIndex: item.colorIndex, sizeIndex: item.sizeIndex, quantity: item.quantity };
       });
     },
     totalBucketPrice() {
@@ -196,7 +197,9 @@ export default {
       storeService.setLocalStorageBucket(this.$store.state);
     }
   },
-  mounted() {}
+  mounted() {
+    console.log('this ', this.products)
+  }
 };
 </script>
 <style lang="scss" scoped>
