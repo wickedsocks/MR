@@ -23,7 +23,7 @@ router.post('/orders', async (req, res) => {
   });
   try {
     let orderStatus = await newOrder.save();
-    res.send(orderStatus);
+    // res.send(orderStatus);
 
     function getProductNameAndQuantityById(id, quantity) {
       return Product.findById(id).then((product) => {
@@ -42,13 +42,13 @@ router.post('/orders', async (req, res) => {
       }).join(',\n');
 
       const customerMessage = {
-        from: 'Заказ на сайте MR <mrvuejs@support.com>',
+        from: 'Заказ на сайте Михайловские ряды',
         to: req.body.email,
         subject: 'Подтверждение заказа',
         text: `Здравствуйте ${req.body.name}, Вы заказали: ${productText}, общей стоимостью ${req.body.totalPrice} грн, с Вами свяжутся для подтверждения заказа в ближайщее время`
       };
       const ownerMessage = {
-        from: 'Заказ на сайте MR <mrvuejs@support.com>',
+        from: 'Заказ на сайте Михайловские ряды',
         to: 'mykhailovpm@gmail.com',
         subject: 'Новый заказ',
         text:
@@ -61,6 +61,10 @@ router.post('/orders', async (req, res) => {
           - пожелания к заказу: ${req.body.comment}`
       };
       mailgun.messages().send(ownerMessage, (err, body) => {
+        if (err) {
+          res.status(400).send(err);
+        }
+        res.send(body);
       });
     });
   } catch (error) {
