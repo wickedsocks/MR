@@ -23,13 +23,17 @@ import NavigationSideBar from '~/components/NavigationSideBar.vue';
 import _ from 'lodash';
 export default {
   props: [],
-  async asyncData({ params, store }) {
-    let products = await storeServices.getCategoryProducts(params.url);
-    let title = _.capitalize(store.getters.getCategoryByUrl(params.url).name);
-    return {
-      products: products.data,
-      title
-    };
+  async asyncData({ params, store, error }) {
+    try {
+      let products = await storeServices.getCategoryProducts(params.url);
+      let title = _.capitalize(store.getters.getCategoryByUrl(params.url).name);
+      return {
+        products: products.data,
+        title
+      };
+    } catch (err) {
+      error({statusCode: 404});
+    }
   },
   components: {
     Product,

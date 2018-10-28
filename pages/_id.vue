@@ -24,8 +24,8 @@ export default {
       .then(res => {
         return { user: res.data };
       })
-      .catch(e => {
-        error({ statusCode: 404, message: "User not found" + e });
+      .catch(() => {
+        error({ statusCode: 404 });
       });
   },
   head() {
