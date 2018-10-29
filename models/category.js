@@ -29,10 +29,12 @@ function categoryURLNaming(categoryName) {
 
 categoryShema.statics.categoryURLNaming = categoryURLNaming;
 
-const CategoryManufacture = mongoose.model("categories_manufacture", categoryShema);
-const CategoryProduct = mongoose.model('categories_product', categoryShema)
+const CategoryManufacture = mongoose.model("categories_manufactures", categoryShema);
+const CategoryProduct = mongoose.model('categories_products', categoryShema);
+const Category = mongoose.model('categories', categoryShema);
 
 module.exports = {
   CategoryManufacture,
-  CategoryProduct
+  CategoryProduct,
+  Category
 }
