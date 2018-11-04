@@ -78,6 +78,27 @@ router.post('/orders', async (req, res) => {
   }
 });
 
+router.post('/contact-us', (req, res) => {
+  const {name, email, tel, comment} = req.body;
+  const ownerMessage = {
+    from: 'Вопрос на сайте Михайловские ряды <mykhailovskie@ryadi.com>',
+    to: 'mykhailovpm@gmail.com',
+    subject: 'Новый вопрос',
+    text:
+    `Вопрос от ${name},
+     Контактная информация:
+     - Эл. почта - ${email},
+     - Телефон - ${tel}.
+     Вопрос: ${comment}`
+  };
+  mailgun.messages().send(ownerMessage, (err, body) => {
+    if (err) {
+      res.status(400).send(err);
+    }
+    res.send(body);
+  });
+});
+
 router.get('/orders', async (req, res) => {
   Order.find({}).then((orders) => {
     res.send(orders);

@@ -241,17 +241,6 @@ tr {
   color: red;
   font-size: 12px;
 }
-.form-input-wrapper {
-  textarea {
-    height: 100px;
-    outline: none;
-    resize: none;
-    border: 1px solid #e6e6ee;
-    border-radius: 3px;
-    width: 100%;
-    padding: 10px;
-  }
-}
 .purple-hover {
   &:hover {
     div {

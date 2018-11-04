@@ -9,6 +9,10 @@
           <div class="container">
             <div class="row justify-content-end login-wrapper align-items-center">
               <div class="text-white">
+                Телефон:
+                <a href="tel:+380936985323"> +380936985323</a>
+              </div>
+              <div class="text-white">
                 <nuxt-link v-if="!currentUser" to="/login">Войти</nuxt-link>
                 <nuxt-link v-if="currentUser" @click.native="logout" to="/">Выйти</nuxt-link>
               </div>
@@ -43,6 +47,9 @@
                 <li>
                   <nuxt-link to="/orders" v-if="currentUser && currentUser.admin">Заказы</nuxt-link>
                 </li>
+                <li>
+                  <nuxt-link to="/contacts">Контакты</nuxt-link>
+                </li>
               </ul>
             </div>
 
@@ -59,6 +66,23 @@
       </div>
 
       <!-- Header Mobile -->
+      <div class="top-bar top-bar-mobile">
+        <div class="container">
+          <div class="row justify-content-end login-wrapper align-items-center">
+            <div class="text-white">
+              Телефон:
+              <a href="tel:+380936985323">+380936985323</a>
+            </div>
+            <div class="text-white">
+              <nuxt-link v-if="!currentUser" to="/login">Войти</nuxt-link>
+              <nuxt-link v-if="currentUser" @click.native="logout" to="/">Выйти</nuxt-link>
+            </div>
+            <div class="text-white">
+              <nuxt-link to="/registration">регистрация</nuxt-link>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="wrap-header-mobile flex-wrap">
         <!-- Logo moblie -->
         <div class="logo-mobile">
@@ -98,6 +122,9 @@
 
             <li>
               <nuxt-link to="/orders" v-if="currentUser && currentUser.admin">Заказы</nuxt-link>
+            </li>
+            <li>
+              <nuxt-link to="/contacts">Контакты</nuxt-link>
             </li>
           </ul>
         </div>
@@ -175,10 +202,13 @@ a {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 99;
   & > .container {
     height: 100%;
   }
+}
+.top-bar-mobile {
+  position: relative;
 }
 .shadow {
   box-shadow: 0 0px 3px 0px rgba(0, 0, 0, 0.2);
