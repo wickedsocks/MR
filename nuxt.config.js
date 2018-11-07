@@ -75,6 +75,7 @@ module.exports = {
   plugins: ["~plugins/vee-validate", "~plugins/vuejs-filters.js"],
   modules: [
     ['@nuxtjs/google-tag-manager', { id: 'GTM-KXK43LF',layer: 'dataLayer' }],
+    '@nuxtjs/sitemap'
    ],
 
   /*
