@@ -5,7 +5,7 @@
     </div>
 
     <div class="header-cart-item-txt p-t-8 d-flex flex-column justify-content-between">
-      <nuxt-link @click.native="close()" :to="`/product/${item.product._id}`" class="header-cart-item-name hov-cl1 trans-04">
+      <nuxt-link @click.native="close()" :to="`/ikona/${item.product._id}`" class="header-cart-item-name hov-cl1 trans-04">
         {{item.product.title}}
       </nuxt-link>
       <div class="d-flex">

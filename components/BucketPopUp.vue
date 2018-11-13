@@ -141,7 +141,7 @@ export default {
       return this.$store.getters.currentUser;
     },
     editUrl() {
-      return `/product/edit/${this.$route.params.id}`;
+      return `/ikona/edit/${this.$route.params.id}`;
     },
     sizeModel() {
       return this.product.productProperties[this.sizeIndex];

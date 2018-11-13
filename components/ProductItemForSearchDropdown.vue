@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nuxt-link @click.native="close()" :to="`/product/${item._id}`" 
+    <nuxt-link @click.native="close()" :to="`/ikona/${item._id}`" 
     class="header-cart-item-name hov-cl1 trans-04 d-flex p-3">
       <div class="header-cart-item-img">
         <img :src="item.images[0]" :alt="item.description">
