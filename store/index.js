@@ -121,7 +121,7 @@ export const actions = {
     commit
   }) {
     let [products, categories, orders] = await Promise.all([storeService.getProducts(), storeService.getCategories(), storeService.getOrders()])
-    commit('setCategories', categories);
+    commit('setCategories', categories.data);
     commit('setProducts', products.data);
     commit('setOrders', orders.data);
   }

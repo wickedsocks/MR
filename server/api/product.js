@@ -31,9 +31,7 @@ router.post("/products", authenticate, isAdmin, (req, res) => {
     description: req.body.description,
     title: req.body.title.trim(),
     images: req.body.images,
-    categories: [req.body.productCategory, req.body.manufactureCategory],
-    productCategory: req.body.productCategory,
-    manufactureCategory: req.body.manufactureCategory,
+    categories: req.body.categories,
     url: Product.productUrlNaming(req.body.title)
   });
   promiseCategories.push(

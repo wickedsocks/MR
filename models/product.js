@@ -16,14 +16,6 @@ let schema = new mongoose.Schema({
     type: String,
     required: true
   },
-  productCategory: {
-    type: String,
-    required: true
-  },
-  manufactureCategory: {
-    type: String,
-    required: true
-  },
   color: [
     {
       type: String,

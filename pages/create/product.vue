@@ -70,23 +70,31 @@
         <button type="button" class="btn btn-danger" @click="removeOneColor()">Удалить последний цвет</button>
       </div>
     </section>
-    <section>
-      <select class="custom-select" name="product" v-model="requestData.selectedCategories.product" v-validate="'required'">
+    <!-- <section>
+      <select class="custom-select" name="product" v-model="requestData.selectedCategories" v-validate="'required'">
         <option value="" disabled>Категория товара</option>
-        <option :value="prodCat._id" v-for="prodCat in productCategory" :key="prodCat._id">
-          {{prodCat.name}}
+        <option :value="cat._id" v-for="cat in categories" :key="cat._id">
+          {{cat.name}}
         </option>
       </select>
       <span class="error-default" v-show="errors.has('product')"> {{errors.first('product')}} </span>
+    </section> -->
+    <section class="row">
+      <div class="col-xs-12 col-sm-12 d-flex align-items-center flex-wrap mb-1" v-for="(item, index) in requestData.categoriesArray" :key="index">
+          <select class="custom-select" name="product" v-model="requestData.selectedCategories[index]" v-validate="'required'">
+            <option value="" disabled>Категория товара</option>
+            <option :value="cat._id" v-for="cat in categories" :key="cat._id">
+              {{cat.name}}
+            </option>
+          </select>
+          <span class="error-default" v-show="errors.has('product')"> {{errors.first('product')}} </span>
+        </div>
     </section>
-    <section>
-      <select class="custom-select" name="manufacture" v-model="requestData.selectedCategories.manufacture" v-validate="'required'">
-        <option value="" disabled>Производственная категория</option>
-        <option :value="manufactureCat._id" v-for="manufactureCat in manufactureCategory" :key="manufactureCat._id">
-          {{manufactureCat.name}}
-        </option>
-      </select>
-      <span class="error-default" v-show="errors.has('manufacture')"> {{errors.first('manufacture')}} </span>
+    <section class="row">
+      <div class="col-12">
+        <button type="button" class="btn btn-success mr-2" @click="addOneMoreCategory()">Добавить ещё категорию</button>
+        <button type="button" class="btn btn-danger" @click="removeOneCategory()">Удалить последнию категорию</button>
+      </div>
     </section>
     <button type="submit" class="btn btn-success">Добавить товар</button>
     <div v-show="showLoader" class="loader-wrapper">
@@ -106,12 +114,12 @@ import storeService from '~/services/storeServices';
 
 export default {
   computed: {
-    productCategory() {
-      return this.$store.state.categories.productCategory;
-    },
-    manufactureCategory() {
-      return this.$store.state.categories.manufactureCategory;
+    categories() {
+      return this.$store.state.categories;
     }
+  },
+  mounted() {
+    console.log('categories ', this.$store.state.categories);
   },
   data() {
     return {
@@ -132,11 +140,11 @@ export default {
         colorArray: [
           ''
         ],
+        categoriesArray: [
+          ''
+        ],
         imagesUrlsArray: [],
-        selectedCategories: {
-          product: '',
-          manufacture: ''
-        }
+        selectedCategories: []
       }
     };
   },
@@ -172,6 +180,17 @@ export default {
             1
           )
         : this.requestData.colorArray;
+    },
+    addOneMoreCategory() {
+      this.requestData.categoriesArray.push('');
+    },
+    removeOneCategory() {
+      this.requestData.categoriesArray.length > 1
+        ? this.requestData.categoriesArray.splice(
+            this.requestData.categoriesArray.length - 1,
+            1
+          )
+        : this.requestData.categoriesArray;
     },
     async sendForm() {
       try {
@@ -216,8 +235,7 @@ export default {
     serverRequestUploadData() {
       return axios.post('/api/products', {
         ...this.requestData,
-        productCategory: this.requestData.selectedCategories.product,
-        manufactureCategory: this.requestData.selectedCategories.manufacture,
+        categories: this.requestData.selectedCategories,
         images: this.requestData.imagesUrlsArray
       });
     },
@@ -272,10 +290,7 @@ export default {
           ''
         ],
         imagesUrlsArray: [],
-        selectedCategories: {
-          product: '',
-          manufacture: ''
-        }
+        selectedCategories: []
       };
     }
   }

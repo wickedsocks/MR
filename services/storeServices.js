@@ -53,14 +53,8 @@ export default {
     return parsedUser;
   },
   async getCategories() {
-    let [productCategory, manufactureCategory] = await Promise.all([
-      axios.get('/api/categories/product'),
-      axios.get('/api/categories/manufacture')
-    ]);
-    return {
-      productCategory: productCategory.data,
-      manufactureCategory: manufactureCategory.data
-    };
+    let categories = await axios.get('/api/categories');
+    return categories;
   },
   async getOrders() {
     return await axios.get('/api/orders');
