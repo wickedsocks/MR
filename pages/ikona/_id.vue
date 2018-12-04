@@ -34,9 +34,7 @@ export default {
         {
           hid: 'keywords',
           name: 'keywords',
-          content: `${this.product.title} - купить за ${this.price} грн. ${
-            this.productCategory
-          }, ${this.manufactureCategory}`
+          content: `${this.product.title} - купить за ${this.product.productProperties[0].price} грн. ${this.categories}`
         }
       ]
     };
@@ -59,14 +57,14 @@ export default {
     console.log('this products ', this.product);
   },
   computed: {
-    productCategory() {
-      return this.$store.getters.getCategoryById(this.product.productCategory)
-        .name;
-    },
-    manufactureCategory() {
-      return this.$store.getters.getCategoryById(
-        this.product.manufactureCategory
-      ).name;
+    categories() {
+      if (this.product) {
+        return this.product.categories.map(id => {
+          return this.$store.getters.getCategoryById(id).name;
+        }).join(',');
+      } else {
+        return "";
+      }
     }
   }
 };

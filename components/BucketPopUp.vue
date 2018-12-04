@@ -1,7 +1,11 @@
 <template>
   <div class="container container-margins" v-if="product">
     <div class="bg0 py-5 px-5 how-pos3-parent">
-      <button class="close-button hov3 trans-04 position-absolute" @click="hidePopUp()" v-if="pagePreviewStyling">
+      <button
+        class="close-button hov3 trans-04 position-absolute"
+        @click="hidePopUp()"
+        v-if="pagePreviewStyling"
+      >
         <i class="zmdi zmdi-close"></i>
       </button>
 
@@ -9,15 +13,27 @@
         <div class="col-md-6 col-lg-7 p-b-30 row no-gutters">
           <div class="col-2">
             <ul>
-              <li class="d-flex justify-content-center mb-3 pointer sidebar-img-wrapper" @click="setCurrentImage(index)" v-for="(image, index) in product.images" :key="index">
-                <img :src="image" :alt="product.description" :class="{'select-image-border-color': index == photoIndex}">
+              <li
+                class="d-flex justify-content-center mb-3 pointer sidebar-img-wrapper"
+                @click="setCurrentImage(index)"
+                v-for="(image, index) in product.images"
+                :key="index"
+              >
+                <img
+                  :src="image"
+                  :alt="product.description"
+                  :class="{'select-image-border-color': index == photoIndex}"
+                >
               </li>
             </ul>
           </div>
           <div class="col-10">
             <div class="main-img-wrapper position-relative">
               <img :src="product.images[photoIndex]" :alt="product.description">
-              <div class="open-preview position-absolute d-flex align-items-center justify-content-center pointer" @click="toggleBigPopUp()">
+              <div
+                class="open-preview position-absolute d-flex align-items-center justify-content-center pointer"
+                @click="toggleBigPopUp()"
+              >
                 <i class="zmdi zmdi-zoom-in"></i>
               </div>
               <div class="left position-absolute pointer" @click="changeImage(-1)">
@@ -27,48 +43,50 @@
                 <i class="zmdi zmdi-chevron-right"></i>
               </div>
             </div>
-            <p class="product-description cl3 pt-5">
-              {{product.description }}
-            </p>
+            <p class="product-description cl3 pt-5">{{product.description }}</p>
           </div>
         </div>
         <div class="col-md-6 col-lg-5 p-b-30 overflow-hidden">
           <div>
-            <h4 class="p-b-14 product-title">
-              {{product.title}}
-            </h4>
+            <h4 class="p-b-14 product-title">{{product.title}}</h4>
 
-            <span class="product-price cl2">
-              {{product.productProperties[sizeIndex].price}} грн
-            </span>
+            <span class="product-price cl2">{{product.productProperties[sizeIndex].price}} грн</span>
             <div class="p-t-33">
               <div class="flex-w flex-r-m p-b-10">
-                <div class="size-203 flex-c-m respon6">
-                  Размер
-                </div>
+                <div class="size-203 flex-c-m respon6">Размер</div>
 
                 <div class="size-204 respon6-next">
                   <div>
-                    <select class="custom-select pointer" name="size" @change='sizeSelectOnChange($event)'>
-                      <option :value="{height: item.height, width: item.width}" v-for="(item, index) in product.productProperties" :key="index">
-                        {{item.width}} x {{item.height}} см
-                      </option>
+                    <select
+                      class="custom-select pointer"
+                      name="size"
+                      @change="sizeSelectOnChange($event)"
+                    >
+                      <option
+                        :value="{height: item.height, width: item.width}"
+                        v-for="(item, index) in product.productProperties"
+                        :key="index"
+                      >{{item.width}} x {{item.height}} см</option>
                     </select>
                   </div>
                 </div>
               </div>
 
               <div class="flex-w flex-r-m p-b-10">
-                <div class="size-203 flex-c-m respon6">
-                  Цвет
-                </div>
+                <div class="size-203 flex-c-m respon6">Цвет</div>
 
                 <div class="size-204 respon6-next">
                   <div>
-                    <select class="custom-select pointer" name="color" @change="colorSelectOnChange($event)">
-                      <option :value="color" v-for="(color, index) in product.color" :key="index">
-                        {{color}}
-                      </option>
+                    <select
+                      class="custom-select pointer"
+                      name="color"
+                      @change="colorSelectOnChange($event)"
+                    >
+                      <option
+                        :value="color"
+                        v-for="(color, index) in product.color"
+                        :key="index"
+                      >{{color}}</option>
                     </select>
                   </div>
                 </div>
@@ -77,52 +95,71 @@
             <div class="flex-w flex-r-m p-b-10">
               <div class="size-204 flex-w flex-m respon6-next">
                 <div class="wrap-num-product align-self-end d-flex m-r-20">
-                  <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m" @click="decrease()">
+                  <div
+                    class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m"
+                    @click="decrease()"
+                  >
                     <i class="fs-16 zmdi zmdi-minus"></i>
                   </div>
 
-                  <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" v-model="quantity">
+                  <input
+                    class="mtext-104 cl3 txt-center num-product"
+                    type="number"
+                    name="num-product"
+                    v-model="quantity"
+                  >
 
-                  <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m" @click="increase()">
+                  <div
+                    class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m"
+                    @click="increase()"
+                  >
                     <i class="fs-16 zmdi zmdi-plus"></i>
                   </div>
                 </div>
                 <div class="d-flex flex-column">
-                  <div class="py-3 total-price default-font-family">
-                    Всего: {{price * quantity}} грн
-                  </div>
-                  <button class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04" @click="addToBucket(product, quantity, sizeIndex, colorIndex); hidePopUp()">
-                    В КОЗРИНУ
-                  </button>
+                  <div class="py-3 total-price default-font-family">Всего: {{price * quantity}} грн</div>
+                  <button
+                    class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04"
+                    @click="addToBucket(product, quantity, sizeIndex, colorIndex); hidePopUp()"
+                  >В КОЗРИНУ</button>
                   <span class="edit-button-placeholder">
-                    <nuxt-link :to="editUrl" class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 btn-danger mt-3" v-if="currentUser && currentUser.admin">
-                      РЕДАКТИРОВАТЬ
-                    </nuxt-link>
+                    <nuxt-link
+                      :to="editUrl"
+                      class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 btn-danger mt-3"
+                      v-if="currentUser && currentUser.admin"
+                    >РЕДАКТИРОВАТЬ</nuxt-link>
                   </span>
                 </div>
               </div>
             </div>
             <p class="product-description cl3">
-              {{manufactureCategory}}, {{productCategory}}
+              Категории:<span v-for="(cat, index) in categories" :key="index">
+                {{cat.name}}<span v-if="index !== categories.length - 1">,</span>
+              </span>
             </p>
-            <p class="product-description cl3">
-              Высота: {{product.productProperties[sizeIndex].height}} см
-            </p>
-            <p class="product-description cl3">
-              Ширина: {{product.productProperties[sizeIndex].width}} см
-            </p>
-            <p class="product-description cl3">
-              Цвет: {{colorModel}}
-            </p>
+            <p
+              class="product-description cl3"
+            >Высота: {{product.productProperties[sizeIndex].height}} см</p>
+            <p
+              class="product-description cl3"
+            >Ширина: {{product.productProperties[sizeIndex].width}} см</p>
+            <p class="product-description cl3">Цвет: {{colorModel}}</p>
           </div>
         </div>
       </div>
     </div>
-    <zoom-product :photo-index="photoIndex" @change-image="changeImage($event)" @close-big-popup="toggleBigPopUp()" :photo-amount="product.images.length" :src="product.images[photoIndex]" v-if="product && showBigPopUp" />
+    <zoom-product
+      :photo-index="photoIndex"
+      @change-image="changeImage($event)"
+      @close-big-popup="toggleBigPopUp()"
+      :photo-amount="product.images.length"
+      :src="product.images[photoIndex]"
+      v-if="product && showBigPopUp"
+    />
   </div>
 </template>
 <script>
-import ZoomProduct from '~/components/ZoomProduct.vue';
+import ZoomProduct from "~/components/ZoomProduct.vue";
 export default {
   components: {
     ZoomProduct
@@ -150,19 +187,19 @@ export default {
       return this.product.color[this.colorIndex];
     },
     price() {
-       return this.product.productProperties[this.sizeIndex].price;
+      return this.product.productProperties[this.sizeIndex].price;
     },
-    productCategory() {
-       return this.$store.getters.getCategoryById(this.product.productCategory)
-        .name;
-    },
-    manufactureCategory() {
-       return this.$store.getters.getCategoryById(
-        this.product.manufactureCategory
-      ).name;
+    categories() {
+      if (this.product) {
+        return this.product.categories.map(id => {
+          return this.$store.getters.getCategoryById(id);
+        });
+      } else {
+        return "";
+      }
     }
   },
-  props: ['product', 'pagePreviewStyling'],
+  props: ["product", "pagePreviewStyling"],
   methods: {
     sizeSelectOnChange(event) {
       this.sizeIndex = event.target.selectedIndex;
@@ -181,12 +218,12 @@ export default {
       this.quantity -= 1;
     },
     hidePopUp() {
-      this.$emit('close-pop-up');
+      this.$emit("close-pop-up");
       this.quantity = 1;
       this.photoIndex = 0;
     },
     addToBucket(product, quantity, sizeIndex, colorIndex) {
-      this.$store.commit('addNewBucketItem', {
+      this.$store.commit("addNewBucketItem", {
         product,
         quantity,
         sizeIndex,
@@ -209,6 +246,7 @@ export default {
     }
   },
   mounted() {
+    console.log("this categories ", this.categories);
   }
 };
 </script>

@@ -29,26 +29,22 @@ export const getters = {
   },
   getCategoryById(state) {
     return (id) => {
-      let categoriesNames = Object.keys(state.categories);
-      let findCategory;
-      categoriesNames.some((catName) => {
-        if (!findCategory) {
-          findCategory = state.categories[catName].find((item) => item._id == id);
-        }
-      })
-      return findCategory;
+      for (const key in state.categories) {
+          const category = state.categories[key];
+          if (category._id == id) {
+            return category;
+          }
+      }
     }
   },
   getCategoryByUrl(state) {
     return (url) => {
-      let categoriesNames = Object.keys(state.categories);
-      let findCategory;
-      categoriesNames.some((catName) => {
-        if (!findCategory) {
-          findCategory = state.categories[catName].find((item) => item.url == url);
-        }
-      })
-      return findCategory;
+      for (const key in state.categories) {
+          const category = state.categories[key];
+          if (category.url == url) {
+            return category;
+          }
+      }
     }
   },
   currentUser(state) {
