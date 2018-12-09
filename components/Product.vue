@@ -50,24 +50,22 @@ export default {
     };
   },
   props: ["product"],
-  mounted() {
-    this.solveCategoriesIssue(this.product);
-  },
   methods: {
-   async solveCategoriesIssue(product) {
-      if (product && product.manufactureCategory) {
-        const manufactCat = product.manufactureCategory; // ID
-        const prodCat = product.productCategory; // ID
-        const manuName = this.$store.getters.getConcatCategoryById(manufactCat);
-        const prodName = this.$store.getters.getConcatCategoryById(prodCat);
-        const newProdCat = this.$store.getters.getCategoriesByName(prodName.name);
-        const newManuCat = this.$store.getters.getCategoriesByName(manuName.name);
-        await axios.post('/api/update/categories', {
-          id: product._id,
-          categories: [newProdCat._id, newManuCat._id]
-        });
-      }
-    },
+    // NOTE: function above was created for refactoring category structure
+  //  async solveCategoriesIssue(product) {
+  //     if (product && product.manufactureCategory) {
+  //       const manufactCat = product.manufactureCategory; // ID
+  //       const prodCat = product.productCategory; // ID
+  //       const manuName = this.$store.getters.getConcatCategoryById(manufactCat);
+  //       const prodName = this.$store.getters.getConcatCategoryById(prodCat);
+  //       const newProdCat = this.$store.getters.getCategoriesByName(prodName.name);
+  //       const newManuCat = this.$store.getters.getCategoriesByName(manuName.name);
+  //       await axios.post('/api/update/categories', {
+  //         id: product._id,
+  //         categories: [newProdCat._id, newManuCat._id]
+  //       });
+  //     }
+  //   },
     hideProductPreview() {
       this.productPreview = "";
     },
