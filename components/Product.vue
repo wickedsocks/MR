@@ -39,7 +39,6 @@
 
 <script>
 import BucketPopUp from "~/components/BucketPopUp.vue";
-import axios from "~/plugins/axios";
 export default {
   components: {
     BucketPopUp

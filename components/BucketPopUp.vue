@@ -43,7 +43,7 @@
                 <i class="zmdi zmdi-chevron-right"></i>
               </div>
             </div>
-            <p class="product-description cl3 pt-5">{{product.description }}</p>
+            <p class="product-description cl3 pt-4">{{product.description }}</p>
           </div>
         </div>
         <div class="col-md-6 col-lg-5 p-b-30 overflow-hidden">
@@ -308,6 +308,7 @@ button {
 
 .product-description {
   font-size: 14px;
+  word-wrap: break-word;
 }
 .left,
 .right {
