@@ -59,41 +59,48 @@ router.get('/categories', (req, res) => {
 
 router.get('/merge-categoires', (req, res) => {
   let promiseAllArray = [];
-  CategoryProduct.find({}).then(
-    productsCat => {
-      productsCat.forEach((cat) => {
-       let category = new Category({
-        description: cat.description,
-        name: cat.name,
-        url: cat.url,
-        used: cat.used
-      });
-       promiseAllArray.push(category.save());
-      });
-    },
-    err => {
-      res.status(400).send(err);
-    });
-    CategoryManufacture.find({}).then(
-      manuCat => {
-        manuCat.forEach((cat) => {
-         let category = new Category({
-          description: cat.description,
-          name: cat.name,
-          url: cat.url,
-          used: cat.used
-        });
-         promiseAllArray.push(category.save());
-        });
-      },
-      err => {
-        res.status(400).send(err);
-      });
+  promiseAllArray.push(CategoryProduct.find({}));
+  // .then(productsCat => {
+      // productsCat.forEach((cat) => {
+      //  let category = new Category({
+      //   description: cat.description,
+      //   name: cat.name,
+      //   url: cat.url,
+      //   used: cat.used
+      // });
+      //  promiseAllArray.push(category.save());
+      // });
+    // },
+    // err => {
+    //   res.status(400).send(err);
+    // });
+    promiseAllArray.push(CategoryManufacture.find({}));
+    // .then(
+      // manuCat => {
+        // manuCat.forEach((cat) => {
+        //  let category = new Category({
+        //   description: cat.description,
+        //   name: cat.name,
+        //   url: cat.url,
+        //   used: cat.used
+        // });
+        //  promiseAllArray.push(category.save());
+        // });
+      // },
+      // err => {
+      //   res.status(400).send(err);
+      // });
       Promise.all(promiseAllArray).then((success) => {
-       res.send(success);
+        const flattenedArray = [];
+         success.forEach((categoryArray) => {
+          categoryArray.forEach((category) => {
+            flattenedArray.push(category);
+          });
+        });
+       res.send(flattenedArray);
       }, (err) => {
        res.status(400).send(err);
-      })
+      });
 });
 
 module.exports = router;

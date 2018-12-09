@@ -3,17 +3,13 @@ const { Router } = require("express");
 const { Product } = require("../../models/product");
 const {
   CategoryProduct,
-  CategoryManufacture
+  CategoryManufacture,
+  Category
 } = require("../../models/category");
 const { authenticate, isAdmin } = require("./middleware/middleware.service");
-const cyrillicToTranslit = require('cyrillic-to-translit-js');
 const formidable = require("formidable");
 
 const cloudinary = require("cloudinary");
-const imagemin = require('imagemin');
-const imageminJpegtran = require('imagemin-jpegtran');
-const imageminPngquant = require('imagemin-pngquant');
-const {writeFile} = require('fs');
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME_CLOUDINARY,
@@ -22,6 +18,17 @@ cloudinary.config({
 });
 
 const router = Router();
+
+router.post("/update/categories", (req, res) => {
+  let id = req.body.id;
+  Product.findByIdAndUpdate(id, {
+    $set: {categories: req.body.categories}
+  }).then((success) => {
+   res.send(`Category ${success} has updated`);
+  }, (err) => {
+   res.status(400).send(err);
+  })
+});
 
 router.post("/products", authenticate, isAdmin, (req, res) => {
   let promiseCategories = [];
@@ -34,16 +41,9 @@ router.post("/products", authenticate, isAdmin, (req, res) => {
     categories: req.body.categories,
     url: Product.productUrlNaming(req.body.title)
   });
-  promiseCategories.push(
-    CategoryManufacture.findByIdAndUpdate(req.body.manufactureCategory, {
-      $set: { used: true }
-    })
-  );
-  promiseCategories.push(
-    CategoryProduct.findByIdAndUpdate(req.body.productCategory, {
-      $set: { used: true }
-    })
-  );
+  req.body.categories.forEach((id) => {
+    promiseCategories.push(Category.findByIdAndUpdate(id, {$set: {used: true}}));
+  });
   Promise.all(promiseCategories).then(
     () => {
       newProduct.save().then(
@@ -118,22 +118,6 @@ router.post("/products/upload-image", authenticate, isAdmin, (req, res) => {
     if (err) {
       res.status(400).send(err);
     }
-
-    // const aaa = await imagemin([`${files.file.path}`], {
-    //   plugins: [
-    //     imageminJpegtran(),
-    //     imageminPngquant({quality:'60'})
-    //   ]
-    // });
-    // let buffer = aaa[0].data.toString('base64')
-    // let fromBase = Buffer.from(buffer,'base64');
-    // writeFile('build/images.jpg', fromBase, (err) => {
-    //   if (err) {
-    //     res.status(400).send(err);
-    //   }
-    //   console.log(aaa);
-    //   res.send(aaa);
-    // });
       cloudinary.v2.uploader.upload(
         files.file.path,
         {

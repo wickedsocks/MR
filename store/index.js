@@ -4,7 +4,8 @@ import storeService from "./../services/storeServices";
 export const state = () => ({
   bucket: [],
   products: [],
-  categories: {},
+  categories: [],
+  concatCategories: [],
   orders: [],
   user: null
 });
@@ -29,12 +30,29 @@ export const getters = {
   },
   getCategoryById(state) {
     return (id) => {
-      for (const key in state.categories) {
-          const category = state.categories[key];
-          if (category._id == id) {
-            return category;
-          }
-      }
+      return state.categories.find((item) => {
+        if (item._id == id) {
+          return item;
+        }
+      });
+    }
+  },
+  getConcatCategoryById(state) {
+    return (id) => {
+      return state.concatCategories.find((item) => {
+        if (item._id == id) {
+          return item;
+        }
+      });
+    }
+  },
+  getCategoriesByName(state) {
+    return (name) => {
+      return state.categories.find((item) => {
+        if (item.name == name) {
+          return item;
+        }
+      });
     }
   },
   getCategoryByUrl(state) {
@@ -70,7 +88,10 @@ export const mutations = {
     state.products.push(payload);
   },
   setCategories(state, payload) {
-    state.categories = Object.assign({}, payload);
+    state.categories = Object.assign([], payload);
+  },
+  setconcatCategories(state, payload) {
+    state.concatCategories = Object.assign([], payload);
   },
   setOrders(state, payload) {
     state.orders = payload.slice();
@@ -116,8 +137,9 @@ export const actions = {
   async nuxtServerInit({
     commit
   }) {
-    let [products, categories, orders] = await Promise.all([storeService.getProducts(), storeService.getCategories(), storeService.getOrders()])
+    let [products, categories, orders, concatCategories] = await Promise.all([storeService.getProducts(), storeService.getCategories(), storeService.getOrders(), storeService.getConcatCategories()])
     commit('setCategories', categories.data);
+    commit('setconcatCategories', concatCategories.data);
     commit('setProducts', products.data);
     commit('setOrders', orders.data);
   }

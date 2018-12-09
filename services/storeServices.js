@@ -56,6 +56,10 @@ export default {
     let categories = await axios.get('/api/categories');
     return categories;
   },
+  async getConcatCategories() {
+    let categories = await axios.get('/api//merge-categoires');
+    return categories;
+  },
   async getOrders() {
     return await axios.get('/api/orders');
   },

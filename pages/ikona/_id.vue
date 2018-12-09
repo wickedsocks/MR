@@ -21,14 +21,14 @@ export default {
   head() {
     return {
       title: `${this.product.title} - купить за ${
-        this.price
+        this.product.productProperties[0].price
       } грн. в православном интернет магазине икон, доставка по Киеву, Москве, в Россию и Украину -  Михайловские ряды`,
       meta: [
         {
           hid: 'description',
           name: 'description',
           content: `${this.product.title} - купить за ${
-            this.price
+            this.product.productProperties[0].price
           } грн. в православном интернет магазине икон и православной утвари, доставка по Киеву, Москве, в Россию и Украину -  Михайловские ряды`
         },
         {
@@ -55,6 +55,7 @@ export default {
   },
   mounted() {
     console.log('this products ', this.product);
+    console.log('this products ', this.categories);
   },
   computed: {
     categories() {
