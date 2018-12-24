@@ -69,10 +69,11 @@ module.exports = {
    */
   css: [
     "~/assets/css/main.css", "~/assets/css/theme.css", "~/assets/css/util.css",
-    '~/node_modules/bootstrap/dist/css/bootstrap.min.css', '~/assets/css/main.scss', '~/assets/css/hamburgers.min.css'
+    '~/node_modules/bootstrap/dist/css/bootstrap.min.css', '~/assets/css/main.scss', '~/assets/css/hamburgers.min.css',
+    "~/node_modules/swiper/dist/css/swiper.css"
   ],
 
-  plugins: ["~plugins/vee-validate", "~plugins/vuejs-filters.js"],
+  plugins: ["~plugins/vee-validate", "~plugins/vuejs-filters.js", {src:"~plugins/swiper.js",ssr: false}],
   modules: [
     ['@nuxtjs/google-tag-manager', { id: 'GTM-KXK43LF',layer: 'dataLayer' }],
     // '@nuxtjs/sitemap'

@@ -8,42 +8,20 @@
       >
         <i class="zmdi zmdi-close"></i>
       </button>
-
       <div class="row">
-        <div class="col-md-6 col-lg-7 p-b-30 row no-gutters">
-          <div class="col-2">
-            <ul>
-              <li
-                class="d-flex justify-content-center mb-3 pointer sidebar-img-wrapper"
-                @click="setCurrentImage(index)"
-                v-for="(image, index) in product.images"
-                :key="index"
-              >
-                <img
-                  :src="image"
-                  :alt="product.description"
-                  :class="{'select-image-border-color': index == photoIndex}"
-                >
-              </li>
-            </ul>
-          </div>
-          <div class="col-10">
-            <div class="main-img-wrapper position-relative">
-              <img :src="product.images[photoIndex]" :alt="product.description">
-              <div
-                class="open-preview position-absolute d-flex align-items-center justify-content-center pointer"
-                @click="toggleBigPopUp()"
-              >
-                <i class="zmdi zmdi-zoom-in"></i>
-              </div>
-              <div class="left position-absolute pointer" @click="changeImage(-1)">
-                <i class="zmdi zmdi-chevron-left"></i>
-              </div>
-              <div class="right position-absolute pointer" @click="changeImage(1)">
-                <i class="zmdi zmdi-chevron-right"></i>
+        <div class="col-md-6 col-lg-7 p-b-30 row no-gutters d-flex justify-content-center">
+          <div v-swiper:mySwiper="swiperOption" class="overflow-hidden">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" v-for="(image, index) in product.images" :key="index">
+                <img :src="image">
               </div>
             </div>
-            <p class="product-description cl3 pt-4">{{product.description }}</p>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev d-none d-md-block" slot="button-prev"></div>
+            <div class="swiper-button-next d-none d-md-block" slot="button-next"></div>
+          </div>
+          <div class="col-10">
+            <p class="product-description cl3 pt-4 d-none d-md-block">{{product.description}}</p>
           </div>
         </div>
         <div class="col-md-6 col-lg-5 p-b-30 overflow-hidden">
@@ -133,8 +111,10 @@
               </div>
             </div>
             <p class="product-description cl3">
-              Категории:<span v-for="(cat, index) in categories" :key="index">
-                {{cat.name}}<span v-if="index !== categories.length - 1">,</span>
+              Категории:
+              <span v-for="(cat, index) in categories" :key="index">
+                {{cat.name}}
+                <span v-if="index !== categories.length - 1">,</span>
               </span>
             </p>
             <p
@@ -170,7 +150,18 @@ export default {
       photoIndex: 0,
       showBigPopUp: false,
       colorIndex: 0,
-      sizeIndex: 0
+      sizeIndex: 0,
+      swiperOption: {
+        loop: true,
+        spaceBetween: 30,
+        pagination: {
+          el: ".swiper-pagination"
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev"
+        }
+      }
     };
   },
   computed: {
@@ -233,6 +224,9 @@ export default {
     setCurrentImage(index) {
       this.photoIndex = index;
     },
+    swipeTest() {
+      console.log("test");
+    },
     changeImage(number) {
       this.photoIndex += number;
       if (this.photoIndex > this.product.images.length - 1) {
@@ -246,6 +240,11 @@ export default {
     }
   },
   mounted() {
+    console.log(
+      "This is current swiper instance object",
+      this.mySwiper
+    );
+    //  this.mySwiper.slideTo(3)
   }
 };
 </script>
@@ -309,6 +308,7 @@ button {
 .product-description {
   font-size: 14px;
   word-wrap: break-word;
+  transition: height 0.3s;
 }
 .left,
 .right {
@@ -408,6 +408,23 @@ button {
   display: block;
   a:hover {
     text-decoration: none;
+  }
+}
+.swiper-slide {
+  img {
+    height: auto;
+    width: 100%;
+  }
+}
+.swiper-pagination {
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+@media (max-width: 768px) {
+  .main-img-wrapper {
+    height: auto;
   }
 }
 // --------------------------------- new styles end
