@@ -26,6 +26,7 @@ export default {
   async asyncData({ params, store, error }) {
     try {
       let products = await storeServices.getCategoryProducts(params.url);
+      // NOTE: categories doesn't work proper
       let title = _.capitalize(store.getters.getCategoryByUrl(params.url).name);
       return {
         products: products.data,

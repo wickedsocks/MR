@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nuxt-link @click.native="close()" :to="`/ikona/${item._id}`" 
+    <nuxt-link @click.native="close()" :to="`/ikona/${item.url}`" 
     class="header-cart-item-name hov-cl1 trans-04 d-flex p-3">
       <div class="header-cart-item-img">
         <img :src="item.images[0]" :alt="item.description">
@@ -11,7 +11,7 @@
           {{item.title | limitTo(30)}}...
         </span>
         <span class="header-cart-item-info">
-          {{item.price}} грн
+          {{item.productProperties[0].price}} грн
         </span>
       </div>
     </nuxt-link>

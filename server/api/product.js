@@ -2,8 +2,6 @@ require("../../dbconfig/config");
 const { Router } = require("express");
 const { Product } = require("../../models/product");
 const {
-  CategoryProduct,
-  CategoryManufacture,
   Category
 } = require("../../models/category");
 const { authenticate, isAdmin } = require("./middleware/middleware.service");
@@ -89,18 +87,9 @@ router.get("/products/search", (req, res) => {
 });
 
 router.get("/category/products", async (req, res) => {
-  // FIXME: rewrite to find category in category array
-  let categoryFound;
-  // request prod cat
-  categoryFound = await CategoryProduct.find({
+  let categoryFound = await Category.find({
     url: req.query.url
   });
-  // if not found request manufacture cat
-  if (categoryFound && categoryFound.length == 0) {
-    categoryFound = await CategoryManufacture.find({
-      url: req.query.url
-    });
-  }
   // then try to get products with category
   try {
     let products = await Product.find({
