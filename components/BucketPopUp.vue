@@ -1,6 +1,6 @@
 <template>
   <div class="container container-margins" v-if="product">
-    <div class="bg0 py-5 px-5 how-pos3-parent">
+    <div class="bg0 py-5 px-5 product-wrapper">
       <button
         class="close-button hov3 trans-04 position-absolute"
         @click="hidePopUp()"
@@ -16,7 +16,6 @@
                 <img :src="image">
               </div>
             </div>
-            <div class="swiper-pagination"></div>
           </div>
           <div class="col-2 d-none d-md-block">
             <ul>
@@ -33,6 +32,10 @@
                 >
               </li>
             </ul>
+          </div>
+          <div class="swiper-container-horizontal">
+            <div class="swiper-pagination d-block d-md-none">
+            </div>
           </div>
           <div class="col-10">
             <div class="image-wrapper d-none d-md-block">
@@ -447,4 +450,9 @@ button {
   width: auto;
 }
 // --------------------------------- new styles end
+@media (max-width: 768px) {
+  .product-wrapper {
+    padding: 0 !important;
+  }
+}
 </style>
