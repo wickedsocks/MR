@@ -41,9 +41,6 @@ export default {
     showEidt: {
       type: Boolean,
       default: false
-    },
-    reRender: {
-      type: Number
     }
   },
   data() {
@@ -86,9 +83,6 @@ export default {
     this.bigOrginUrl = this.bigUrl;
   },
   watch: {
-    reRender() {
-      this.initTime();
-    },
     url: function(val) {
       this.imgUrl = val;
       this.orginUrl = val;
@@ -397,8 +391,8 @@ export default {
 .magnifier-box {
   width: 100%;
   height: 100%;
-  min-width: 400px;
-  min-height: 400px;
+  // min-width: 400px;
+  // min-height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;

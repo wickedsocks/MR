@@ -10,29 +10,46 @@
       </button>
       <div class="row">
         <div class="col-md-6 col-lg-7 p-b-30 row no-gutters d-flex justify-content-center">
-          <!-- <div v-swiper:mySwiper="swiperOption" class="overflow-hidden">
+          <div v-swiper:mySwiper="swiperOption" class="overflow-hidden d-block d-md-none">
             <div class="swiper-wrapper">
               <div class="swiper-slide" v-for="(image, index) in product.images" :key="index">
                 <img :src="image">
               </div>
             </div>
             <div class="swiper-pagination"></div>
-            <div class="swiper-button-prev d-none d-md-block" slot="button-prev"></div>
-            <div class="swiper-button-next d-none d-md-block" slot="button-next"></div>
-          </div> -->
-          <div v-for="(image, index) in product.images"
-                :key="index">
-            <magnifier handler="handler" :re-render='randomData' :url="image" :scale="3" v-if="index == photoIndex "></magnifier>
+          </div>
+          <div class="col-2 d-none d-md-block">
+            <ul>
+              <li
+                class="d-flex justify-content-center mb-3 pointer sidebar-img-wrapper"
+                @click="setCurrentImage(index)"
+                v-for="(image, index) in product.images"
+                :key="index"
+              >
+                <img
+                  :src="image"
+                  :alt="product.title | limitTo(5)"
+                  :class="{'select-image-border-color': index == photoIndex}"
+                >
+              </li>
+            </ul>
           </div>
           <div class="col-10">
-            <button @click="changeImage(1)">one up</button>
-            <button @click="changeImage(-1)">one down</button>
-            <p class="product-description cl3 pt-4 d-none d-md-block">{{product.description}}</p>
+            <div class="image-wrapper d-none d-md-block">
+              <div v-for="(image, index) in product.images" :key="index">
+                <magnifier
+                  handler="handler"
+                  :url="image"
+                  :scale="3"
+                  v-if="index == photoIndex "
+                ></magnifier>
+              </div>
+            </div>
+            <p class="product-description cl3 pt-4 d-none d-md-block">Описание: {{product.description}}</p>
           </div>
         </div>
         <div class="col-md-6 col-lg-5 p-b-30 overflow-hidden">
-          <div id="handler" style="position: absolute;display:none;height: 100%;width: 100%;">
-          </div>
+          <div id="handler" style="position: absolute;display:none;height: 100%;width: 100%;"></div>
           <div>
             <h4 class="p-b-14 product-title">{{product.title}}</h4>
 
@@ -232,9 +249,6 @@ export default {
         colorIndex
       });
     },
-    test() {
-      this.randomData = Math.random();
-    },
     setCurrentImage(index) {
       this.photoIndex = index;
     },
@@ -254,10 +268,7 @@ export default {
     }
   },
   mounted() {
-    console.log(
-      "This is current swiper instance object",
-      this.mySwiper
-    );
+    console.log("This is current swiper instance object", this.mySwiper);
     //  this.mySwiper.slideTo(3)
   }
 };
@@ -294,23 +305,12 @@ button {
 }
 
 // --------------------------------- new styles
-.main-img-wrapper {
-  height: 100%;
-  display: flex;
-  width: 100%;
-  max-height: 400px;
-  align-items: center;
-  img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-  }
-}
 
 .product-title {
   font-size: 24px;
   font-weight: 500;
   font-family: sans-serif;
+  overflow: hidden;
 }
 
 .product-price {
@@ -335,15 +335,17 @@ button {
   top: 0;
   bottom: 0;
   margin: auto;
+  position: absolute;
+  z-index: 1;
   &:hover {
     background-color: rgba(0, 0, 0, 0.8);
   }
 }
 .left {
-  left: 0;
+  left: -40px;
 }
 .right {
-  right: 0;
+  right: -40px;
 }
 .close-button {
   right: 0;
@@ -436,10 +438,9 @@ button {
   right: 0;
   margin: auto;
 }
-@media (max-width: 768px) {
-  .main-img-wrapper {
-    height: auto;
-  }
+.image-wrapper {
+  position: relative;
+  height: 400px;
 }
 // --------------------------------- new styles end
 </style>
