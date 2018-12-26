@@ -428,7 +428,8 @@ export default {
     }
   }
   img {
-    width: 100%;
+    width: auto;
+    height: 100%;
   }
   .mouse-cover {
     position: fixed;
