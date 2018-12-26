@@ -36,12 +36,12 @@
           </div>
           <div class="col-10">
             <div class="image-wrapper d-none d-md-block">
-              <div v-for="(image, index) in product.images" :key="index">
+              <div v-for="(image, index) in product.images" :key="index" v-if="index == photoIndex" class="magnify-wrapper">
                 <magnifier
                   handler="handler"
                   :url="image"
                   :scale="3"
-                  v-if="index == photoIndex "
+                  v-if="index == photoIndex"
                 ></magnifier>
               </div>
             </div>
@@ -441,6 +441,10 @@ button {
 .image-wrapper {
   position: relative;
   height: 400px;
+}
+.magnify-wrapper {
+  height: 100%;
+  width: auto;
 }
 // --------------------------------- new styles end
 </style>
