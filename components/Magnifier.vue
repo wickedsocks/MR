@@ -429,7 +429,7 @@ export default {
   }
   img {
     width: auto;
-    height: 100%;
+    height: auto;
     max-height: 400px;
     max-width: 400px;
   }
