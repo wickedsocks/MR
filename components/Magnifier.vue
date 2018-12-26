@@ -1,7 +1,7 @@
 <template>
+<!-- :class="vertical?'vertical':''" -->
   <div
     class="magnifier-box"
-    :class="vertical?'vertical':''"
     :ref="id"
     @mousemove="mousemove"
     @mouseover="mouseover"
@@ -127,7 +127,7 @@ export default {
             this.imgbox.offsetHeight / this.scale / this.imgwrap.offsetHeight);
         (this.imgTimesX = this.img.width / this.imgwrap.offsetWidth),
           (this.imgTimesY = this.img.height / this.imgwrap.offsetHeight);
-        this.vertical = this.img.width < this.img.height;
+        // this.vertical = this.img.width < this.img.height;
         this.init = true;
       };
       if (this.canvas) {
@@ -169,7 +169,7 @@ export default {
       this.img = new Image();
       this.img.src = imgsrc;
       this.img.onload = () => {
-        this.vertical = this.img.width < this.img.height;
+        // this.vertical = this.img.width < this.img.height;
         this.showImg = true;
         // let thumb = box.querySelector("img");
         setTimeout(() => {
@@ -442,12 +442,12 @@ export default {
     width: 100%;
     height: 100%;
   }
-  &.vertical {
-    img {
-      height: 100%;
-      width: auto;
-    }
-  }
+  // &.vertical {
+    // img {
+      // height: 100%;
+      // width: auto;
+    // }
+  // }
 }
 </style>
 
