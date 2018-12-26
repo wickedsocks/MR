@@ -10,7 +10,7 @@
       </button>
       <div class="row">
         <div class="col-md-6 col-lg-7 p-b-30 row no-gutters d-flex justify-content-center">
-          <div v-swiper:mySwiper="swiperOption" class="overflow-hidden">
+          <!-- <div v-swiper:mySwiper="swiperOption" class="overflow-hidden">
             <div class="swiper-wrapper">
               <div class="swiper-slide" v-for="(image, index) in product.images" :key="index">
                 <img :src="image">
@@ -19,7 +19,13 @@
             <div class="swiper-pagination"></div>
             <div class="swiper-button-prev d-none d-md-block" slot="button-prev"></div>
             <div class="swiper-button-next d-none d-md-block" slot="button-next"></div>
+          </div> -->
+          <div v-for="(image, index) in product.images"
+                :key="index">
+                <h1>hello {{index}}</h1>
+            <magnifier :url="image" :scale="3"></magnifier>
           </div>
+
           <div class="col-10">
             <p class="product-description cl3 pt-4 d-none d-md-block">{{product.description}}</p>
           </div>
@@ -140,9 +146,11 @@
 </template>
 <script>
 import ZoomProduct from "~/components/ZoomProduct.vue";
+import Magnifier from "~/components/Magnifier.vue";
 export default {
   components: {
-    ZoomProduct
+    ZoomProduct,
+    Magnifier
   },
   data() {
     return {
