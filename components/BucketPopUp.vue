@@ -22,15 +22,17 @@
           </div> -->
           <div v-for="(image, index) in product.images"
                 :key="index">
-                <h1>hello {{index}}</h1>
-            <magnifier :url="image" :scale="3"></magnifier>
+            <magnifier handler="handler" :re-render='randomData' :url="image" :scale="3" v-if="index == photoIndex "></magnifier>
           </div>
-
           <div class="col-10">
+            <button @click="changeImage(1)">one up</button>
+            <button @click="changeImage(-1)">one down</button>
             <p class="product-description cl3 pt-4 d-none d-md-block">{{product.description}}</p>
           </div>
         </div>
         <div class="col-md-6 col-lg-5 p-b-30 overflow-hidden">
+          <div id="handler" style="position: absolute;display:none;height: 100%;width: 100%;">
+          </div>
           <div>
             <h4 class="p-b-14 product-title">{{product.title}}</h4>
 
@@ -155,6 +157,7 @@ export default {
   data() {
     return {
       quantity: 1,
+      randomData: null,
       photoIndex: 0,
       showBigPopUp: false,
       colorIndex: 0,
@@ -228,6 +231,9 @@ export default {
         sizeIndex,
         colorIndex
       });
+    },
+    test() {
+      this.randomData = Math.random();
     },
     setCurrentImage(index) {
       this.photoIndex = index;

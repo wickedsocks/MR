@@ -19,6 +19,9 @@
 <script>
 export default {
   props: {
+    handler: {
+      type: String
+    },
     scale: {
       type: Number,
       default: 2.5
@@ -38,6 +41,9 @@ export default {
     showEidt: {
       type: Boolean,
       default: false
+    },
+    reRender: {
+      type: Number
     }
   },
   data() {
@@ -61,7 +67,8 @@ export default {
       step: 0,
       bigStep: 0,
       vertical: false,
-      showImg: true
+      showImg: true,
+      handlerElem: null
     };
   },
   created() {
@@ -79,6 +86,9 @@ export default {
     this.bigOrginUrl = this.bigUrl;
   },
   watch: {
+    reRender() {
+      this.initTime();
+    },
     url: function(val) {
       this.imgUrl = val;
       this.orginUrl = val;
@@ -97,6 +107,7 @@ export default {
   },
   methods: {
     initTime() {
+      this.handlerElem = document.getElementById(this.handler);
       this.init = false;
       let box = this.$refs[this.id];
       this.imgbox = box;
@@ -126,23 +137,30 @@ export default {
         this.init = true;
       };
       if (this.canvas) {
-        this.canvas.parentNode.removeChild(this.canvas);
+        this.handlerElem.prepend(this.canvas);
         this.canvas = null;
+      }
+      while (this.handlerElem.firstChild) {
+        this.handlerElem.removeChild(this.handlerElem.firstChild);
       }
       this.canvas = document.createElement("canvas");
       this.canvas.className = "mouse-cover-canvas";
       this.canvas.style.position = "absolute";
-      this.canvas.style.left =
-        this.imgbox.offsetLeft + this.imgbox.offsetWidth + 10 + "px";
-      this.canvas.style.top = this.imgbox.offsetTop + "px";
+      // NOTE: turn off left/top margins
+      // this.canvas.style.left =
+      //   this.imgbox.offsetLeft + this.imgbox.offsetWidth + 10 + "px";
+      // this.canvas.style.top = this.imgbox.offsetTop + "px";
       this.canvas.style.border = "1px solid #eee";
-      this.canvas.style.zIndex = "99999";
+      this.canvas.style.zIndex = "1";
       this.canvas.height = this.imgbox.offsetHeight;
       this.canvas.width = this.imgbox.offsetWidth;
       this.canvas.style.display = "none";
-      this.imgbox.append(this.canvas);
+      this.handlerElem.append(this.canvas);
+      // this.imgbox.append(this.canvas);
       this.ctx = this.canvas.getContext("2d");
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      console.log("canvas ", this.canvas.style.left);
+      console.log("canvas ", this.canvas.style.top);
     },
     initBox() {
       this.showImg = false;
@@ -176,6 +194,7 @@ export default {
       if (!this.init) {
         return false;
       }
+      this.handlerElem.style.display = 'block';
       let _this = this;
       //获取实际的offset
       function offset(curEle) {
@@ -286,6 +305,7 @@ export default {
       if (!this.init) {
         return false;
       }
+      this.handlerElem.style.display = 'none';
       this.cover.style.display = "none";
       this.canvas.style.display = "none";
     },
@@ -377,10 +397,11 @@ export default {
 .magnifier-box {
   width: 100%;
   height: 100%;
+  min-width: 400px;
+  min-height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
-  // overflow: hidden;
   position: relative;
   .edit-wrap {
     position: absolute;
