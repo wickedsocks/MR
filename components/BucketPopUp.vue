@@ -36,7 +36,7 @@
           </div>
           <div class="col-10">
             <div class="image-wrapper d-none d-md-block">
-              <div v-for="(image, index) in product.images" :key="index">
+              <div v-for="(image, index) in product.images" :key="index" class="magnifier-wrapper">
                 <magnifier
                   handler="handler"
                   :url="image"
@@ -441,6 +441,10 @@ button {
 .image-wrapper {
   position: relative;
   height: 400px;
+}
+.magnifier-wrapper {
+  height: 100%;
+  width: auto;
 }
 // --------------------------------- new styles end
 </style>
