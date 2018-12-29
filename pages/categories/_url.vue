@@ -33,7 +33,7 @@ export default {
         title
       };
     } catch (err) {
-      redirect('/404.html');
+      redirect(301, '/404.html');
     }
   },
   components: {

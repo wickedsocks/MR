@@ -17,7 +17,7 @@ export default {
   asyncData({params, redirect, res}) {
     res.status(404);
     if (params && params.pathMatch) {
-      redirect('/404.html');
+      redirect(301,'/404.html');
     }
   }
 };
