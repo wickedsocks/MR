@@ -23,7 +23,7 @@ import NavigationSideBar from '~/components/NavigationSideBar.vue';
 import _ from 'lodash';
 export default {
   props: [],
-  async asyncData({ params, store, error }) {
+  async asyncData({ params, store, redirect }) {
     try {
       let products = await storeServices.getCategoryProducts(params.url);
       // NOTE: categories doesn't work proper
@@ -33,7 +33,7 @@ export default {
         title
       };
     } catch (err) {
-      error({statusCode: 404});
+      redirect('/404.html');
     }
   },
   components: {

@@ -104,5 +104,17 @@ module.exports = {
         });
       }
     }
+  },
+  // serverMiddleware: [
+  //   { path: '/d/:id', handler: '~/api/redirect.js' },
+  // ]
+  router: {
+    extendRoutes (routes, resolve) {
+      routes.push({
+        name: 'error',
+        path: '*',
+        component: resolve(__dirname, 'pages/404.html.vue')
+      })
+    }
   }
 };

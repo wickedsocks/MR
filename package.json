@@ -41,7 +41,7 @@
     "mailgun-js": "^0.17.0",
     "mocha": "^5.2.0",
     "mongoose": "^5.3.3",
-    "nuxt": "^1.4.2",
+    "nuxt": "^1.4.5",
     "regenerator-runtime": "^0.11.1",
     "source-map-support": "^0.4.15",
     "validator": "^10.8.0",

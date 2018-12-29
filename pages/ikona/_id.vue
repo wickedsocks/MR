@@ -4,7 +4,7 @@
 <script>
 import BucketPopUp from '~/components/BucketPopUp.vue';
 export default {
-  async asyncData({ params, store , error}) {
+  async asyncData({ params, store, redirect }) {
     try {
       const product = store.getters.getProductByUrl(params.id);
       if (!product) {
@@ -12,7 +12,7 @@ export default {
       }
      return { product }; 
     } catch (err) {
-     error({ statusCode: 404 });  
+     redirect('/404.html');
     }
   },
   components: {

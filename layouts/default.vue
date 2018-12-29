@@ -13,7 +13,6 @@ import MyFooter from '~/components/Footer.vue';
 import MyHeader from '~/components/Header.vue';
 import storeServices from '~/services/storeServices';
 import axiosService from '~/services/axiosService';
-
 export default {
   components: {
     MyFooter,
