@@ -18,6 +18,7 @@ export default {
     MyFooter,
     MyHeader
   },
+  middleware: "removeSlash",
   mounted() {
     // Check if cookie is available and set bucket data
     // FIXME: rewrite
