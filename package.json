@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@nuxtjs/google-tag-manager": "^2.1.0",
-    "@nuxtjs/sitemap": "^0.1.1",
+    "@nuxtjs/sitemap": "^0.1.2",
     "axios": "^0.16.2",
     "babel-core": "^6.26.3",
     "bcryptjs": "^2.4.3",
