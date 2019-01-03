@@ -54,7 +54,7 @@
         <div class="col-md-6 col-lg-5 p-b-30 overflow-hidden">
           <div id="handler" style="position: absolute;display:none;height: 100%;width: 100%;"></div>
           <div>
-            <h4 class="p-b-14 product-title">{{product.title}}</h4>
+            <h1 class="p-b-14 product-title">{{product.title}}</h1>
 
             <span class="product-price cl2">{{product.productProperties[sizeIndex].price}} грн</span>
             <div class="p-t-33">
