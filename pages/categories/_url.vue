@@ -1,15 +1,16 @@
 <template>
   <section>
     <div class="row">
-      <div class="col-12 col-sm-12  col-md-2 col-lg-2">
-        <navigation-side-bar :activeCat="title" />
+      <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+        <navigation-side-bar :activeCat="title"/>
       </div>
       <div class="col-12 col-sm-12 col-md-10 col-lg-10">
-        <h3 class="my-4">Каталог товара
+        <h3 class="my-4">
+          Каталог товара
           <small>{{title}}</small>
         </h3>
         <div class="row">
-          <product :product="product" v-for="(product, index) in products" :key="index" />
+          <product :product="product" v-for="(product, index) in products" :key="index"/>
         </div>
       </div>
     </div>
@@ -17,11 +18,21 @@
 </template>
 
 <script>
-import storeServices from '~/services/storeServices.js';
-import Product from '~/components/Product.vue';
-import NavigationSideBar from '~/components/NavigationSideBar.vue';
-import _ from 'lodash';
+import storeServices from "~/services/storeServices.js";
+import Product from "~/components/Product.vue";
+import NavigationSideBar from "~/components/NavigationSideBar.vue";
+import _ from "lodash";
 export default {
+  head() {
+    return {
+      link: [
+        {
+          rel: "canonical",
+          href: `https://www.mykhailovskie-ryadi.com/categories/${this.$route.params.url}`
+        }
+      ]
+    };
+  },
   props: [],
   async asyncData({ params, store, redirect }) {
     try {
@@ -33,12 +44,15 @@ export default {
         title
       };
     } catch (err) {
-      redirect(301, '/404.html');
+      redirect(301, "/404.html");
     }
   },
   components: {
     Product,
     NavigationSideBar
+  },
+  mounted() {
+    console.log('this router ', this.$route.params.url);
   }
 };
 </script>
