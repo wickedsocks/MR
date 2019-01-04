@@ -47,6 +47,12 @@ export default {
           name: "keywords",
           content: `Купить иконостасы, иконы, Спасителя, Иисус Христос, Богородица, сувениры, православные подарки`,
         }
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: `https://www.mykhailovskie-ryadi.com`
+        }
       ]
     };
   }
