@@ -46,7 +46,14 @@ let schema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true
-  }
+  },
+  keywords: {
+    type: String,
+    required: true
+  },
+  canonicalUrl: {
+    type: String
+  },
   // TODO: need add enity canonicalUrl
 });
 schema.index({ title: 1 });

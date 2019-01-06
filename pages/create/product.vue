@@ -25,6 +25,18 @@
       </div>
     </section>
     <section class="row">
+      <div class="col-12 d-flex flex-wrap">
+        <input class="form-control col-8" v-model="requestData.keywords" type="text" v-validate="'required'" name='keywords' placeholder="Ключенвые слова">
+        <span class="error-default" v-show="errors.has('keywords')"> {{errors.first('keywords')}} </span>
+      </div>
+    </section>
+    <section class="row">
+      <div class="col-12 d-flex flex-wrap">
+        <input class="form-control col-8" v-model="requestData.canonicalUrl" type="text" name='canonicalUrl' placeholder="Ссылку на дубль если существует">
+        <!-- <span class="error-default" v-show="errors.has('keywords')"> {{errors.first('keywords')}} </span> -->
+      </div>
+    </section>
+    <section class="row">
       <div class="col-12 d-flex justify-content-center flex-wrap">
         <textarea class="form-control" v-model="requestData.description" cols="30" rows="10" placeholder="Подробное описание, добавить пример извне" name="description" v-validate="'required|min:30'"></textarea>
         <span class="error-default" v-show="errors.has('description')"> {{errors.first('description')}} </span>
@@ -70,15 +82,6 @@
         <button type="button" class="btn btn-danger" @click="removeOneColor()">Удалить последний цвет</button>
       </div>
     </section>
-    <!-- <section>
-      <select class="custom-select" name="product" v-model="requestData.selectedCategories" v-validate="'required'">
-        <option value="" disabled>Категория товара</option>
-        <option :value="cat._id" v-for="cat in categories" :key="cat._id">
-          {{cat.name}}
-        </option>
-      </select>
-      <span class="error-default" v-show="errors.has('product')"> {{errors.first('product')}} </span>
-    </section> -->
     <section class="row">
       <div class="col-xs-12 col-sm-12 d-flex align-items-center flex-wrap mb-1" v-for="(item, index) in requestData.categoriesArray" :key="index">
           <select class="custom-select" name="product" v-model="requestData.selectedCategories[index]" v-validate="'required'">
@@ -128,6 +131,8 @@ export default {
       images: [],
       requestData: {
         title: '',
+        keywords: '',
+        canonicalUrl: '',
         description: '',
         productProperties: [
           {

@@ -37,6 +37,8 @@ router.post("/products", authenticate, isAdmin, (req, res) => {
     title: req.body.title.trim(),
     images: req.body.images,
     categories: req.body.categories,
+    keywords: req.body.keywords,
+    canonicalUrl: req.body.canonicalUrl ? req.body.canonicalUrl : '',
     url: Product.productUrlNaming(req.body.title)
   });
   req.body.categories.forEach((id) => {
