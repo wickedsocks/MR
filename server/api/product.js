@@ -1,13 +1,11 @@
-require("../../dbconfig/config");
-const { Router } = require("express");
-const { Product } = require("../../models/product");
-const {
-  Category
-} = require("../../models/category");
-const { authenticate, isAdmin } = require("./middleware/middleware.service");
-const formidable = require("formidable");
+require('../../dbconfig/config');
+const { Router } = require('express');
+const { Product } = require('../../models/product');
+const { Category } = require('../../models/category');
+const { authenticate, isAdmin } = require('./middleware/middleware.service');
+const formidable = require('formidable');
 
-const cloudinary = require("cloudinary");
+const cloudinary = require('cloudinary');
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME_CLOUDINARY,
@@ -17,18 +15,21 @@ cloudinary.config({
 
 const router = Router();
 
-router.post("/update/categories", (req, res) => {
+router.post('/update/categories', (req, res) => {
   let id = req.body.id;
   Product.findByIdAndUpdate(id, {
-    $set: {categories: req.body.categories}
-  }).then((success) => {
-   res.send(`Category ${success} has updated`);
-  }, (err) => {
-   res.status(400).send(err);
-  })
+    $set: { categories: req.body.categories }
+  }).then(
+    success => {
+      res.send(`Category ${success} has updated`);
+    },
+    err => {
+      res.status(400).send(err);
+    }
+  );
 });
 
-router.post("/products", authenticate, isAdmin, (req, res) => {
+router.post('/products', authenticate, isAdmin, (req, res) => {
   let promiseCategories = [];
   let newProduct = new Product({
     color: req.body.colorArray.map(item => item.toLowerCase()),
@@ -37,12 +38,14 @@ router.post("/products", authenticate, isAdmin, (req, res) => {
     title: req.body.title.trim(),
     images: req.body.images,
     categories: req.body.categories,
-    keywords: req.body.keywords,
+    mykeywords: req.body.mykeywords,
     canonicalUrl: req.body.canonicalUrl ? req.body.canonicalUrl : '',
     url: Product.productUrlNaming(req.body.title)
   });
-  req.body.categories.forEach((id) => {
-    promiseCategories.push(Category.findByIdAndUpdate(id, {$set: {used: true}}));
+  req.body.categories.forEach(id => {
+    promiseCategories.push(
+      Category.findByIdAndUpdate(id, { $set: { used: true } })
+    );
   });
   Promise.all(promiseCategories).then(
     () => {
@@ -61,7 +64,7 @@ router.post("/products", authenticate, isAdmin, (req, res) => {
   );
 });
 
-router.get("/products", (req, res) => {
+router.get('/products', (req, res) => {
   Product.find({}).then(
     products => {
       res.send(products);
@@ -72,11 +75,11 @@ router.get("/products", (req, res) => {
   );
 });
 
-router.get("/products/search", (req, res) => {
+router.get('/products/search', (req, res) => {
   Product.find({
     title: {
       $regex: `${req.query.title}.*`,
-      $options: "i"
+      $options: 'i'
     }
   }).then(
     products => {
@@ -88,7 +91,7 @@ router.get("/products/search", (req, res) => {
   );
 });
 
-router.get("/category/products", async (req, res) => {
+router.get('/category/products', async (req, res) => {
   let categoryFound = await Category.find({
     url: req.query.url
   });
@@ -103,26 +106,48 @@ router.get("/category/products", async (req, res) => {
   }
 });
 
-router.post("/products/upload-image", authenticate, isAdmin, (req, res) => {
+router.post('/products/upload-image', authenticate, isAdmin, (req, res) => {
   let form = new formidable.IncomingForm();
   form.parse(req, async function(err, fields, files) {
     if (err) {
       res.status(400).send(err);
     }
-      cloudinary.v2.uploader.upload(
-        files.file.path,
-        {
-          public_id: Product.productUrlNaming(fields.name),
-          width: 600,
-          quality: "auto"
-        },
-        function(err, result) {
-          if (err) {
-            res.status(400).send(err);
-          }
-          res.send(result);
+    cloudinary.v2.uploader.upload(
+      files.file.path,
+      {
+        public_id: Product.productUrlNaming(fields.name),
+        width: 600,
+        quality: 'auto'
+      },
+      function(err, result) {
+        if (err) {
+          res.status(400).send(err);
         }
-      ); 
+        res.send(result);
+      }
+    );
+  });
+});
+
+router.post('/products/update', authenticate, isAdmin, (req, res) => {
+  Product.findByIdAndUpdate(req.body._id, {
+    $set: {
+      categories: req.body.categories,
+      color: req.body.color,
+      description: req.body.description,
+      images: req.body.images,
+      productProperties: req.body.productProperties,
+      title: req.body.title,
+      url: req.body.url,
+      mykeywords: req.body.mykeywords,
+      canonicalUrl: req.body.canonicalUrl ? req.body.canonicalUrl : '',
+    }
+  }, {
+    new: true
+  }).then((success) => {
+    res.send(success);
+  }, err => {
+    res.status(400).send(err);
   });
 });
 module.exports = router;

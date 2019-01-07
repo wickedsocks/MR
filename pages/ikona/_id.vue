@@ -68,6 +68,7 @@ export default {
   computed: {
     categories() {
       if (this.product) {
+        console.log('this product ', this.product.categories);
         return this.product.categories
           .map(id => {
             return this.$store.getters.getCategoryById(id).name;

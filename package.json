@@ -5,11 +5,11 @@
   "author": "Mykhailov Pavel <mykhailovpm@gmail.com>",
   "private": true,
   "engines": {
-    "node": "10.8.0",
+    "node": "11.5.0",
     "npm": "6.2.0"
   },
   "scripts": {
-    "dev": "export NODE_ENV=development && backpack dev",
+    "dev": " export NODE_ENV=development && backpack dev",
     "test": "export NODE_ENV=test && mocha --require babel-core/rwegister test/server.test.js --exit",
     "build": "nuxt build && backpack build",
     "start": "cross-env NODE_ENV=production && node build/main.js",

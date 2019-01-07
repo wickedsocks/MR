@@ -87,6 +87,13 @@ export const mutations = {
   addProduct(state, payload) {
     state.products.push(payload);
   },
+  updateProduct(state, payload) {
+    state.products.forEach((product, index) => {
+      if (product._id == payload._id) {
+        state.products[index] = Object.assign({}, payload);
+      }
+     });
+  },
   setCategories(state, payload) {
     state.categories = Object.assign([], payload);
   },
@@ -129,7 +136,26 @@ export const mutations = {
   },
   removeUser(state) {
     state.user = null;
-  }
+  },
+  addProductImages(state, payload) {
+   state.products.forEach((product) => {
+    if (product._id == payload.id) {
+      product[payload.property].push('');
+    }
+   });
+  },
+  removeLastProductImages(state, payload) {
+    state.products.forEach((product) => {
+     if (product._id == payload.id) {
+     product[payload.property].length > 1
+        ? product[payload.property].splice(
+          payload.index,
+            1
+          )
+        : product[payload.property];
+     }
+    });
+   }
 };
 
 // methods for async operations

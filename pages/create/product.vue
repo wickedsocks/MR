@@ -26,14 +26,14 @@
     </section>
     <section class="row">
       <div class="col-12 d-flex flex-wrap">
-        <input class="form-control col-8" v-model="requestData.keywords" type="text" v-validate="'required'" name='keywords' placeholder="Ключенвые слова">
-        <span class="error-default" v-show="errors.has('keywords')"> {{errors.first('keywords')}} </span>
+        <input class="form-control col-8" v-model="requestData.mykeywords" type="text" v-validate="'required'" name='mykeywords' placeholder="Ключенвые слова">
+        <span class="error-default" v-show="errors.has('mykeywords')"> {{errors.first('mykeywords')}} </span>
       </div>
     </section>
     <section class="row">
       <div class="col-12 d-flex flex-wrap">
         <input class="form-control col-8" v-model="requestData.canonicalUrl" type="text" name='canonicalUrl' placeholder="Ссылку на дубль если существует">
-        <!-- <span class="error-default" v-show="errors.has('keywords')"> {{errors.first('keywords')}} </span> -->
+        <!-- <span class="error-default" v-show="errors.has('mykeywords')"> {{errors.first('mykeywords')}} </span> -->
       </div>
     </section>
     <section class="row">
@@ -131,7 +131,7 @@ export default {
       images: [],
       requestData: {
         title: '',
-        keywords: '',
+        mykeywords: '',
         canonicalUrl: '',
         description: '',
         productProperties: [

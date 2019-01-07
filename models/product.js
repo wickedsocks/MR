@@ -47,7 +47,7 @@ let schema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  keywords: {
+  mykeywords: {
     type: String,
     required: true
   },
