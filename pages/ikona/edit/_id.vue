@@ -113,7 +113,7 @@
         <button type="button" class="btn btn-danger" @click="removeOneCategory()">Удалить последнию категорию</button>
       </div>
     </section>
-    <button type="submit" class="btn btn-success">Добавить товар</button>
+    <button type="submit" class="btn btn-success">Обновить товар</button>
     <div v-show="showLoader" class="loader-wrapper">
       <div class="loader"></div>
     </div>
