@@ -1,6 +1,7 @@
 <template>
   <div class="container container-margins" v-if="product">
-    <div class="bg0 py-5 px-5 product-wrapper">
+    <div class="bg0 px-5 product-wrapper">
+      <breadcrumbs :links='links'></breadcrumbs>
       <button
         class="close-button hov3 trans-04 position-absolute"
         @click="hidePopUp()"
@@ -156,24 +157,22 @@
         </div>
       </div>
     </div>
-    <zoom-product
-      :photo-index="photoIndex"
-      @change-image="changeImage($event)"
-      @close-big-popup="toggleBigPopUp()"
-      :photo-amount="product.images.length"
-      :src="product.images[photoIndex]"
-      v-if="product && showBigPopUp"
-    />
+    <div v-if="similarProducts">
+      <h3>Похожие товары</h3>
+      <similar-product :products="similarProducts" :currentProduct="product"></similar-product>
+    </div>
   </div>
 </template>
 <script>
-import ZoomProduct from "~/components/ZoomProduct.vue";
 import Magnifier from "~/components/Magnifier.vue";
+import Breadcrumbs from "~/components/Breadcrumbs.vue";
+import SimilarProduct from "~/components/SimilarProduct.vue";
 export default {
   components: {
-    ZoomProduct,
-    Magnifier
-  },
+    Magnifier,
+    Breadcrumbs,
+    SimilarProduct
+  }, 
   data() {
     return {
       quantity: 1,
@@ -219,9 +218,14 @@ export default {
       } else {
         return "";
       }
+    },
+    links() {
+      if (this.categories) {
+      return this.categories.map(cat => {return {title: cat.name, url: cat.url}});
+      }      
     }
   },
-  props: ["product", "pagePreviewStyling"],
+  props: ["product", "pagePreviewStyling", "similarProducts"],
   methods: {
     sizeSelectOnChange(event) {
       this.sizeIndex = event.target.selectedIndex;
@@ -272,6 +276,9 @@ export default {
   },
   mounted() {
     console.log("This is current swiper instance object", this.mySwiper);
+    console.log("links", this.product );
+    console.log("links", this.categories );
+    console.log("links", this.links );
     //  this.mySwiper.slideTo(3)
   }
 };

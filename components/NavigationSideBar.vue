@@ -80,10 +80,6 @@ export default {
   line-height: 1.333333;
   font-weight: 600;
 }
-.category-link {
-  font-family: sans-serif;
-  border-bottom: 1px solid #e6e6e6;
-}
 .cutsom-filter-behaviour {
   height: 0;
   overflow: hidden;

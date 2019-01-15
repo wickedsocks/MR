@@ -1,8 +1,9 @@
 <template>
-  <bucket-pop-up :product="product" :page-preview-styling="false"/>
+  <bucket-pop-up :product="product" :similarProducts="similarProducts" :page-preview-styling="false"/>
 </template>
 <script>
 import BucketPopUp from "~/components/BucketPopUp.vue";
+import storeServices from "~/services/storeServices.js";
 export default {
   async asyncData({ params, store, redirect }) {
     try {
@@ -10,7 +11,9 @@ export default {
       if (!product) {
         throw new Error("Страница не найдена");
       }
-      return { product };
+      const firstCategory = store.getters.getCategoryById(product.categories[0]);
+      const similarProducts = await storeServices.getCategoryProducts(firstCategory.url);
+      return { product, similarProducts: similarProducts.data };
     } catch (err) {
       redirect(301, "/404.html");
     }
