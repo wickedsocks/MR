@@ -1,7 +1,7 @@
 <template>
   <div class="product-item d-flex">
     <div class="card" v-for="(product, index) in products" :key="index"
-    v-if="product._id !== currentProduct._id || index > 4">
+    v-if="product._id !== currentProduct._id">
       <nuxt-link :to="`/ikona/${product.url}`" class="d-flex flex-column">
         <img
           class="card-img-top"
@@ -31,6 +31,18 @@ export default {
 <style lang="scss" scoped>
 .product-item {
   padding-bottom: 20px;  
+  overflow-y: hidden;
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    display: block;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #6d6d6d;
+    border-radius: 25px;
+    display: block;
+    height: 6px;
+  }
 }
 .card-img-top {
   height: 180px;
@@ -44,6 +56,7 @@ export default {
 
 .card {
   max-width: 200px;
+  min-width: 100px;
   & + .card {
     margin-left: 10px;
   }

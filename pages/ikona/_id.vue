@@ -13,7 +13,7 @@ export default {
       }
       const firstCategory = store.getters.getCategoryById(product.categories[0]);
       const similarProducts = await storeServices.getCategoryProducts(firstCategory.url);
-      return { product, similarProducts: similarProducts.data };
+      return { product, similarProducts: similarProducts.data.concat(similarProducts.data).concat(similarProducts.data).concat(similarProducts.data).concat(similarProducts.data).concat(similarProducts.data) };
     } catch (err) {
       redirect(301, "/404.html");
     }
@@ -67,6 +67,7 @@ export default {
   mounted() {
     console.log("this products ", this.product);
     console.log("this products ", this.categories);
+    console.log("this similar ", this.similarProducts);
   },
   computed: {
     categories() {

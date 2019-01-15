@@ -6,7 +6,7 @@
         <span> / </span> 
       </li>
       <li v-for="(link, index) in links" :key="index">
-        <nuxt-link class="category-link cl6 hov-cl1" :to="link.url">{{link.title }}</nuxt-link>
+        <nuxt-link class="category-link cl6 hov-cl1" :to="`/categories/${link.url}`">{{link.title }}</nuxt-link>
         <span v-if="links.length - 1 != index"> / </span> 
       </li>
     </ul>
