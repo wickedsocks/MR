@@ -13,7 +13,7 @@ export default {
       }
       const firstCategory = store.getters.getCategoryById(product.categories[0]);
       const similarProducts = await storeServices.getCategoryProducts(firstCategory.url);
-      return { product, similarProducts};
+      return { product, similarProducts: similarProducts.data};
     } catch (err) {
       redirect(301, "/404.html");
     }
