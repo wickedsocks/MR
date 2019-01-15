@@ -1,6 +1,6 @@
 <template>
   <div class="container container-margins" v-if="product">
-    <div class="bg0 px-5 product-wrapper">
+    <div class="bg0 product-wrapper" :class="{'px-5 py-5':pagePreviewStyling}">
       <breadcrumbs :links='links'></breadcrumbs>
       <button
         class="close-button hov3 trans-04 position-absolute"

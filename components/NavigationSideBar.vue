@@ -3,6 +3,13 @@
     <div class="d-none d-md-block">
       <h4 class="catgories-name cl2 pb-4">Категории</h4>
       <ul>
+         <li>
+          <nuxt-link
+            to="/"
+            class="dis-block category-link cl6 hov-cl1 trans-04 p-tb-8 p-lr-4"
+            :class="{'active-category': activeCat == ''}"
+          >Все иконы</nuxt-link>
+        </li>
         <li v-for="(cat, index) in allCategories" :key="index" v-if="cat.used">
           <nuxt-link
             :to="'/categories/' + cat.url"
