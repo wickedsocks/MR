@@ -45,8 +45,9 @@
                   handler="handler"
                   :url="image"
                   :scale="3"
-                  v-if="index == photoIndex"
+                  v-if="index == photoIndex && !pagePreviewStyling"
                 ></magnifier>
+                <img class="image-main" :src="image" :alt="product.description" :title="product.title" v-if="pagePreviewStyling">
               </div>
             </div>
             <p class="product-description cl3 pt-4 d-none d-md-block">Описание: {{product.description}}</p>
@@ -455,6 +456,12 @@ button {
 .magnify-wrapper {
   height: 100%;
   width: auto;
+}
+.image-main {
+      width: auto;
+    height: auto;
+    max-height: 400px;
+    max-width: 400px;
 }
 // --------------------------------- new styles end
 @media (max-width: 768px) {
