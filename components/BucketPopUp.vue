@@ -1,5 +1,5 @@
 <template>
-  <div class="container container-margins" v-if="product">
+  <div class="container container-margins" v-if="product" itemscope itemtype="http://schema.org/Product">
     <div class="bg0 product-wrapper" :class="{'px-5 py-5':pagePreviewStyling}">
       <breadcrumbs :links='links'></breadcrumbs>
       <button
@@ -14,7 +14,7 @@
           <div v-swiper:mySwiper="swiperOption" class="overflow-hidden d-block d-md-none">
             <div class="swiper-wrapper">
               <div class="swiper-slide" v-for="(image, index) in product.images" :key="index">
-                <img :src="image">
+                <img :src="image" itemprop="image">
               </div>
             </div>
           </div>
@@ -47,18 +47,18 @@
                   :scale="3"
                   v-if="index == photoIndex && !pagePreviewStyling"
                 ></magnifier>
-                <img class="image-main" :src="image" :alt="product.description" :title="product.title" v-if="pagePreviewStyling">
+                <img class="image-main" :src="image" itemprop="image" :alt="product.description" :title="product.title" v-if="pagePreviewStyling">
               </div>
             </div>
-            <p class="product-description cl3 pt-4 d-none d-md-block">Описание: {{product.description}}</p>
+            <p  class="product-description cl3 pt-4 d-none d-md-block">Описание: <span itemprop="description">{{product.description}}</span></p>
           </div>
         </div>
-        <div class="col-md-6 col-lg-5 p-b-30 overflow-hidden">
+        <div class="col-md-6 col-lg-5 p-b-30 overflow-hidden" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
           <div id="handler" style="position: absolute;display:none;height: 100%;width: 100%;"></div>
           <div>
             <h1 class="p-b-14 product-title">{{product.title}}</h1>
-
-            <span class="product-price cl2">{{product.productProperties[sizeIndex].price}} грн</span>
+            <link itemprop="availability" href="http://schema.org/InStock" >
+            <span class="product-price cl2"><span itemprop="price">{{product.productProperties[sizeIndex].price}}</span><meta itemprop="priceCurrency" content="UAH" > грн</span>
             <div class="p-t-33">
               <div class="flex-w flex-r-m p-b-10">
                 <div class="size-203 flex-c-m respon6">Размер</div>
