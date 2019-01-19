@@ -10,6 +10,7 @@
           :src="product.images[0]"
           :alt="product.title"
         >
+        <meta itemprop="name" :content="product.title">
         <div class="card-body" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
           <h5 class="card-title" itemprop="name">{{product.title | limitTo(15)}}...</h5>
           <p class="card-text d-none d-sm-block" itemprop="description">{{product.description | limitTo(30)}}...</p>
