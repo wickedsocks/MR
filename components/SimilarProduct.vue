@@ -1,7 +1,7 @@
 <template>
-  <div class="product-item d-flex" itemscope itemtype="http://schema.org/Product">
+  <div class="product-item d-flex">
     <div class="card" v-for="(product, index) in products" :key="index"
-    v-if="product._id !== currentProduct._id">
+    v-if="product._id !== currentProduct._id" itemscope itemtype="http://schema.org/Product">
       <nuxt-link :to="`/ikona/${product.url}`" itemprop="url" class="d-flex flex-column">
         <img
           itemprop="image"
@@ -11,7 +11,7 @@
           :alt="product.title"
         >
         <meta itemprop="name" :content="product.title">
-        <div class="card-body" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <div class="card-body">
           <h5 class="card-title" itemprop="name">{{product.title | limitTo(15)}}...</h5>
           <p class="card-text d-none d-sm-block" itemprop="description">{{product.description | limitTo(30)}}...</p>
           <p class="card-text"><span itemprop="price">{{product.productProperties[0].price}}</span> грн</p>
