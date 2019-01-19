@@ -56,7 +56,7 @@
         <div class="col-md-6 col-lg-5 p-b-30 overflow-hidden" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
           <div id="handler" style="position: absolute;display:none;height: 100%;width: 100%;"></div>
           <div>
-            <h1 class="p-b-14 product-title">{{product.title}}</h1>
+            <h1 class="p-b-14 product-title" itemprop="name">{{product.title}}</h1>
             <link itemprop="availability" href="http://schema.org/InStock" >
             <span class="product-price cl2"><span itemprop="price">{{product.productProperties[sizeIndex].price}}</span><meta itemprop="priceCurrency" content="UAH" > грн</span>
             <div class="p-t-33">
