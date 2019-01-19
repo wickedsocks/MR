@@ -25,6 +25,9 @@ import _ from "lodash";
 export default {
   head() {
     return {
+        title: `${this.title} - купить от ${
+        this.products[0].productProperties[0].price
+      } грн. в православном интернет магазине икон, доставка по Харькову, Киеву, Москве`,
       link: [
         {
           rel: "canonical",
