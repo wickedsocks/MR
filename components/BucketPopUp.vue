@@ -1,5 +1,5 @@
 <template>
-  <div class="container container-margins" v-if="product" itemscope itemtype="http://schema.org/Product">
+  <div class="container container-margins" v-if="product">
     <div class="bg0 product-wrapper" :class="{'px-5 py-5':pagePreviewStyling}">
       <breadcrumbs :links='links'></breadcrumbs>
       <button
@@ -9,7 +9,7 @@
       >
         <i class="zmdi zmdi-close"></i>
       </button>
-      <div class="row">
+      <div class="row" itemscope itemtype="http://schema.org/Product">
         <div class="col-md-6 col-lg-7 p-b-30 row no-gutters d-flex justify-content-center">
           <div v-swiper:mySwiper="swiperOption" class="overflow-hidden d-block d-md-none">
             <div class="swiper-wrapper">
