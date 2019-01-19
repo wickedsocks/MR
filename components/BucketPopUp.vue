@@ -53,9 +53,10 @@
             <p  class="product-description cl3 pt-4 d-none d-md-block">Описание: <span itemprop="description">{{product.description}}</span></p>
           </div>
         </div>
+        <meta itemprop="name" :content="product.title" >
         <div class="col-md-6 col-lg-5 p-b-30 overflow-hidden">
           <div id="handler" style="position: absolute;display:none;height: 100%;width: 100%;"></div>
-          <div>
+          <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
             <h1 class="p-b-14 product-title" itemprop="name">{{product.title}}</h1>
             <link itemprop="availability" href="http://schema.org/InStock" >
             <span class="product-price cl2"><span itemprop="price">{{product.productProperties[sizeIndex].price}}</span><meta itemprop="priceCurrency" content="UAH" > грн</span>
