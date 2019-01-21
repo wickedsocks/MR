@@ -1,19 +1,18 @@
 <template>
-  <div class="col-lg-3 col-md-4 col-6 product-item" itemscope itemtype="http://schema.org/Product">
+  <div class="col-lg-3 col-md-4 col-6 product-item">
     <div class="card">
-      <nuxt-link :to="`/ikona/${product.url}`" itemprop="url" class="d-flex flex-column">
+      <nuxt-link :to="`/ikona/${product.url}`" class="d-flex flex-column">
         <img 
-          itemprop="image"
           class="card-img-top"
           v-if="product.images && product.images.length > 0"
           :src="product.images[0]"
           :alt="product.title"
         >
-        <div class="card-body" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-          <h5 class="card-title" itemprop="name">{{product.title | limitTo(15)}}...</h5>
-          <p class="card-text d-none d-sm-block" itemprop="description">{{product.description | limitTo(30)}}...</p>
-          <p class="card-text"> <span itemprop="price">{{product.productProperties[0].price}}</span> грн</p>
-          <meta itemprop="priceCurrency" content="UAH" >
+        <div class="card-body">
+          <h5 class="card-title">{{product.title | limitTo(15)}}...</h5>
+          <p class="card-text d-none d-sm-block">{{product.description | limitTo(30)}}...</p>
+          <p class="card-text">{{product.productProperties[0].price}} грн</p>
+    
 
         </div>
       </nuxt-link>

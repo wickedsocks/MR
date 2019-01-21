@@ -1,21 +1,18 @@
 <template>
   <div class="product-item d-flex">
     <div class="card" v-for="(product, index) in products" :key="index"
-    v-if="product._id !== currentProduct._id" itemscope itemtype="http://schema.org/Product">
-      <nuxt-link :to="`/ikona/${product.url}`" itemprop="url" class="d-flex flex-column">
+    v-if="product._id !== currentProduct._id">
+      <nuxt-link :to="`/ikona/${product.url}`" class="d-flex flex-column">
         <img
-          itemprop="image"
           class="card-img-top"
           v-if="product.images && product.images.length > 0"
           :src="product.images[0]"
           :alt="product.title"
         >
-        <meta itemprop="name" :content="product.title">
         <div class="card-body">
-          <h5 class="card-title" itemprop="name">{{product.title | limitTo(15)}}...</h5>
-          <p class="card-text d-none d-sm-block" itemprop="description">{{product.description | limitTo(30)}}...</p>
-          <p class="card-text"><span itemprop="price">{{product.productProperties[0].price}}</span> грн</p>
-          <meta itemprop="priceCurrency" content="UAH" >
+          <h5 class="card-title" >{{product.title | limitTo(15)}}...</h5>
+          <p class="card-text d-none d-sm-block">{{product.description | limitTo(30)}}...</p>
+          <p class="card-text">{{product.productProperties[0].price}} грн</p>
         </div>
       </nuxt-link>
     </div>
