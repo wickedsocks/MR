@@ -54,12 +54,16 @@
           </div>
         </div>
         <meta itemprop="name" :content="product.title" >
+        <meta itemprop="brand" content="MykhailovskieRyadi">
+        <meta itemprop="sku" :content="product._id">
         <div class="col-md-6 col-lg-5 p-b-30 overflow-hidden">
           <div id="handler" style="position: absolute;display:none;height: 100%;width: 100%;"></div>
           <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
             <h1 class="p-b-14 product-title" itemprop="name">{{product.title}}</h1>
             <link itemprop="availability" href="http://schema.org/InStock" >
             <span class="product-price cl2"><span itemprop="price">{{product.productProperties[sizeIndex].price}}</span><meta itemprop="priceCurrency" content="UAH" > грн</span>
+            <meta itemprop="priceValidUntil" content="2022-01-21" >
+            <meta itemprop="url" :content='`https://www.mykhailovskie-ryadi.com/ikona/${product.url}`' >
             <div class="p-t-33">
               <div class="flex-w flex-r-m p-b-10">
                 <div class="size-203 flex-c-m respon6">Размер</div>
