@@ -107,7 +107,7 @@
             </div>
             <div class="flex-w flex-r-m p-b-10">
               <div class="size-204 flex-w flex-m respon6-next">
-                <div class="wrap-num-product align-self-end d-flex m-r-20">
+                <div class="wrap-num-product align-self-start d-flex m-r-20">
                   <div
                     class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m"
                     @click="decrease()"
@@ -167,17 +167,20 @@
       <h3>Похожие товары</h3>
       <similar-product :products="similarProducts" :currentProduct="product"></similar-product>
     </div>
+    <bucket-preview></bucket-preview>
   </div>
 </template>
 <script>
 import Magnifier from "~/components/Magnifier.vue";
 import Breadcrumbs from "~/components/Breadcrumbs.vue";
 import SimilarProduct from "~/components/SimilarProduct.vue";
+import BucketPreview from "~/components/BucketPreview.vue";
 export default {
   components: {
     Magnifier,
     Breadcrumbs,
-    SimilarProduct
+    SimilarProduct,
+    BucketPreview
   }, 
   data() {
     return {

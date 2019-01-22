@@ -31,3 +31,36 @@ $color-text-black: #222222;
   font-family: sans-serif;
   border-bottom: 1px solid #e6e6e6;
 }
+.pop-up-wrapper {
+  padding: 20px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1100;
+  background-color: transparent;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  visibility: hidden;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.visibility-visible {
+  visibility: visible;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.table-responsive {
+  overflow-y: hidden;
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    display: block;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #6d6d6d;
+    border-radius: 25px;
+    display: block;
+    height: 6px;
+  }
+}

@@ -96,26 +96,6 @@ export default {
     margin: 0 10px 10px;
   }
 }
-
-.pop-up-wrapper {
-  padding: 20px 0;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1100;
-  background-color: transparent;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  visibility: hidden;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.visibility-visible {
-  visibility: visible;
-  background-color: rgba(0, 0, 0, 0.6);
-}
 .my-link {
   text-decoration: none;
   cursor: auto;
