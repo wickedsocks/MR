@@ -30,7 +30,7 @@
                   >
                     <th scope="row">
                       <nuxt-link :to="'/ikona/'+ item.product.url" class="purple-hover">
-                        <div class="d-flex align-items-center justify-content-center">
+                        <div class="d-flex align-items-center justify-content-start">
                           <img
                             :src="item.product.images[0]"
                             class="product-image pr-2"
@@ -209,6 +209,10 @@ a {
   &:hover {
     text-decoration: none;
   }
+}
+.table-responsive {
+  max-height: calc(100vh - 130px);
+  overflow-y: scroll;
 }
 </style>
 

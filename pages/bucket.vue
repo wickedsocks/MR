@@ -22,7 +22,7 @@
                   <tr class="vertical-align-child-center" v-for="(item, index) in bucket" :key="index">
                     <th scope="row">
                       <nuxt-link :to="'/ikona/'+ item.product.url" class="purple-hover">
-                        <div class="d-flex align-items-center justify-content-center">
+                        <div class="d-flex align-items-center justify-content-start">
                           <img :src="item.product.images[0]" class="product-image pr-2" :alt="item.product.title">{{item.product.title}}
                         </div>
                       </nuxt-link>
