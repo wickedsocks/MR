@@ -16,42 +16,36 @@
 
         </div>
       </nuxt-link>
-
       <button
-        @click.prevent="showProductPreview(product)"
+        @click.prevent="addToBucket(product, 1, 0, 0); showPreview();"
         class="btn black-button d-none d-sm-block"
       >В корзину</button>
-      <nuxt-link :to="`/ikona/${product.url}`" class="d-flex my-link">
-        <button class="btn black-button d-block d-sm-none flex-grow-1">В корзину</button>
-      </nuxt-link>
     </div>
-    <section
-      class="pop-up-wrapper d-flex align-items-start"
-      :class="{'visibility-visible': productPreview}"
-      @click.self="hideProductPreview()"
-    >
-      <bucket-pop-up
-        :product="productPreview"
-        :page-preview-styling="true"
-        @close-pop-up="hideProductPreview()"
-      />
-    </section>
+    <bucket-preview @close-preview="hideBucketPreview()" v-if="showBucketPreviewFlag"></bucket-preview>
   </div>
 </template>
 
 <script>
 import BucketPopUp from "~/components/BucketPopUp.vue";
+import BucketPreview from "~/components/BucketPreview.vue";
 export default {
   components: {
-    BucketPopUp
+    BucketPopUp,
+    BucketPreview
   },
   data() {
     return {
-      productPreview: ""
+      showBucketPreviewFlag: false
     };
   },
   props: ["product"],
   methods: {
+    showPreview() {
+      this.showBucketPreviewFlag = true;
+    },
+    hideBucketPreview() {
+      this.showBucketPreviewFlag = false;
+    },
     // NOTE: function above was created for refactoring category structure
   //  async solveCategoriesIssue(product) {
   //     if (product && product.manufactureCategory) {
@@ -67,11 +61,13 @@ export default {
   //       });
   //     }
   //   },
-    hideProductPreview() {
-      this.productPreview = "";
-    },
-    showProductPreview(product) {
-      this.productPreview = product;
+  addToBucket(product, quantity, sizeIndex, colorIndex) {
+      this.$store.commit("addNewBucketItem", {
+        product,
+        quantity,
+        sizeIndex,
+        colorIndex
+      });
     }
   }
 };
@@ -95,9 +91,5 @@ export default {
   button {
     margin: 0 10px 10px;
   }
-}
-.my-link {
-  text-decoration: none;
-  cursor: auto;
 }
 </style>

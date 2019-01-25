@@ -1,14 +1,21 @@
 <template>
   <section
-    class="pop-up-wrapper d-flex align-items-start"
-    :class="{'visibility-visible': productPreview}"
+    class="pop-up-wrapper d-flex align-items-start visibility-visible"
     @click.self="hideProductPreview()"
   >
-    <div class="container bg0 product-wrapper px-5 py-5" v-if="productPreview">
-      <div v-if="bucket.length == 0">
-        <h4 class="no-orders">Ваш заказ не содержит товаров</h4>
-      </div>
+    <div class="container bg0 product-wrapper px-5 py-5">
       <div class="container" v-if="bucket.length > 0">
+        <div class="row">
+          <div class="col-12 d-flex justify-content-between">
+            <h2>Вы добавили товар в корзину</h2>
+            <span
+              class="close hov3 trans-04 d-flex align-items-center justify-content-center"
+              @click="hideProductPreview()"
+            >
+              <i class="zmdi zmdi-close"></i>
+            </span>
+          </div>
+        </div>
         <div class="row">
           <div class="col-12 col-lg-8">
             <div class="table-responsive border-gray-default">
@@ -36,13 +43,13 @@
                             class="product-image pr-2"
                             :alt="item.product.title"
                           >
-                          {{item.product.title}}
+                          <span class="bucket-product-name">{{item.product.title}}</span>
                         </div>
                       </nuxt-link>
-                      <div
+                      <!-- <div
                         class="size"
                       >Размер: {{item.product.productProperties[item.sizeIndex].height}} x {{item.product.productProperties[item.sizeIndex].width}} см</div>
-                      <div class="color">Цвет: {{item.product.color[item.colorIndex]}}</div>
+                      <div class="color">Цвет: {{item.product.color[item.colorIndex]}}</div>-->
                     </th>
                     <td>{{item.product.productProperties[item.sizeIndex].price}} грн</td>
                     <td>
@@ -82,9 +89,9 @@
             <div class="main-border p-4">
               <h4 class="mtext-109 font-weight-bold">Всего</h4>
 
-              <div class="flex-w flex-t p-b-13">
+              <div class="flex-w flex-t p-b-13 align-items-center">
                 <div class="size-208">
-                  <span class="stext-110 cl2">Итого:</span>
+                  <span class="stext-110 cl2 total">Итого:</span>
                 </div>
 
                 <div class="size-209">
@@ -92,7 +99,7 @@
                 </div>
               </div>
               <button
-                class="font-weight-bold flex-c-m  cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer my-btn mb-4"
+                class="font-weight-bold flex-c-m cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer my-btn mb-4"
                 @click="hideProductPreview()"
               >Продолжить покупки</button>
               <nuxt-link
@@ -104,14 +111,10 @@
         </div>
       </div>
     </div>
-    <!-- <bucket-pop-up
-        :product="productPreview"
-        :page-preview-styling="true"
-        @close-pop-up="hideProductPreview()"
-    />-->
   </section>
 </template>
 <script>
+import storeService from "~/services/storeServices";
 export default {
   computed: {
     bucket() {
@@ -134,13 +137,25 @@ export default {
     }
   },
   data() {
-    return {
-      productPreview: "asd"
-    };
+    return {};
   },
   methods: {
+    increase(item) {
+      this.$store.commit("icreaseBucketItemQuantity", { item, amount: 1 });
+    },
+    decrease(item) {
+      this.$store.commit("decreaseBucketItemQuantity", { item, amount: 1 });
+    },
     hideProductPreview() {
-      this.productPreview = "";
+      this.$emit("close-preview");
+    },
+    removeItemFromBucket(index) {
+      this.$store.commit("removeItemFromBucketByIndex", { index });
+      storeService.removeLocalStorageBucket("mrbucket");
+      storeService.setLocalStorageBucket(this.$store.state);
+      if (this.bucket && this.bucket.length == 0) {
+        this.hideProductPreview();
+      }
     }
   }
 };
@@ -159,9 +174,8 @@ p {
   border: 1px solid #e6e6e6;
 }
 .product-image {
-  height: auto;
-  width: 100%;
-  max-width: 60px;
+  max-width: 120px;
+  max-height: 120px;
 }
 .vertical-align-child-center {
   td {
@@ -213,6 +227,14 @@ a {
 .table-responsive {
   max-height: calc(100vh - 130px);
   overflow-y: scroll;
+}
+.close {
+  font-size: 40px;
+  height: 40px;
+  width: 40px;
+}
+.total {
+  font-size: 20px;
 }
 </style>
 

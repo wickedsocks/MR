@@ -77,7 +77,7 @@ export const mutations = {
     // if not -> pushing new one in array
     let sameBucketItem = storeService.increaseSameBucketItemQuantity(state.bucket, payload);
     if (!sameBucketItem) {
-      state.bucket.push(payload);
+      state.bucket.unshift(payload);
     }
     storeService.setLocalStorageBucket(state);
   },

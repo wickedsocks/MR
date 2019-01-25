@@ -68,3 +68,9 @@ $color-text-black: #222222;
 .product-wrapper {
   max-height: calc(100vh - 50px);
 }
+
+.bucket-product-name {
+  max-width: 200px;
+  white-space: pre-line;
+  word-wrap: break-word;
+}

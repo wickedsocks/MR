@@ -167,20 +167,17 @@
       <h3>Похожие товары</h3>
       <similar-product :products="similarProducts" :currentProduct="product"></similar-product>
     </div>
-    <bucket-preview></bucket-preview>
   </div>
 </template>
 <script>
 import Magnifier from "~/components/Magnifier.vue";
 import Breadcrumbs from "~/components/Breadcrumbs.vue";
 import SimilarProduct from "~/components/SimilarProduct.vue";
-import BucketPreview from "~/components/BucketPreview.vue";
 export default {
   components: {
     Magnifier,
     Breadcrumbs,
-    SimilarProduct,
-    BucketPreview
+    SimilarProduct
   }, 
   data() {
     return {
