@@ -4,9 +4,9 @@
       <navigation-side-bar :activeCat="activeCat" />
     </div>
     <div class="col-12 col-sm-12 col-md-10 col-lg-10">
-      <h3 class="my-4">Каталог товара
-        <small>продукции</small>
-      </h3>
+      <h1 class="my-4">
+        Православные иконы
+      </h1>
       <div class="row">
         <product :product="product" v-for="(product, index) in products" :key="index" />
       </div>
@@ -62,5 +62,8 @@ export default {
 <style lang="scss" scoped>
 section {
   margin-bottom: 50px;
+}
+h1 {
+  font-size: 26px;
 }
 </style>

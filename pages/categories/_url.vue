@@ -5,10 +5,9 @@
         <navigation-side-bar :activeCat="title"/>
       </div>
       <div class="col-12 col-sm-12 col-md-10 col-lg-10">
-        <h3 class="my-4">
-          Каталог товара
-          <small>{{title}}</small>
-        </h3>
+        <h1 class="my-4">
+          {{title}}
+        </h1>
         <div class="row">
           <product :product="product" v-for="(product, index) in products" :key="index"/>
         </div>
@@ -61,4 +60,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h1 {
+  font-size: 26px;
+}
 </style>

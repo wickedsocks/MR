@@ -10,7 +10,7 @@
             <div class="row justify-content-end login-wrapper align-items-center">
               <div class="text-white">
                 Телефон:
-                <a href="tel:+380936985323"> +380936985323</a>
+                <a href="tel:+380936985323">+380936985323</a>
               </div>
               <div class="text-white">
                 <nuxt-link v-if="!currentUser" to="/login">Войти</nuxt-link>
@@ -25,11 +25,11 @@
 
         <div class="wrap-menu-desktop" :class="{'shadow': scroll}">
           <nav class="limiter-menu-desktop container">
-
             <!-- Logo desktop -->
             <nuxt-link to="/" class="logo-link">
               <div class="logo-icon">
-                <span class="capital-letter">М</span><span class="logo-text">ихайловские ряды</span>
+                <span class="capital-letter">М</span>
+                <span class="logo-text">ихайловские ряды</span>
               </div>
             </nuxt-link>
 
@@ -40,24 +40,35 @@
                   <nuxt-link to="/">Главная</nuxt-link>
                 </li>
 
-                <li>
-                  <nuxt-link to="/create/product" v-if="currentUser && currentUser.admin">Создать товар</nuxt-link>
+                <li v-if="currentUser && currentUser.admin">
+                  <nuxt-link to="/create/product">Создать товар</nuxt-link>
                 </li>
 
-                <li>
-                  <nuxt-link to="/orders" v-if="currentUser && currentUser.admin">Заказы</nuxt-link>
+                <li v-if="currentUser && currentUser.admin">
+                  <nuxt-link to="/orders">Заказы</nuxt-link>
                 </li>
                 <li>
                   <nuxt-link to="/contacts">Контакты</nuxt-link>
+                </li>
+                <li>
+                  <nuxt-link to="/categories/edit">Категории</nuxt-link>
+                </li>
+                <li v-if="currentUser && currentUser.admin">
+                  <nuxt-link to="/categories/edit">Категории</nuxt-link>
                 </li>
               </ul>
             </div>
 
             <!-- Icon header -->
             <div class="wrap-icon-header flex-w flex-r-m">
-              <search-input :id="'search2'" />
+              <search-input :id="'search2'"/>
 
-              <nuxt-link to='/bucket' class="icon-header-item cl2 hov-cl1 trans-04 pl-3 pr-2 js-show-cart" :class="{'icon-header-noti': bucketLength > 0}" :data-notify="bucketLength">
+              <nuxt-link
+                to="/bucket"
+                class="icon-header-item cl2 hov-cl1 trans-04 pl-3 pr-2 js-show-cart"
+                :class="{'icon-header-noti': bucketLength > 0}"
+                :data-notify="bucketLength"
+              >
                 <i class="zmdi zmdi-shopping-cart"></i>
               </nuxt-link>
             </div>
@@ -86,9 +97,10 @@
       <div class="wrap-header-mobile flex-wrap">
         <!-- Logo moblie -->
         <div class="logo-mobile">
-          <nuxt-link to='/' class="logo-link">
+          <nuxt-link to="/" class="logo-link">
             <div class="logo-icon">
-              <span class="capital-letter">М</span><span class="logo-text">ихайловские ряды</span>
+              <span class="capital-letter">М</span>
+              <span class="logo-text">ихайловские ряды</span>
             </div>
           </nuxt-link>
         </div>
@@ -96,14 +108,23 @@
         <div class="d-flex justify-content-center col-12 col-sm-8">
           <!-- Icon header -->
           <div class="wrap-icon-header d-flex align-items-center justify-content-end m-r-15">
-            <search-input :id='"search1"' />
-            <nuxt-link to='bucket' class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" :class="{'icon-header-noti': bucketLength > 0}" :data-notify="bucketLength">
+            <search-input :id="'search1'"/>
+            <nuxt-link
+              to="bucket"
+              class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
+              :class="{'icon-header-noti': bucketLength > 0}"
+              :data-notify="bucketLength"
+            >
               <i class="zmdi zmdi-shopping-cart"></i>
             </nuxt-link>
           </div>
 
           <!-- Button show menu -->
-          <div class="btn-show-menu-mobile hamburger hamburger--squeeze" @click="showMobileMenu()" :class="{'is-active': showMobile}">
+          <div
+            class="btn-show-menu-mobile hamburger hamburger--squeeze"
+            @click="showMobileMenu()"
+            :class="{'is-active': showMobile}"
+          >
             <span class="hamburger-box">
               <span class="hamburger-inner"></span>
             </span>
@@ -116,15 +137,18 @@
             <li>
               <nuxt-link to="/">Главная</nuxt-link>
             </li>
-            <li>
-              <nuxt-link to="/create/product" v-if="currentUser && currentUser.admin">Создать товар</nuxt-link>
+            <li v-if="currentUser && currentUser.admin">
+              <nuxt-link to="/create/product">Создать товар</nuxt-link>
             </li>
 
-            <li>
-              <nuxt-link to="/orders" v-if="currentUser && currentUser.admin">Заказы</nuxt-link>
+            <li v-if="currentUser && currentUser.admin">
+              <nuxt-link to="/orders">Заказы</nuxt-link>
             </li>
             <li>
               <nuxt-link to="/contacts">Контакты</nuxt-link>
+            </li>
+            <li v-if="currentUser && currentUser.admin">
+              <nuxt-link to="/categories/edit">Категории</nuxt-link>
             </li>
           </ul>
         </div>
@@ -146,16 +170,16 @@
 </template>
 
 <script>
-import axios from '~/plugins/axios';
-import { mapGetters } from 'vuex';
-import SearchInput from '~/components/SearchInput.vue';
-import storeServices from '~/services/storeServices';
+import axios from "~/plugins/axios";
+import { mapGetters } from "vuex";
+import SearchInput from "~/components/SearchInput.vue";
+import storeServices from "~/services/storeServices";
 
 export default {
   components: {
     SearchInput
   },
-  computed: mapGetters(['bucketLength', 'currentUser']),
+  computed: mapGetters(["bucketLength", "currentUser"]),
   data() {
     return {
       scroll: false,
@@ -169,27 +193,27 @@ export default {
     showMobileMenu() {
       this.showMobile = !this.showMobile;
       this.$refs.mobileMenu.style.height = this.$refs.mobileMenu.style.height
-        ? ''
-        : this.$refs.mobileMenu.scrollHeight + 'px';
+        ? ""
+        : this.$refs.mobileMenu.scrollHeight + "px";
     },
     async logout() {
       try {
-        await axios.delete('/api/users/logout');
-        console.log('logged out');
-        this.$store.commit('removeUser');
+        await axios.delete("/api/users/logout");
+        console.log("logged out");
+        this.$store.commit("removeUser");
         storeServices.removeLocalStorageUser();
       } catch (e) {
-        console.log('error occurs ', e);
+        console.log("error occurs ", e);
       }
     }
   },
   mounted() {
     if (process.browser) {
-      document.addEventListener('scroll', this.scrollEvent);
+      document.addEventListener("scroll", this.scrollEvent);
     }
   },
   destroyed() {
-    document.removeEventListener('scroll', this.scrollEvent);
+    document.removeEventListener("scroll", this.scrollEvent);
   }
 };
 </script>

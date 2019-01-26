@@ -128,6 +128,7 @@
 <script>
 import axios from '~/plugins/axios';
 import storeService from '~/services/storeServices';
+import commonServices from '~/services/commonServices';
 
 export default {
   computed: {
@@ -135,7 +136,7 @@ export default {
       return this.$store.state.categories;
     },
     product() {
-      return JSON.parse(JSON.stringify(this.$store.getters.getProductByUrl(this.$route.params.id)));
+      return commonServices.copyObjectThroughJSON(this.$store.getters.getProductByUrl(this.$route.params.id));
     },
     selectedCategories() {
       return this.product.categories.map(cat => cat);

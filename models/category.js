@@ -18,6 +18,9 @@ let categoryShema = new mongoose.Schema({
   used: {
     type: Boolean
   },
+  parentCategory: {
+    type: [String]
+  },
   url_updated: {
     type: Boolean
   }

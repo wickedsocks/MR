@@ -50,7 +50,7 @@
                 <img class="image-main" :src="image" itemprop="image" :alt="product.description" :title="product.title" v-if="pagePreviewStyling">
               </div>
             </div>
-            <p  class="product-description cl3 pt-4 d-none d-md-block">Описание: <span itemprop="description">{{product.description}}</span></p>
+            <p  class="product-description cl3 pt-4 d-none d-md-block"><span class="font-weight-bold">Описание: </span> <span itemprop="description">{{product.description}}</span></p>
           </div>
         </div>
         <meta itemprop="name" :content="product.title" >
@@ -66,7 +66,7 @@
             <meta itemprop="url" :content='`https://www.mykhailovskie-ryadi.com/ikona/${product.url}`' >
             <div class="p-t-33">
               <div class="flex-w flex-r-m p-b-10">
-                <div class="size-203 flex-c-m respon6">Размер</div>
+                <div class="size-203 flex-c-m respon6 font-weight-bold">Размер</div>
 
                 <div class="size-204 respon6-next">
                   <div>
@@ -86,7 +86,7 @@
               </div>
 
               <div class="flex-w flex-r-m p-b-10">
-                <div class="size-203 flex-c-m respon6">Цвет</div>
+                <div class="size-203 flex-c-m respon6 font-weight-bold">Цвет</div>
 
                 <div class="size-204 respon6-next">
                   <div>
@@ -130,7 +130,7 @@
                   </div>
                 </div>
                 <div class="d-flex flex-column">
-                  <div class="py-3 total-price default-font-family">Всего: {{price * quantity}} грн</div>
+                  <div class="py-3 total-price default-font-family"><span class="font-weight-bold">Всего: </span>{{price * quantity}} грн</div>
                   <button
                     class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04"
                     @click="addToBucket(product, quantity, sizeIndex, colorIndex); hidePopUp()"
@@ -146,7 +146,7 @@
               </div>
             </div>
             <p class="product-description cl3">
-              Категории:
+              <span class="font-weight-bold">Категории: </span>
               <span v-for="(cat, index) in categories" :key="index">
                 {{cat.name}}
                 <span v-if="index !== categories.length - 1">,</span>
@@ -154,11 +154,11 @@
             </p>
             <p
               class="product-description cl3"
-            >Высота: {{product.productProperties[sizeIndex].height}} см</p>
+            ><span class="font-weight-bold">Высота: </span> {{product.productProperties[sizeIndex].height}} см</p>
             <p
               class="product-description cl3"
-            >Ширина: {{product.productProperties[sizeIndex].width}} см</p>
-            <p class="product-description cl3">Цвет: {{colorModel}}</p>
+            ><span class="font-weight-bold">Ширина: </span>{{product.productProperties[sizeIndex].width}} см</p>
+            <p class="product-description cl3"><span class="font-weight-bold">Цвет: </span>{{colorModel}}</p>
           </div>
         </div>
       </div>
