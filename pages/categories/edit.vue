@@ -4,20 +4,22 @@
       <li v-for="(category, index) in allCategories" :key="index" class="d-flex flex-column">
         <div class="d-flex justify-content-between">
           <span>{{category.name}}</span>
-          <button
-            class="btn btn-success"
-            @click="toggleEdit(index)"
-          >Редактировать</button>
+          <button class="btn btn-success" @click="toggleEdit(index)">Редактировать</button>
         </div>
         <div v-if="openFlags[index]">
           <div class="edit-block" v-for="(value, key) in category" :key="key">
-            <span>{{key}} :</span>
-            <input
-              class="form-control"
-              v-model="parentCategory[index]"
-              v-if="key == 'parentCategory'"
-            >
-            <input class="form-control" v-model="category[key]" v-else>
+            <div v-if="key !== '_id'">
+              <span>{{key}} :</span>
+              <input
+                class="form-control"
+                v-model="subCategories[index]"
+                v-if="key == 'subCategories'"
+              >
+              <input class="form-control" v-model="category[key]" v-else>
+            </div>
+            <div v-else>
+              <span>{{key}} :</span><span>{{category[key]}}</span>
+            </div>
           </div>
         </div>
       </li>
@@ -36,17 +38,17 @@ export default {
     allCategories() {
       return commonServices.copyObjectThroughJSON(this.$store.state.categories);
     },
-    parentCategory() {
-      let parentCategoryLocal = [];
+    subCategories() {
+      let subCategoriesLocal = [];
       this.allCategories.forEach(item => {
-        parentCategoryLocal.push(item.parentCategory.join(","));
+        subCategoriesLocal.push(item.subCategories.join(","));
       });
-      return parentCategoryLocal;
+      return subCategoriesLocal;
     }
   },
   fetch({ store, redirect }) {
     if (!store.state.user || !store.state.user.admin) {
-      redirect('/');
+      redirect("/");
     }
   },
   methods: {
@@ -56,9 +58,9 @@ export default {
     },
     updateCategories() {
       this.allCategories.forEach((item, index) => {
-        if (this.parentCategory[index] && this.parentCategory.length > 0) {
-          item.parentCategory = commonServices
-            .removeSpacesFromString(this.parentCategory[index])
+        if (this.subCategories[index] && this.subCategories.length > 0) {
+          item.subCategories = commonServices
+            .removeSpacesFromString(this.subCategories[index])
             .split(",");
         }
       });

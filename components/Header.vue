@@ -50,9 +50,6 @@
                 <li>
                   <nuxt-link to="/contacts">Контакты</nuxt-link>
                 </li>
-                <li>
-                  <nuxt-link to="/categories/edit">Категории</nuxt-link>
-                </li>
                 <li v-if="currentUser && currentUser.admin">
                   <nuxt-link to="/categories/edit">Категории</nuxt-link>
                 </li>

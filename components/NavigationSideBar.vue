@@ -3,18 +3,38 @@
     <div class="d-none d-md-block">
       <h4 class="catgories-name cl2 pb-4">Категории</h4>
       <ul>
-         <li>
+        <li>
           <nuxt-link
             to="/"
             class="dis-block category-link cl6 hov-cl1 trans-04 p-tb-8 p-lr-4"
-            :class="{'active-category': activeCat == ''}"
+            :class="{'active-category': categoryTitle == undefined || ''}"
           >Все иконы</nuxt-link>
         </li>
-        <li v-for="(cat, index) in allCategories" :key="index" v-if="cat.used">
+        <li>
+          <nuxt-link
+            v-if="parentCategory"
+            :to="'/categories/' + parentCategory.url"
+            class="dis-block category-link cl6 hov-cl1 trans-04 p-tb-8 p-lr-4"
+            :class="{'active-category': lowerCase(categoryTitle) == lowerCase(parentCategory.name)}"
+          > Назад к {{parentCategory.name}}</nuxt-link>
+        </li>
+        <li>
+          <nuxt-link
+            v-if="activeCat"
+            :to="'/categories/' + activeCat.url"
+            class="dis-block category-link cl6 hov-cl1 trans-04 p-tb-8 p-lr-4"
+            :class="{'active-category': lowerCase(categoryTitle) == lowerCase(activeCat.name)}"
+          >{{activeCat.name}}</nuxt-link>
+        </li>
+        <li
+          v-for="(cat, index) in categoriesList"
+          :key="index"
+          v-if="cat.used && cat._id !== activeCat._id"
+        >
           <nuxt-link
             :to="'/categories/' + cat.url"
             class="dis-block category-link cl6 hov-cl1 trans-04 p-tb-8 p-lr-4"
-            :class="{'active-category': lowerCase(activeCat) == lowerCase(cat.name)}"
+            :class="{'active-category': lowerCase(categoryTitle) == lowerCase(cat.name)}"
           >{{cat.name}}</nuxt-link>
         </li>
       </ul>
@@ -40,7 +60,7 @@
                   @click.native="toggleFilters()"
                   :to="'/categories/' + cat.url"
                   class="filter-link stext-106 trans-04 active-category"
-                  :class="{'active-category': lowerCase(activeCat) == lowerCase(cat.name)}"
+                  :class="{'active-category': lowerCase(categoryTitle) == lowerCase(cat.name)}"
                 >{{ cat.name }}</nuxt-link>
               </li>
             </ul>
@@ -54,7 +74,7 @@
 <script>
 import _ from "lodash";
 export default {
-  props: ["activeCat"],
+  props: ["activeCat", "categoryTitle"],
   data() {
     return {
       showFilters: false
@@ -63,6 +83,28 @@ export default {
   computed: {
     allCategories() {
       return this.$store.state.categories;
+    },
+    categoriesList() {
+      let localCategoryList = this.allCategories;
+      if (
+        this.activeCat.subCategories &&
+        this.activeCat.subCategories.length > 0
+      ) {
+        localCategoryList = [];
+        this.activeCat.subCategories.forEach(id => {
+          localCategoryList.push(this.$store.getters.getCategoryById(id));
+        });
+      }
+      return localCategoryList;
+    },
+    parentCategory() {
+      if (this.activeCat && this.activeCat.parentCategory) {
+        return this.$store.getters.getCategoryById(
+          this.activeCat.parentCategory
+        );
+      } else {
+        return null;
+      }
     }
   },
   methods: {
@@ -75,6 +117,9 @@ export default {
         ? null
         : this.$refs.categories.scrollHeight + "px";
     }
+  },
+  mounted() {
+    console.log("all categories ", this.allCategories);
   }
 };
 </script>

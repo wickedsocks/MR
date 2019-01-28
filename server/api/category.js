@@ -114,7 +114,9 @@ router.post('/categories/update', authenticate, isAdmin, (req, res) => {
         description: cat.description,
         url: cat.url,
         used: cat.used,
-        parentCategory: cat.parentCategory
+        subCategories: cat.subCategories,
+        parentCategory: cat.parentCategory,
+        mainCategory: cat.mainCategory
       }
     }, {
         new: true
