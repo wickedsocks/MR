@@ -34,13 +34,13 @@ router.get('/categories/product', (req, res) => {
 
 router.post('/categories',authenticate, isAdmin, (req, res) => {
   let trimmedName = req.body.name.trim();
-  let Category = new Category({
+  let localCategory = new Category({
     description: req.body.description,
     name: trimmedName,
     url: Product.productUrlNaming(req.body.name),
     used: false
   });
-  Category.save().then(
+  localCategory.save().then(
     success => {
       res.send(success);
     },
