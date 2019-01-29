@@ -163,7 +163,6 @@ export default {
       this.product.productProperties.push({
         height: '',
         width: '',
-        color: '',
         price: ''
       });
       this.$forceUpdate();
@@ -215,11 +214,10 @@ export default {
     },
     async sendForm() {
       try {
-        console.log('this ', this.product);
         let valid = await this.$validator.validateAll();
         if (valid) {
           this.showLoader = true;
-          console.log('');
+          this.mergeSelectedCategoriesWithProduct();
           let response = await this.updateProductRequest();
           this.$store.commit('updateProduct', response.data);
           console.log('response ', response.data);
@@ -249,6 +247,9 @@ export default {
         this.showLoader = false;
         console.log('error ', error);
       }
+    },
+    mergeSelectedCategoriesWithProduct() {
+      this.product.categories = this.selectedCategories;
     },
     updateProductRequest() {
       return axios.post('/api/products/update', {
