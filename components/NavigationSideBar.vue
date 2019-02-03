@@ -16,7 +16,7 @@
             :to="'/categories/' + parentCategory.url"
             class="dis-block category-link cl6 hov-cl1 trans-04 p-tb-8 p-lr-4"
             :class="{'active-category': lowerCase(categoryTitle) == lowerCase(parentCategory.name)}"
-          > Назад к {{parentCategory.name}}</nuxt-link>
+          >Назад к {{parentCategory.name}}</nuxt-link>
         </li>
         <li>
           <nuxt-link
@@ -85,15 +85,24 @@ export default {
       return this.$store.state.categories;
     },
     categoriesList() {
-      let localCategoryList = this.allCategories;
-      if (
-        this.activeCat.subCategories &&
-        this.activeCat.subCategories.length > 0
-      ) {
-        localCategoryList = [];
-        this.activeCat.subCategories.forEach(id => {
-          localCategoryList.push(this.$store.getters.getCategoryById(id));
-        });
+      // Задать всем категориями мейнКатегори тогда будет понятно какие категории выводить на первый уровень
+      // Если активной категории нет, значит это верхний уровень и просто выводить мейнкатегори
+      // После нажатия на категорию выводим её субкатегории и устанавливаем родительскую вверх
+      let localCategoryList;
+      if (this.activeCat && this.activeCat.subCategories) {
+        localCategoryList = this.activeCat.subCategories.map(id =>
+          this.$store.getters.getCategoryById(id)
+        );
+        console.log(' localCategoryList 1 ',  localCategoryList);
+      } else if (this.activeCat && !this.activeCat.subCategories) {
+        localCategoryList = this.parentCategory.subCategories.map(id =>
+          this.$store.getters.getCategoryById(id)
+        );
+        console.log(' localCategoryList 2 ',  localCategoryList);
+      } else {
+        localCategoryList = this.allCategories
+          .filter(cat => cat.mainCategory);
+          console.log(' localCategoryList 3 ',  localCategoryList);
       }
       return localCategoryList;
     },

@@ -38,7 +38,8 @@ router.post('/categories',authenticate, isAdmin, (req, res) => {
     description: req.body.description,
     name: trimmedName,
     url: Product.productUrlNaming(req.body.name),
-    used: false
+    used: false,
+    mainCategory: req.body.mainCategory
   });
   localCategory.save().then(
     success => {
