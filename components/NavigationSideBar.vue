@@ -89,12 +89,12 @@ export default {
       // Если активной категории нет, значит это верхний уровень и просто выводить мейнкатегори
       // После нажатия на категорию выводим её субкатегории и устанавливаем родительскую вверх
       let localCategoryList;
-      if (this.activeCat && this.activeCat.subCategories) {
+      if (this.activeCat && this.activeCat.subCategories.length == 0) {
         localCategoryList = this.activeCat.subCategories.map(id =>
           this.$store.getters.getCategoryById(id)
         );
         console.log(' localCategoryList 1 ',  localCategoryList);
-      } else if (this.activeCat && !this.activeCat.subCategories) {
+      } else if (this.activeCat && this.activeCat.subCategories.length > 0) {
         localCategoryList = this.parentCategory.subCategories.map(id =>
           this.$store.getters.getCategoryById(id)
         );
