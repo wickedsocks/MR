@@ -35,20 +35,15 @@
         Написать нам
       </button>
     </form>
-    <loader :showLoader="showLoader" :success="success" :message="message" :error="error" />
   </div>
 </template>
 
 <script>
 import axios from '~/plugins/axios';
 import { mask } from 'vue-the-mask';
-import Loader from '~/components/loader.vue';
 export default {
   directives: {
     mask
-  },
-  components: {
-    Loader
   },
   data() {
     return {

@@ -170,7 +170,8 @@
 import axios from "~/plugins/axios";
 import { mapGetters } from "vuex";
 import SearchInput from "~/components/SearchInput.vue";
-import storeServices from "~/services/storeServices";
+import storeServices from "~/services/storeServices.js";
+
 
 export default {
   components: {

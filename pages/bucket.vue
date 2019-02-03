@@ -169,19 +169,38 @@
         </div>
       </div>
     </form>
+    <spinning-loader v-if="showLoader"></spinning-loader>
+    <notifications
+      v-if="showNotification"
+      @close="closeNotification()"
+      :success="textService.orderSuccess"
+      :error="textService.orderError"
+      :showError="showError"
+    ></notifications>
   </div>
 </template>
 <script>
 import axios from "~/plugins/axios";
-import storeService from "~/services/storeServices";
+import storeService from "~/services/storeServices.js";
+import textService from "~/services/textService.js";
 import { mask } from "vue-the-mask";
+import SpinningLoader from "~/components/SpinningLoader.vue";
+import Notifications from "~/components/Notifications.vue";
 
 export default {
+  components: {
+    SpinningLoader,
+    Notifications
+  },
   directives: {
     mask
   },
   data() {
     return {
+      showError: false,
+      textService: textService,
+      showLoader: false,
+      showNotification: false,
       name: "",
       email: "",
       tel: "",
@@ -190,6 +209,9 @@ export default {
     };
   },
   computed: {
+    closeNotification() {
+      this.showNotification = false;
+    },
     bucket() {
       return this.$store.state.bucket;
     },
@@ -222,24 +244,39 @@ export default {
     decrease(item) {
       this.$store.commit("decreaseBucketItemQuantity", { item, amount: 1 });
     },
+    hideLoaderAndShowNotification() {
+      this.showLoader = false;
+      this.showNotification = true;
+      setTimeout(() => {
+        this.showNotification = false;
+        this.showError = false;
+        this.$router.push('/');
+      }, 3000);
+    },
     async makeOrder() {
-      let valid = await this.$validator.validateAll();
-      if (valid && this.bucket && this.bucket.length > 0) {
-        let regExp = new RegExp(/(\(|\)|\+|-)/g);
-        this.tel = this.tel.replace(regExp, "");
-        await axios.post("/api/orders", {
-          name: this.name,
-          email: this.email,
-          products: this.products,
-          tel: this.tel,
-          comment: this.comment,
-          totalPrice: this.totalBucketPrice
-        });
-        storeService.removeLocalStorageBucket("mrbucket");
-        storeService.cleanBucket(this.$store);
-        // need for redirecting and cleaning bu
-        window.location.href = "/";
-        alert("Заказ оформлен");
+      try {
+        this.showLoader = true;
+        let valid = await this.$validator.validateAll();
+        if (valid && this.bucket && this.bucket.length > 0) {
+          let regExp = new RegExp(/(\(|\)|\+|-)/g);
+          this.tel = this.tel.replace(regExp, "");
+          await axios.post("/api/orders", {
+            name: this.name,
+            email: this.email,
+            products: this.products,
+            tel: this.tel,
+            comment: this.comment,
+            totalPrice: this.totalBucketPrice
+          });
+          storeService.removeLocalStorageBucket("mrbucket");
+          this.$store.commit("cleanBucket");
+          // need for redirecting and cleaning bu
+          this.hideLoaderAndShowNotification();
+          // window.location.href = "/";
+        }
+      } catch (error) {
+        this.showError = true;
+        this.hideLoaderAndShowNotification();
       }
     },
     removeItemFromBucket(index) {

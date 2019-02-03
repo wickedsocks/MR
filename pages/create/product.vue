@@ -100,22 +100,23 @@
       </div>
     </section>
     <button type="submit" class="btn btn-success">Добавить товар</button>
-    <div v-show="showLoader" class="loader-wrapper">
-      <div class="loader"></div>
-    </div>
-    <div v-show="showSuccessMessage" class="success-message-wrapper">
-      <div class="success-message">
-        Товар успешно сохранен
-      </div>
-    </div>
+    <spinning-loader v-if="showLoader"></spinning-loader>
+    <notifications v-if="showSuccessMessage" @close="closeNotifications()" :success="textService.productSaved"></notifications>
   </form>
 </template>
 
 <script>
 import axios from '~/plugins/axios';
 import storeService from '~/services/storeServices';
+import textService from '~/services/textService.js';
+import SpinningLoader from "~/components/SpinningLoader.vue";
+import Notifications from "~/components/Notifications.vue";
 
 export default {
+  components: {
+    SpinningLoader,
+    Notifications
+  },
   computed: {
     categories() {
       return this.$store.state.categories;
@@ -126,6 +127,7 @@ export default {
   },
   data() {
     return {
+      textService: textService,
       showLoader: false,
       showSuccessMessage: false,
       images: [],
@@ -196,6 +198,9 @@ export default {
             1
           )
         : this.requestData.categoriesArray;
+    },
+    closeNotifications() {
+      this.showSuccessMessage = false;
     },
     async sendForm() {
       try {

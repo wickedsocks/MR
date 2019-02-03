@@ -72,6 +72,11 @@ export const getters = {
 
 // methods for sync operations
 export const mutations = {
+  cleanBucket(state) {
+    if (state.bucket) {
+      state.bucket.splice(0);
+    }
+  },
   addNewBucketItem(state, payload) {
     // Increasing same bucket item quantity if bucket item already exists in state.bucket
     // if not -> pushing new one in array

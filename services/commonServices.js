@@ -4,5 +4,11 @@ export default {
   },
   removeSpacesFromString(str) {
     return str.replace(/\s/g, '');
+  },
+  showLoader() {
+    return true;
+  },
+  hideLoader() {
+    return false;
   }
 }

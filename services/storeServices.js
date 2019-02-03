@@ -32,11 +32,6 @@ export default {
   removeLocalStorageBucket(name) {
     localStorage.removeItem(name);
   },
-  cleanBucket(store) {
-    if (store.bucket) {
-      store.bucket.splice(0);
-    }
-  },
   setLocalStorageUser(user) {
     let localUser = `${JSON.stringify(user)};`;
     localStorage.setItem('mrUser', localUser);
