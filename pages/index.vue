@@ -7,7 +7,7 @@
       <div class="d-flex justify-content-between">
         <h1 class="my-4">Православные иконы</h1>
         <div class="d-flex flex-column align-items-end justify-content-center align-self-baseline">
-          <span>Количество икон на странице</span>
+          <span>Количество товаров</span>
           <div class="ml-3">
             <pagination-filter/>
           </div>
