@@ -75,6 +75,27 @@ router.get('/products', (req, res) => {
   );
 });
 
+router.post('/pagination/products', async (req, res) => {
+  let { skip, limit } = req.body;
+  let count;
+  try {
+    count = await Product.count();
+  } catch (error) {
+    res.status(400).send(error);
+  }
+  Product.find({})
+    .skip(skip)
+    .limit(limit)
+    .then(
+      success => {
+        res.send({ count, products: success });
+      },
+      err => {
+        res.status(400).send(err);
+      }
+    );
+});
+
 router.get('/products/search', (req, res) => {
   Product.find({
     title: {
@@ -130,24 +151,31 @@ router.post('/products/upload-image', authenticate, isAdmin, (req, res) => {
 });
 
 router.post('/products/update', authenticate, isAdmin, (req, res) => {
-  Product.findByIdAndUpdate(req.body._id, {
-    $set: {
-      categories: req.body.categories,
-      color: req.body.color,
-      description: req.body.description,
-      images: req.body.images,
-      productProperties: req.body.productProperties,
-      title: req.body.title,
-      url: req.body.url,
-      mykeywords: req.body.mykeywords,
-      canonicalUrl: req.body.canonicalUrl ? req.body.canonicalUrl : '',
+  Product.findByIdAndUpdate(
+    req.body._id,
+    {
+      $set: {
+        categories: req.body.categories,
+        color: req.body.color,
+        description: req.body.description,
+        images: req.body.images,
+        productProperties: req.body.productProperties,
+        title: req.body.title,
+        url: req.body.url,
+        mykeywords: req.body.mykeywords,
+        canonicalUrl: req.body.canonicalUrl ? req.body.canonicalUrl : ''
+      }
+    },
+    {
+      new: true
     }
-  }, {
-    new: true
-  }).then((success) => {
-    res.send(success);
-  }, err => {
-    res.status(400).send(err);
-  });
+  ).then(
+    success => {
+      res.send(success);
+    },
+    err => {
+      res.status(400).send(err);
+    }
+  );
 });
 module.exports = router;

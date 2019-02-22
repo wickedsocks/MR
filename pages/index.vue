@@ -1,14 +1,23 @@
 <template>
-  <section class='row'>
-    <div class="col-12 col-sm-12  col-md-2 col-lg-2">
-      <navigation-side-bar :activeCat="activeCat" />
+  <section class="row">
+    <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+      <navigation-side-bar :activeCat="activeCat"/>
     </div>
     <div class="col-12 col-sm-12 col-md-10 col-lg-10">
-      <h1 class="my-4">
-        Православные иконы
-      </h1>
+      <div class="d-flex justify-content-between">
+        <h1 class="my-4">Православные иконы</h1>
+        <div class="d-flex flex-column align-items-end justify-content-center align-self-baseline">
+          <span>Изменить количество</span>
+          <div class="ml-3">
+            <pagination-filter/>
+          </div>
+        </div>
+      </div>
       <div class="row">
-        <product :product="product" v-for="(product, index) in products" :key="index" />
+        <product :product="product" v-for="(product, index) in products" :key="index"/>
+      </div>
+      <div class="row">
+        <pagination-buttons/>
       </div>
     </div>
   </section>
@@ -17,10 +26,14 @@
 <script>
 import Product from "~/components/Product.vue";
 import NavigationSideBar from "~/components/NavigationSideBar.vue";
+import PaginationFilter from "~/components/PaginationFilter.vue";
+import PaginationButtons from "~/components/PaginationButtons.vue";
 export default {
   components: {
     Product,
-    NavigationSideBar
+    NavigationSideBar,
+    PaginationFilter,
+    PaginationButtons
   },
   computed: {
     products() {
@@ -40,12 +53,13 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: "Купить или заказать онлайн иконы, православные подарки и сувениры в православном интернет-магазине Михайловские ряды с бесплатной доставкой по Харькову, Харьковской области, Киеву и Одессы, по всей Украине"
+          content:
+            "Купить или заказать онлайн иконы, православные подарки и сувениры в православном интернет-магазине Михайловские ряды с бесплатной доставкой по Харькову, Харьковской области, Киеву и Одессы, по всей Украине"
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: `Купить иконостасы, иконы, Спасителя, Иисус Христос, Богородица, сувениры, православные подарки`,
+          content: `Купить иконостасы, иконы, Спасителя, Иисус Христос, Богородица, сувениры, православные подарки`
         }
       ],
       link: [

@@ -3,6 +3,9 @@ export default {
   async getProducts() {
     return axios.get('/api/products');
   },
+  async getPaginationProducts(skip, limit) {
+    return axios.post('/api/pagination/products', {skip, limit});
+  },
   increaseSameBucketItemQuantity(bucketArray, product) {
     let sameBucketItem;
     bucketArray.forEach(item => {
@@ -71,5 +74,20 @@ export default {
         url
       }
     });
+  },
+  setProductsCount(store, val) {
+    store.commit("changeProductCount", val); 
+  },
+  changeProductsLimit(store, val) {
+    store.commit("setProductsLimit", val); 
+  },
+  setActivePage(store, val) {
+    store.commit("setActivePage", val); 
+  },
+  pushProducts(store, val) {
+    store.commit("pushProducts", val); 
+  },
+  updateProductsOffset(store, val) {
+    store.commit('setNewProductsOffset', val);
   }
 };
