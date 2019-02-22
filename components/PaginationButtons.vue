@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="col-12">
     <button v-if="productsCount !== products.length" class="btn btn-success" @click="getMoreProducts()">Загрузить ещё товары</button>
     <button v-if="productsCount == products.length" class="btn btn-default">Все товары загруженны</button>
   </div>
