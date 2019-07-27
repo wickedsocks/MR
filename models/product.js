@@ -7,6 +7,7 @@ let schema = new mongoose.Schema({
     type: Array,
     required: true
   },
+  created_at: String,
   title: {
     type: String,
     required: true,

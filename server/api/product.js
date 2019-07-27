@@ -4,6 +4,7 @@ const { Product } = require('../../models/product');
 const { Category } = require('../../models/category');
 const { authenticate, isAdmin } = require('./middleware/middleware.service');
 const formidable = require('formidable');
+const {ObjectId} = require('mongoose').Types;
 
 const cloudinary = require('cloudinary');
 
@@ -88,6 +89,10 @@ router.post('/pagination/products', async (req, res) => {
     .limit(limit)
     .then(
       success => {
+        success = success.map((item) => {
+          item.created_at = ObjectId(item._id).getTimestamp();
+          return item;
+        })
         res.send({ count, products: success });
       },
       err => {
