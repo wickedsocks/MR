@@ -177,6 +177,7 @@
       :error="textService.orderError"
       :showError="showError"
     ></notifications>
+    <!-- v-if="showNotification" -->
   </div>
 </template>
 <script>
@@ -247,15 +248,16 @@ export default {
     hideLoaderAndShowNotification() {
       this.showLoader = false;
       this.showNotification = true;
-      setTimeout(() => {
-        this.showNotification = false;
-        this.showError = false;
-        this.$router.push('/');
-      }, 3000);
+      // NOTE: need handle this via buttons
+      // setTimeout(() => {
+      //   this.showNotification = false;
+      //   this.showError = false;
+      //   this.$router.push('/');
+      // }, 3000);
     },
     async makeOrder() {
       try {
-        this.showLoader = true;
+        // this.showLoader = true;
         let valid = await this.$validator.validateAll();
         if (valid && this.bucket && this.bucket.length > 0) {
           let regExp = new RegExp(/(\(|\)|\+|-)/g);
@@ -268,11 +270,9 @@ export default {
             comment: this.comment,
             totalPrice: this.totalBucketPrice
           });
-          storeService.removeLocalStorageBucket("mrbucket");
-          this.$store.commit("cleanBucket");
+            this.$router.push('/checkout-success');
           // need for redirecting and cleaning bu
-          this.hideLoaderAndShowNotification();
-          // window.location.href = "/";
+          // this.hideLoaderAndShowNotification();
         }
       } catch (error) {
         this.showError = true;
