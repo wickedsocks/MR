@@ -62,7 +62,7 @@
 
               <nuxt-link
                 to="/bucket"
-                class="icon-header-item cl2 hov-cl1 trans-04 pl-3 pr-2 js-show-cart"
+                class="icon-header-item cart-icon cl2 hov-cl1 trans-04 pl-3 pr-2 js-show-cart"
                 :class="{'icon-header-noti shake-animation': bucketLength > 0}"
                 :data-notify="bucketLength"
               >
@@ -108,7 +108,7 @@
             <search-input :id="'search1'"/>
             <nuxt-link
               to="bucket"
-              class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 js-show-cart"
+              class="icon-header-item cart-icon cl2 hov-cl1 trans-04 p-r-11 p-l-10 js-show-cart"
               :class="{'icon-header-noti shake-animation': bucketLength > 0}"
               :data-notify="bucketLength"
             >
@@ -298,6 +298,10 @@ label {
     border: 2px solid #000;
     padding: 3px 8px;
   }
+}
+.cart-icon {
+  font-size: 35px;
+  color: #dc3545;
 }
 </style>
 

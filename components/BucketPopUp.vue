@@ -132,8 +132,8 @@
                 <div class="d-flex flex-column">
                   <div class="py-3 total-price default-font-family"><span class="font-weight-bold">Всего: </span>{{price * quantity}} грн</div>
                   <button
-                    class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04"
-                    @click="addToBucket(product, quantity, sizeIndex, colorIndex); hidePopUp()"
+                    class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 btn-danger"
+                    @click="addToBucket(product, quantity, sizeIndex, colorIndex); hidePopUp(); showPreview();"
                   >В КОЗРИНУ</button>
                   <span class="edit-button-placeholder">
                     <nuxt-link
@@ -167,17 +167,20 @@
       <h3>Похожие товары</h3>
       <similar-product :products="similarProducts" :currentProduct="product"></similar-product>
     </div>
+    <bucket-preview @close-preview="hideBucketPreview()" v-if="showBucketPreviewFlag"></bucket-preview>
   </div>
 </template>
 <script>
 import Magnifier from "~/components/Magnifier.vue";
 import Breadcrumbs from "~/components/Breadcrumbs.vue";
 import SimilarProduct from "~/components/SimilarProduct.vue";
+import BucketPreview from "~/components/BucketPreview.vue";
 export default {
   components: {
     Magnifier,
     Breadcrumbs,
-    SimilarProduct
+    SimilarProduct,
+    BucketPreview
   }, 
   data() {
     return {
@@ -197,7 +200,8 @@ export default {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev"
         }
-      }
+      },
+      showBucketPreviewFlag: false
     };
   },
   computed: {
@@ -261,6 +265,12 @@ export default {
         sizeIndex,
         colorIndex
       });
+    },
+      showPreview() {
+      this.showBucketPreviewFlag = true;
+    },
+    hideBucketPreview() {
+      this.showBucketPreviewFlag = false;
     },
     setCurrentImage(index) {
       this.photoIndex = index;

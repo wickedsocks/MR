@@ -103,7 +103,7 @@
                 @click="hideProductPreview()"
               >Продолжить покупки</button>
               <nuxt-link
-                class="font-weight-bold flex-c-m cl0 size-116 bg1 bor1 hov-btn1 p-lr-15 trans-04"
+                class="font-weight-bold flex-c-m cl0 size-116 bg1 bor1 hov-btn1 p-lr-15 trans-04 btn-danger"
                 to="/bucket"
               >Оформить заказ</nuxt-link>
             </div>
