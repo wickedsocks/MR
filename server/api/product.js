@@ -4,7 +4,7 @@ const { Product } = require('../../models/product');
 const { Category } = require('../../models/category');
 const { authenticate, isAdmin } = require('./middleware/middleware.service');
 const formidable = require('formidable');
-const {ObjectId} = require('mongoose').Types;
+const { ObjectId } = require('mongoose').Types;
 
 const cloudinary = require('cloudinary');
 
@@ -89,10 +89,10 @@ router.post('/pagination/products', async (req, res) => {
     .limit(limit)
     .then(
       success => {
-        success = success.map((item) => {
+        success = success.map(item => {
           item.created_at = ObjectId(item._id).getTimestamp();
           return item;
-        })
+        });
         res.send({ count, products: success });
       },
       err => {
@@ -177,6 +177,21 @@ router.post('/products/update', authenticate, isAdmin, (req, res) => {
   ).then(
     success => {
       res.send(success);
+    },
+    err => {
+      res.status(400).send(err);
+    }
+  );
+});
+
+router.get('/product', (req, res) => {
+  const { title } = req.query;
+  Product.find({
+    title
+  }).then(
+    products => {
+      console.log('products ', products);
+      res.send(products[0]);
     },
     err => {
       res.status(400).send(err);

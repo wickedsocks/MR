@@ -4,12 +4,15 @@
 <script>
 import BucketPopUp from "~/components/BucketPopUp.vue";
 import storeServices from "~/services/storeServices.js";
+import axios from '~/plugins/axios';
+
 export default {
   async asyncData({ params, store, redirect }) {
     try {
-      const product = store.getters.getProductByUrl(params.id);
+      let product = store.getters.getProductByUrl(params.id);
       if (!product) {
-        throw new Error("Страница не найдена");
+        let response = await axios.get(`/api/product?title=${params.id}`);
+        product = response.data;
       }
       const firstCategory = store.getters.getCategoryById(product.categories[0]);
       const similarProducts = await storeServices.getCategoryProducts(firstCategory.url);
@@ -72,7 +75,7 @@ export default {
   computed: {
     categories() {
       if (this.product) {
-        console.log('this product ', this.product.categories);
+        console.log('this product categories ', this.product.categories);
         return this.product.categories
           .map(id => {
             return this.$store.getters.getCategoryById(id).name;
