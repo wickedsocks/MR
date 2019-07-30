@@ -10,7 +10,7 @@
           :alt="product.title"
         >
         <div class="card-body">
-          <h5 class="card-title" >{{product.title}}</h5>
+          <span class="card-title" >{{product.title| limitTo(80)}}...</span>
           <!-- <p class="card-text d-none d-sm-block">{{product.description | limitTo(30)}}...</p> -->
           <p class="card-text card-price">{{product.productProperties[0].price}} грн</p>
         </div>
@@ -71,6 +71,7 @@ export default {
 
 .card-title {
   font-size: 15px;
+  font-weight: normal;
 }
 
 .card-description {
