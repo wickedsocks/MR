@@ -11,7 +11,7 @@ export default {
     try {
       let product = store.getters.getProductByUrl(params.id);
       if (!product) {
-        let response = await axios.get(`/api/product?title=${params.id}`);
+        let response = await axios.get(`/api/product?url=${params.id}`);
         console.log('response ', response);
         product = response.data[0];
       }

@@ -185,9 +185,9 @@ router.post('/products/update', authenticate, isAdmin, (req, res) => {
 });
 
 router.get('/product', (req, res) => {
-  const { title } = req.query;
+  const { url } = req.query;
   Product.find({
-    title
+    url
   }).then(
     products => {
       console.log('products ', products);
