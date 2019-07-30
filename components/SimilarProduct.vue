@@ -10,7 +10,7 @@
           :alt="product.title"
         >
         <div class="card-body">
-          <span class="card-title" >{{product.title| limitTo(80)}}...</span>
+          <h5 class="card-title" >{{product.title| limitTo(80)}}...</h5>
           <!-- <p class="card-text d-none d-sm-block">{{product.description | limitTo(30)}}...</p> -->
           <p class="card-text card-price">{{product.productProperties[0].price}} грн</p>
         </div>
