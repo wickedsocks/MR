@@ -12,7 +12,8 @@ export default {
       let product = store.getters.getProductByUrl(params.id);
       if (!product) {
         let response = await axios.get(`/api/product?title=${params.id}`);
-        product = response.data;
+        console.log('response ', response);
+        product = response.data[0];
       }
       const firstCategory = store.getters.getCategoryById(product.categories[0]);
       const similarProducts = await storeServices.getCategoryProducts(firstCategory.url);

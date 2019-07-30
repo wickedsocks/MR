@@ -191,7 +191,7 @@ router.get('/product', (req, res) => {
   }).then(
     products => {
       console.log('products ', products);
-      res.send(products[0]);
+      res.send(products);
     },
     err => {
       res.status(400).send(err);
