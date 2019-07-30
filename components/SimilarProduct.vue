@@ -10,9 +10,9 @@
           :alt="product.title"
         >
         <div class="card-body">
-          <h5 class="card-title" >{{product.title | limitTo(15)}}...</h5>
-          <p class="card-text d-none d-sm-block">{{product.description | limitTo(30)}}...</p>
-          <p class="card-text">{{product.productProperties[0].price}} грн</p>
+          <h5 class="card-title" >{{product.title}}</h5>
+          <!-- <p class="card-text d-none d-sm-block">{{product.description | limitTo(30)}}...</p> -->
+          <p class="card-text card-price">{{product.productProperties[0].price}} грн</p>
         </div>
       </nuxt-link>
     </div>
@@ -55,8 +55,7 @@ export default {
 }
 
 .card {
-  max-width: 200px;
-  min-width: 100px;
+  width: 175px;
   & + .card {
     margin-left: 10px;
   }
@@ -68,5 +67,18 @@ export default {
 .my-link {
   text-decoration: none;
   cursor: auto;
+}
+
+.card-title {
+  font-size: 15px;
+}
+
+.card-description {
+  font-size: 13px;
+}
+
+.card-price {
+  font-size: 18px;
+  font-weight: 500;
 }
 </style>
