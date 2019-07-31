@@ -1,5 +1,5 @@
 <template>
-  <div class="product-item">
+  <div class="product-item d-flex">
     <div class="card" v-for="(product, index) in products" :key="index"
     v-if="product._id !== currentProduct._id">
       <nuxt-link :to="`/ikona/${product.url}`" class="d-flex flex-column">
@@ -56,6 +56,7 @@ export default {
 
 .card {
   width: 175px;
+  flex-shrink: 0;
   & + .card {
     margin-left: 10px;
   }
