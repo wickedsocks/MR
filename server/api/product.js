@@ -43,6 +43,7 @@ router.post('/products', authenticate, isAdmin, (req, res) => {
     canonicalUrl: req.body.canonicalUrl ? req.body.canonicalUrl : '',
     url: Product.productUrlNaming(req.body.title)
   });
+  newProduct.created_at = new Date(ObjectId(newProduct._id).getTimestamp()).getTime();
   req.body.categories.forEach(id => {
     promiseCategories.push(
       Category.findByIdAndUpdate(id, { $set: { used: true } })
