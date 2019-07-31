@@ -1,5 +1,5 @@
 <template>
-  <div class="product-item d-flex">
+  <div class="product-item">
     <div class="card" v-for="(product, index) in products" :key="index"
     v-if="product._id !== currentProduct._id">
       <nuxt-link :to="`/ikona/${product.url}`" class="d-flex flex-column">
