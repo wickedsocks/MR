@@ -7,7 +7,11 @@ let schema = new mongoose.Schema({
     type: Array,
     required: true
   },
-  created_at: String,
+  created_at: {
+    type: Number,
+    required: true,
+    unique: true
+  },
   title: {
     type: String,
     required: true,
@@ -45,8 +49,7 @@ let schema = new mongoose.Schema({
   },
   url: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   mykeywords: {
     type: String,
@@ -55,6 +58,9 @@ let schema = new mongoose.Schema({
   canonicalUrl: {
     type: String
   },
+  redirect_url: {
+    type: String
+  }
   // TODO: need add enity canonicalUrl
 });
 schema.index({ title: 1 });
