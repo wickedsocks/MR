@@ -61,7 +61,7 @@
           <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
             <h1 class="p-b-14 product-title" itemprop="name">{{product.title}}</h1>
             <link itemprop="availability" href="http://schema.org/InStock" >
-            <span class="product-price cl2"><span itemprop="price">{{product.productProperties[sizeIndex].price}}</span><meta itemprop="priceCurrency" content="UAH" > грн</span>
+            <span class="product-price cl2"><span itemprop="price">Цена: {{product.productProperties[sizeIndex].price}}</span><meta itemprop="priceCurrency" content="UAH" > грн</span>
             <meta itemprop="priceValidUntil" content="2022-01-21" >
             <meta itemprop="url" :content='`https://www.mykhailovskie-ryadi.com/ikona/${product.url}`' >
             <div class="p-t-33">
