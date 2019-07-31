@@ -70,10 +70,7 @@ router.get('/products', (req, res) => {
   Product.find({}).then(
     products => {
       products.forEach((product) => {
-        console.log('product ', product);
-        product.created_at = new Date(ObjectId(product._id).getTimestamp()).getTime();
-        product.redirect_url = product.url;
-        product.mykeywords = product.mykeywords ? product.mykeywords: ' ';
+        product.url = product.created_at;
         let localProduct = new Product(product);
         productsArray.push(localProduct.save());
       });
