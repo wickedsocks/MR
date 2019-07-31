@@ -66,26 +66,26 @@ router.post('/products', authenticate, isAdmin, (req, res) => {
 });
 
 router.get('/products', (req, res) => {
-  let productsArray = [];
+  // let productsArray = [];
   Product.find({}).then(
     products => {
-      products.forEach((product) => {
-        product.created_at = new Date(ObjectId(product._id).getTimestamp()).getTime();
-        if (product.url !== product.created_at) {
-          product.redirect_url = product.url;  
-        }
-        product.url = product.created_at;
-        product.mykeywords = product.mykeywords ? product.mykeywords : '';
-        console.log('product ', product);
-        let localProduct = new Product(product);
-        productsArray.push(localProduct.save());
-      });
-      Promise.all(productsArray).then((success) => {
-        res.send(products);
-      }, (err) => {
-        res.status(400).send(err);  
-      });
-      // res.send(products);
+      // products.forEach((product) => {
+      //   product.created_at = new Date(ObjectId(product._id).getTimestamp()).getTime();
+      //   if (product.url !== product.created_at) {
+      //     product.redirect_url = product.url;  
+      //   }
+      //   product.url = product.created_at;
+      //   product.mykeywords = product.mykeywords ? product.mykeywords : '';
+      //   console.log('product ', product);
+      //   let localProduct = new Product(product);
+      //   productsArray.push(localProduct.save());
+      // });
+      // Promise.all(productsArray).then((success) => {
+      //   res.send(products);
+      // }, (err) => {
+      //   res.status(400).send(err);  
+      // });
+      res.send(products);
     },
     err => {
       res.status(400).send(err);
