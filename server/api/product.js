@@ -197,17 +197,36 @@ router.post('/products/update', authenticate, isAdmin, (req, res) => {
 });
 
 router.get('/product', (req, res) => {
-  const { url } = req.query;
-  Product.find({
-    url
-  }).then(
-    products => {
-      console.log('products ', products);
-      res.send(products);
-    },
-    err => {
-      res.status(400).send(err);
-    }
-  );
+  const { url, redirect_url } = req.query;
+  if (url) {
+    Product.find({
+      url
+    }).then(
+      products => {
+        console.log('products ', products);
+        if (products.length === 0) {
+          res.status(400).send('No items with such url');  
+        }
+        res.send(products);
+      },
+      err => {
+        res.status(400).send(err);
+      }
+    ); 
+  } else if (redirect_url) {
+    Product.find({
+      redirect_url
+    }).then(
+      products => {
+        if (products.length === 0) {
+          res.status(400).send('No items with such redirect_url');   
+        }
+        res.send(products);
+      },
+      err => {
+        res.status(400).send(err);
+      }
+    );
+  }
 });
 module.exports = router;

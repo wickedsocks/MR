@@ -7,6 +7,7 @@ import storeServices from "~/services/storeServices.js";
 import axios from '~/plugins/axios';
 
 export default {
+  middleware: 'redirectFromOldUrlToNew',
   async asyncData({ params, store, redirect }) {
     try {
       let product = store.getters.getProductByUrl(params.id);
