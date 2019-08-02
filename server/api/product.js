@@ -5,6 +5,7 @@ const { Category } = require('../../models/category');
 const { authenticate, isAdmin } = require('./middleware/middleware.service');
 const formidable = require('formidable');
 const { ObjectId } = require('mongoose').Types;
+const {Mongoose} = require('mongoose');
 
 const cloudinary = require('cloudinary');
 
@@ -68,21 +69,28 @@ router.post('/products', authenticate, isAdmin, (req, res) => {
 
 router.get('/products', (req, res) => {
   let productsArray = [];
-  Product.find({}).then(
-    products => {
-      products.forEach((product) => {
-        Product_copy.find({_id: product._id})
-        .then((prod_copy) => {
-          product.redirect_url = prod_copy.url;
-          productsArray.push(Product.save(product));
+  Product_copy.find({}).then(
+  // Product.find({}).then(
+    product_copy => {
+      console.log('product_copy ', product_copy);
+      product_copy.forEach((product) => {
+        productsArray.push(
+          Product.findByIdAndUpdate(product._id, {
+            $set: { redirect_url: product.url }
+          })
+        );
+        // Product_copy.find({product._id})
+        // .then((prod_copy) => {
+        //   product.redirect_url = prod_copy.url;
+        //   let localProduct = new Product(product);
         });
-      });
+      // });
       Promise.all(productsArray).then((success) => {
-        res.send(products);
+        res.send(success);
       }, (err) => {
         res.status(400).send(err);  
       });
-      // res.send(products);
+      // res.send(product_copy);
     },
     err => {
       res.status(400).send(err);
