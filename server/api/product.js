@@ -74,8 +74,7 @@ router.get('/products', (req, res) => {
         Product_copy.find({_id: product._id})
         .then((prod_copy) => {
           product.redirect_url = prod_copy.url;
-          let localProduct = new Product(product);
-          productsArray.push(localProduct.save());
+          productsArray.push(Product.save(product));
         });
       });
       Promise.all(productsArray).then((success) => {
