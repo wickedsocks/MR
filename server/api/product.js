@@ -68,29 +68,29 @@ router.post('/products', authenticate, isAdmin, (req, res) => {
 });
 
 router.get('/products', (req, res) => {
-  let productsArray = [];
-  Product_copy.find({}).then(
+  // let productsArray = [];
+  Product.find({}).then(
   // Product.find({}).then(
     product_copy => {
-      console.log('product_copy ', product_copy);
-      product_copy.forEach((product) => {
-        productsArray.push(
-          Product.findByIdAndUpdate(product._id, {
-            $set: { redirect_url: product.url }
-          })
-        );
-        // Product_copy.find({product._id})
-        // .then((prod_copy) => {
-        //   product.redirect_url = prod_copy.url;
-        //   let localProduct = new Product(product);
-        });
+      // console.log('product_copy ', product_copy);
+      // product_copy.forEach((product) => {
+      //   productsArray.push(
+      //     Product.findByIdAndUpdate(product._id, {
+      //       $set: { redirect_url: product.url }
+      //     })
+      //   );
+      //   // Product_copy.find({product._id})
+      //   // .then((prod_copy) => {
+      //   //   product.redirect_url = prod_copy.url;
+      //   //   let localProduct = new Product(product);
+      //   });
+      // // });
+      // Promise.all(productsArray).then((success) => {
+      //   res.send(success);
+      // }, (err) => {
+      //   res.status(400).send(err);  
       // });
-      Promise.all(productsArray).then((success) => {
-        res.send(success);
-      }, (err) => {
-        res.status(400).send(err);  
-      });
-      // res.send(product_copy);
+      res.send(product_copy);
     },
     err => {
       res.status(400).send(err);
