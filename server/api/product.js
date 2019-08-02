@@ -1,6 +1,6 @@
 require('../../dbconfig/config');
 const { Router } = require('express');
-const { Product } = require('../../models/product');
+const { Product, Product_copy } = require('../../models/product');
 const { Category } = require('../../models/category');
 const { authenticate, isAdmin } = require('./middleware/middleware.service');
 const formidable = require('formidable');
@@ -71,7 +71,8 @@ router.get('/products', (req, res) => {
   Product.find({}).then(
     products => {
       products.forEach((product) => {
-        product.url = product.created_at;
+        const prod_copy = Product_copy.findOne({ _id: product._id });
+        product.redirect_url = prod_copy.url;
         let localProduct = new Product(product);
         productsArray.push(localProduct.save());
       });

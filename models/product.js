@@ -76,7 +76,9 @@ schema.statics.productUrlNaming = productUrlNaming;
 schema.statics.removeUnnecessaryCharacters = removeUnnecessaryCharacters;
 
 const Product = mongoose.model('Product', schema);
+const Product_copy = mongoose.model('product_copy', schema);
 
 module.exports = {
-  Product
+  Product,
+  Product_copy
 };
