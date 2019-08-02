@@ -71,10 +71,12 @@ router.get('/products', (req, res) => {
   Product.find({}).then(
     products => {
       products.forEach((product) => {
-        const prod_copy = Product_copy.findOne({ _id: product._id });
-        product.redirect_url = prod_copy.url;
-        let localProduct = new Product(product);
-        productsArray.push(localProduct.save());
+        Product_copy.findById(product._id)
+        .then((prod_copy) => {
+          product.redirect_url = prod_copy.url;
+          let localProduct = new Product(product);
+          productsArray.push(localProduct.save());
+        });
       });
       Promise.all(productsArray).then((success) => {
         res.send(products);
