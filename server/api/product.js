@@ -71,7 +71,7 @@ router.get('/products', (req, res) => {
   Product.find({}).then(
     products => {
       products.forEach((product) => {
-        Product_copy.findById(product._id)
+        Product_copy.find({_id: product._id})
         .then((prod_copy) => {
           product.redirect_url = prod_copy.url;
           let localProduct = new Product(product);
