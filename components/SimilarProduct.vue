@@ -1,35 +1,39 @@
 <template>
   <div class="product-item d-flex">
-    <div class="card" v-for="(product, index) in products" :key="index"
-    v-if="product._id !== currentProduct._id">
+    <div
+      class="card"
+      v-for="(product, index) in products"
+      :key="index"
+      v-if="product._id !== currentProduct._id"
+    >
       <nuxt-link :to="`/ikona/${product.url}`" class="d-flex flex-column">
         <img
           class="card-img-top"
           v-if="product.images && product.images.length > 0"
           :src="product.images[0]"
           :alt="product.title"
-        >
+        />
         <div class="card-body">
-          <h5 class="card-title" >{{product.title| limitTo(80)}}...</h5>
+          <h5 class="card-title">{{product.title| limitTo(80)}}...</h5>
           <p class="card-text card-price">{{product.productProperties[0].price}} грн</p>
         </div>
       </nuxt-link>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
 export default {
   props: ["products", "currentProduct"],
   mounted() {
-    console.log('products asdas ', this.products);
+    console.log("products asdas ", this.products);
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .product-item {
-  padding-bottom: 20px;  
+  padding-bottom: 20px;
   overflow-y: hidden;
   overflow-x: scroll;
   &::-webkit-scrollbar {

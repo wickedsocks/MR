@@ -55,7 +55,7 @@
             <div class="category-inside-name cl2 p-b-15">Название</div>
 
             <ul>
-              <li class="p-b-6" v-for="(cat, index) in allCategories" :key="index" v-if="cat.used">
+              <li class="p-b-6" v-for="(cat, index) in categoriesList" :key="index" v-if="cat.used">
                 <nuxt-link
                   @click.native="toggleFilters()"
                   :to="'/categories/' + cat.url"
@@ -73,6 +73,8 @@
 
 <script>
 import _ from "lodash";
+import categoryService from '~/services/categoryService.js';
+
 export default {
   props: ["activeCat", "categoryTitle"],
   data() {
@@ -85,28 +87,7 @@ export default {
       return this.$store.state.categories;
     },
     categoriesList() {
-      // Задать всем категориями мейнКатегори тогда будет понятно какие категории выводить на первый уровень
-      // Если активной категории нет, значит это верхний уровень и просто выводить мейнкатегори
-      // После нажатия на категорию выводим её субкатегории и устанавливаем родительскую вверх
-      console.log('this.activeCat ', this.activeCat);
-      console.log('parentCategory ', this.parentCategory);
-      let localCategoryList;
-      if (this.activeCat && this.activeCat.subCategories.length == 0) {
-        localCategoryList = this.activeCat.subCategories.map(id =>
-          this.$store.getters.getCategoryById(id)
-        );
-        console.log(' localCategoryList 1 ',  localCategoryList);
-      } else if (this.activeCat && this.activeCat.subCategories.length > 0) {
-        localCategoryList = this.activeCat.subCategories.map(id =>
-          this.$store.getters.getCategoryById(id)
-        );
-        console.log(' localCategoryList 2 ',  localCategoryList);
-      } else {
-        localCategoryList = this.allCategories
-          .filter(cat => !cat.parentCategory);
-          console.log(' localCategoryList 3 ',  localCategoryList);
-      }
-      return localCategoryList;
+      return categoryService.actualCategoriesList(this.activeCat, this.$store);
     },
     parentCategory() {
       if (this.activeCat && this.activeCat.parentCategory) {
