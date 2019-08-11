@@ -13,7 +13,7 @@
         <li>
           <nuxt-link
             v-if="parentCategory"
-            :to="'/categories/' + parentCategory.url"
+            :to="'/products-by-categories/' + parentCategory.url"
             class="dis-block category-link cl6 hov-cl1 trans-04 p-tb-8 p-lr-4"
             :class="{'active-category': lowerCase(categoryTitle) == lowerCase(parentCategory.name)}"
           >Назад к {{parentCategory.name}}</nuxt-link>
@@ -21,7 +21,7 @@
         <li>
           <nuxt-link
             v-if="activeCat"
-            :to="'/categories/' + activeCat.url"
+            :to="'/products-by-categories/' + activeCat.url"
             class="dis-block category-link cl6 hov-cl1 trans-04 p-tb-8 p-lr-4"
             :class="{'active-category': lowerCase(categoryTitle) == lowerCase(activeCat.name)}"
           >{{activeCat.name}}</nuxt-link>
@@ -32,7 +32,7 @@
           v-if="cat.used && cat._id !== activeCat._id"
         >
           <nuxt-link
-            :to="'/categories/' + cat.url"
+            :to="'/products-by-categories/' + cat.url"
             class="dis-block category-link cl6 hov-cl1 trans-04 p-tb-8 p-lr-4"
             :class="{'active-category': lowerCase(categoryTitle) == lowerCase(cat.name)}"
           >{{cat.name}}</nuxt-link>
@@ -58,7 +58,7 @@
               <li class="p-b-6" v-for="(cat, index) in categoriesList" :key="index" v-if="cat.used">
                 <nuxt-link
                   @click.native="toggleFilters()"
-                  :to="'/categories/' + cat.url"
+                  :to="'/products-by-categories/' + cat.url"
                   class="filter-link stext-106 trans-04 active-category"
                   :class="{'active-category': lowerCase(categoryTitle) == lowerCase(cat.name)}"
                 >{{ cat.name }}</nuxt-link>

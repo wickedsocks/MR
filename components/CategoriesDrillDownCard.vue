@@ -2,20 +2,17 @@
   <div class="product-item d-flex">
     <div
       class="card"
-      v-for="(product, index) in products"
-      :key="index"
-      v-if="product._id !== currentProduct._id"
     >
-      <nuxt-link :to="`/ikona/${product.url}`" class="d-flex flex-column">
+      <nuxt-link :to="`/products-by-categories/${category.url}`" class="d-flex flex-column" v-if="category">
         <img
           class="card-img-top"
-          v-if="product.images && product.images.length > 0"
-          :src="product.images[0]"
-          :alt="product.title"
+          v-if="category.image"
+          :src="category.image"
+          :alt="category.name"
         />
         <div class="card-body">
-          <h5 class="card-title">{{product.title| limitTo(80)}}...</h5>
-          <p class="card-text card-price">{{product.productProperties[0].price}} грн</p>
+          <h5 class="card-title">{{category.name}}</h5>
+          <!-- <p class="card-text card-price">{{category.productProperties[0].price}} грн</p> -->
         </div>
       </nuxt-link>
     </div>
@@ -23,12 +20,10 @@
 </template>
 
 <script>
-import categoryService from '~/services/categoryService.js';
 export default {
-  data() {
-    return {
-      
-    }
+  props: ["category"],
+  mounted() {
+    console.log("category ", this.category);
   }
 
 }
@@ -37,18 +32,20 @@ export default {
 <style lang="scss" scoped>
 .product-item {
   padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   overflow-y: hidden;
   overflow-x: scroll;
-  &::-webkit-scrollbar {
-    display: block;
-    height: 6px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #6d6d6d;
-    border-radius: 25px;
-    display: block;
-    height: 6px;
-  }
+  // &::-webkit-scrollbar {
+  //   display: block;
+  //   height: 6px;
+  // }
+  // &::-webkit-scrollbar-thumb {
+  //   background: #6d6d6d;
+  //   border-radius: 25px;
+  //   display: block;
+  //   height: 6px;
+  // }
 }
 .card-img-top {
   height: 180px;

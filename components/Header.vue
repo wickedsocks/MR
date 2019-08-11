@@ -51,7 +51,7 @@
                   <nuxt-link to="/contacts">Контакты</nuxt-link>
                 </li>
                 <li v-if="currentUser && currentUser.admin">
-                  <nuxt-link to="/categories/edit">Категории</nuxt-link>
+                  <nuxt-link to="/products-by-categories/edit">Категории</nuxt-link>
                 </li>
               </ul>
             </div>
@@ -145,7 +145,7 @@
               <nuxt-link to="/contacts">Контакты</nuxt-link>
             </li>
             <li v-if="currentUser && currentUser.admin">
-              <nuxt-link to="/categories/edit">Категории</nuxt-link>
+              <nuxt-link to="/prodcuts-by-categories/edit">Категории</nuxt-link>
             </li>
           </ul>
         </div>

@@ -1,7 +1,7 @@
 <template>
   <section class="row">
     <div class="col-12 col-sm-12 col-md-2 col-lg-2">
-      <navigation-side-bar :activeCat="activeCat"/>
+      <navigation-side-bar :activeCat="activeCat" />
     </div>
     <div class="col-12 col-sm-12 col-md-10 col-lg-10">
       <div class="d-flex justify-content-between">
@@ -9,15 +9,16 @@
         <div class="d-flex flex-column align-items-end justify-content-center align-self-baseline">
           <span>Количество товаров</span>
           <div class="ml-3">
-            <pagination-filter/>
+            <pagination-filter />
           </div>
         </div>
       </div>
       <div class="row">
-        <product :product="product" v-for="(product, index) in products" :key="index"/>
+        <categories-drill-down-card :category='category' v-for="(category, index) in actualCategoriesList" :key="index"/>
+        <!-- <product :product="product" v-for="(product, index) in products" :key="index"/> -->
       </div>
       <div class="row">
-        <pagination-buttons/>
+        <pagination-buttons />
       </div>
     </div>
   </section>
@@ -28,16 +29,23 @@ import Product from "~/components/Product.vue";
 import NavigationSideBar from "~/components/NavigationSideBar.vue";
 import PaginationFilter from "~/components/PaginationFilter.vue";
 import PaginationButtons from "~/components/PaginationButtons.vue";
+import CategoriesDrillDownCard from "~/components/CategoriesDrillDownCard.vue";
+import categoryService from '~/services/categoryService.js';
+
 export default {
   components: {
     Product,
     NavigationSideBar,
     PaginationFilter,
-    PaginationButtons
+    PaginationButtons,
+    CategoriesDrillDownCard
   },
   computed: {
     products() {
       return this.$store.state.products;
+    },
+    actualCategoriesList() {
+      return categoryService.actualCategoriesList(this.activeCat, this.$store);
     }
   },
   data() {

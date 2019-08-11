@@ -24,6 +24,9 @@ let categoryShema = new mongoose.Schema({
   parentCategory: {
     type: String
   },
+  image: {
+    type: String
+  },
   url_updated: {
     type: Boolean
   }
