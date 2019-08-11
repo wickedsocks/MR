@@ -3,7 +3,7 @@
     <div
       class="card"
     >
-      <nuxt-link :to="`/products-by-categories/${category.url}`" class="d-flex flex-column" v-if="category">
+      <nuxt-link :to="`/categories/${category.url}`" class="d-flex flex-column" v-if="category">
         <img
           class="card-img-top"
           v-if="category.image"
