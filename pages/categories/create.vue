@@ -4,7 +4,6 @@
       <div class="edit-block">
           <input class="form-control mb-2" placeholder="Имя" v-model="name">
           <input class="form-control mb-3" placeholder="Описание" v-model="description">
-          <input class="form-control mb-3" placeholder="Категория корня" v-model="mainCategory">
       </div>
     </div>
     <button @click="createCategory" class="btn btn-success">Создать категорию</button>
@@ -16,8 +15,7 @@ export default {
   data() {
     return {
       name: '',
-      description: '',
-      mainCategory: ''
+      description: ''
     }
   },
   fetch({ store, redirect }) {
@@ -27,7 +25,7 @@ export default {
   },
   methods: {
     createCategory() {
-      axiosService.createCategory({name: this.name, description: this.description, mainCategory: this.mainCategory}).then(
+      axiosService.createCategory({name: this.name, description: this.description}).then(
         success => {
           console.log("success ", success);
           this.$store.commit("setCategories", success);
