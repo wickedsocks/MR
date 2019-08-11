@@ -38,8 +38,7 @@ router.post('/categories',authenticate, isAdmin, (req, res) => {
     description: req.body.description,
     name: trimmedName,
     url: Product.productUrlNaming(req.body.name),
-    used: false,
-    mainCategory: req.body.mainCategory
+    used: false
   });
   localCategory.save().then(
     success => {
@@ -116,8 +115,7 @@ router.post('/categories/update', authenticate, isAdmin, (req, res) => {
         url: cat.url,
         used: cat.used,
         subCategories: cat.subCategories,
-        parentCategory: cat.parentCategory,
-        mainCategory: cat.mainCategory
+        parentCategory: cat.parentCategory
       }
     }, {
         new: true
