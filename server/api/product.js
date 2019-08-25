@@ -109,11 +109,10 @@ router.post('/pagination/products', async (req, res) => {
   Product.find({})
     .skip(skip)
     .limit(limit)
-    .sort('created_at')
+    .sort('-created_at')
     .then(
       success => {
         success = success.map(item => {
-          item.created_at = new Date(ObjectId(item._id).getTimestamp()).getTime();
           return item;
         });
         res.send({ count, products: success });
