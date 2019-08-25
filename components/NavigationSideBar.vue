@@ -2,7 +2,7 @@
   <div class="pt-4">
     <div class="d-none d-md-block">
       <h4 class="catgories-name cl2 pb-4">Категории</h4>
-      <ul>
+      <ul class="navigation-main-menu">
         <li>
           <nuxt-link
             to="/"
@@ -25,6 +25,16 @@
             class="dis-block category-link cl6 hov-cl1 trans-04 p-tb-8 p-lr-4"
             :class="{'active-category': lowerCase(categoryTitle) == lowerCase(activeCat.name)}"
           >{{activeCat.name}}</nuxt-link>
+          <ul class="sub-categories-menu">
+            <li class="p-b-6" v-for="(cat, index) in categoriesList" :key="index">
+              <nuxt-link
+                @click.native="toggleFilters()"
+                :to="'/products-by-categories/' + cat.url"
+                class="filter-link stext-106 trans-04 active-category"
+                :class="{'active-category': lowerCase(categoryTitle) == lowerCase(cat.name)}"
+              >{{ cat.name }}</nuxt-link>
+            </li>
+          </ul>
         </li>
         <li
           v-for="(cat, index) in categoriesList"
@@ -54,7 +64,7 @@
           <div class="filter-col1 p-r-15 p-b-27">
             <div class="category-inside-name cl2 p-b-15">Название</div>
 
-            <ul>
+            <ul class="navigation-main-menu">
               <li class="p-b-6" v-for="(cat, index) in categoriesList" :key="index" v-if="cat.used">
                 <nuxt-link
                   @click.native="toggleFilters()"
@@ -62,6 +72,17 @@
                   class="filter-link stext-106 trans-04 active-category"
                   :class="{'active-category': lowerCase(categoryTitle) == lowerCase(cat.name)}"
                 >{{ cat.name }}</nuxt-link>
+
+                <ul class="sub-categories-menu">
+                  <li class="p-b-6" v-for="(cat, index) in categoriesList" :key="index">
+                    <nuxt-link
+                      @click.native="toggleFilters()"
+                      :to="'/products-by-categories/' + cat.url"
+                      class="filter-link stext-106 trans-04 active-category"
+                      :class="{'active-category': lowerCase(categoryTitle) == lowerCase(cat.name)}"
+                    >{{ cat.name }}</nuxt-link>
+                  </li>
+                </ul>
               </li>
             </ul>
           </div>
@@ -73,7 +94,7 @@
 
 <script>
 import _ from "lodash";
-import categoryService from '~/services/categoryService.js';
+import categoryService from "~/services/categoryService.js";
 
 export default {
   props: ["activeCat", "categoryTitle"],
@@ -141,5 +162,34 @@ export default {
 .active-category {
   color: $color-text-purple;
   text-decoration: underline;
+}
+.sub-categories-menu {
+  display: none;
+  position: absolute;
+  left: 100%;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  top: 0;
+  z-index: 9;
+  width: 100%;
+  padding: 20px;
+  border-radius: 3px;
+  li {
+    a {
+      text-decoration: none;
+      color: #888;
+      &:hover {
+        color: #717fe0;
+      }
+    }
+  }
+}
+.navigation-main-menu {
+  position: relative;
+  &:hover {
+    .sub-categories-menu {
+      display: block;
+    }
+  }
 }
 </style>
