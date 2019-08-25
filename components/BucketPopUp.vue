@@ -231,7 +231,7 @@ export default {
     },
     links() {
       if (this.categories) {
-      return this.categories.map(cat => {return {title: cat.name, url: cat.url}});
+      return this.categories.map(cat => {return {title: cat.name, url: `/products-by-categories/${cat.url}`}});
       }      
     }
   },

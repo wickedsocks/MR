@@ -17,10 +17,10 @@
       >
         <nuxt-link
           class="category-link cl6 hov-cl1"
-          :to="`/products-by-categories/${link.url}`"
+          :to="`${link.url}`"
           itemprop="item"
         >
-          <span itemprop="name">{{link.title }}</span>
+          <span itemprop="name"> {{link.title }}</span>
         </nuxt-link>
         <span v-if="links.length - 1 != index">/</span>
         <meta itemprop="position" :content="index + 2" />
