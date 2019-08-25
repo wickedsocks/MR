@@ -25,7 +25,7 @@ module.exports = {
         hid: 'description',
         name: 'description',
         content:
-          'Купить или заказать онлайн иконы, православные подарки и сувениры в православном интернет-магазине Михайловские ряды с бесплатной доставкой по Харькову, Харьковской области, Киеву и Одессы, по всей Украине'
+          'Купить или заказать онлайн иконы, православные подарки и сувениры в православном интернет-магазине Михайловские ряды с доставкой по Харькову, Харьковской области, Киеву и Одессы, по всей Украине'
       },
       {
         hid: 'keywords',
@@ -109,19 +109,21 @@ module.exports = {
       '/create/*'
     ],
     async routes() {
-      let routes = await axios
-        .post('http://localhost:3000/api/generate-sitemap', {
+      let routes = await axios.post(
+        'http://localhost:3000/api/generate-sitemap',
+        {
           product: 'ikona',
           category: 'categories'
-        });
-        return routes.data.map((route) => {
-          return {
-            url: route.url,
-            changefreq: route.changefreq,
-            priority: route.priority,
-            lastmodISO: route.lastmodISO
-          }
-        })
+        }
+      );
+      return routes.data.map(route => {
+        return {
+          url: route.url,
+          changefreq: route.changefreq,
+          priority: route.priority,
+          lastmodISO: route.lastmodISO
+        };
+      });
     }
   },
 
