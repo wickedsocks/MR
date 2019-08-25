@@ -50,6 +50,9 @@
                 <li>
                   <nuxt-link to="/contacts">Контакты</nuxt-link>
                 </li>
+                <li>
+                  <nuxt-link to="/discounts">Скидки и Акции</nuxt-link>
+                </li>
                 <li v-if="currentUser && currentUser.admin">
                   <nuxt-link to="/products-by-categories/edit">Категории</nuxt-link>
                 </li>
@@ -144,6 +147,9 @@
             <li>
               <nuxt-link to="/contacts">Контакты</nuxt-link>
             </li>
+            <li>
+                  <nuxt-link to="/discounts">Скидки и Акции</nuxt-link>
+                </li>
             <li v-if="currentUser && currentUser.admin">
               <nuxt-link to="/prodcuts-by-categories/edit">Категории</nuxt-link>
             </li>

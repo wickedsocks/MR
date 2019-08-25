@@ -14,8 +14,8 @@
         </div>
       </div>
       <div class="row">
-        <categories-drill-down-card :category='category' v-for="(category, index) in actualCategoriesList" :key="index"/>
-        <!-- <product :product="product" v-for="(product, index) in products" :key="index"/> -->
+        <!-- <categories-drill-down-card :category='category' v-for="(category, index) in actualCategoriesList" :key="index"/> -->
+        <product :product="product" v-for="(product, index) in products" :key="index"/>
       </div>
       <div class="row">
         <pagination-buttons />
@@ -47,6 +47,9 @@ export default {
     actualCategoriesList() {
       return categoryService.actualCategoriesList(this.activeCat, this.$store);
     }
+  },
+  mounted() {
+    console.log('this products ', this.products);
   },
   data() {
     return {
