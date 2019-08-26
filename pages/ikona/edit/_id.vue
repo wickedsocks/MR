@@ -237,32 +237,39 @@
 </template>
 
 <script>
-import axios from '~/plugins/axios';
-import storeService from '~/services/storeServices';
-import commonServices from '~/services/commonServices';
+import axios from "~/plugins/axios";
+import storeService from "~/services/storeServices";
+import commonServices from "~/services/commonServices";
 
 export default {
-  computed: {
-    categories() {
-      return this.$store.state.categories;
-    },
-    product() {
-      let product = this.$store.getters.getProductByUrl(this.$route.params.id);
+   async asyncData({ params, store, redirect }) {
+    try {
+      let product = store.getters.getProductByUrl(params.id);
       if (!product) {
         let response = await axios.get(`/api/product?url=${params.id}`);
         console.log('response ', response);
         product = response.data[0];
       }
-      return commonServices.copyObjectThroughJSON(product);
+      return { product: commonServices.copyObjectThroughJSON(product)};
+    } catch (err) {
+      redirect(301, "/404.html");
+    }
+  },
+  computed: {
+    categories() {
+      return this.$store.state.categories;
     },
     selectedCategories() {
       return this.product.categories.map(cat => cat);
-    } 
+    }
   },
   mounted() {
-    console.log('categories ', this.$store.state.categories);
-    console.log('products ', this.$store.getters.getProductByUrl(this.$route.params.id));
-    console.log('state ', this.$store.state)
+    console.log("categories ", this.$store.state.categories);
+    console.log(
+      "products ",
+      this.$store.getters.getProductByUrl(this.$route.params.id)
+    );
+    console.log("state ", this.$store.state);
   },
   data() {
     return {
@@ -272,15 +279,15 @@ export default {
   },
   fetch({ store, redirect }) {
     if (!store.state.user || !store.state.user.admin) {
-      redirect('/');
+      redirect("/");
     }
   },
   methods: {
     addOneMoreProductProperty() {
       this.product.productProperties.push({
-        height: '',
-        width: '',
-        price: ''
+        height: "",
+        width: "",
+        price: ""
       });
       this.$forceUpdate();
     },
@@ -291,43 +298,37 @@ export default {
             1
           )
         : this.product.productProperties;
-        this.$forceUpdate();
+      this.$forceUpdate();
     },
     addOneImage() {
-      this.product.images.push('');
+      this.product.images.push("");
       this.$forceUpdate();
     },
     removeOneImage(index) {
       this.product.images.length > 1
-        ? this.product.images.splice(index,1)
+        ? this.product.images.splice(index, 1)
         : this.product.images;
-        this.$forceUpdate();
+      this.$forceUpdate();
     },
     addOneMoreColor() {
-      this.product.color.push('');
+      this.product.color.push("");
       this.$forceUpdate();
     },
     removeOneColor() {
       this.product.color.length > 1
-        ? this.product.color.splice(
-            this.product.color.length - 1,
-            1
-          )
+        ? this.product.color.splice(this.product.color.length - 1, 1)
         : this.product.color;
-        this.$forceUpdate();
+      this.$forceUpdate();
     },
     addOneMoreCategory() {
-      this.product.categories.push('');
+      this.product.categories.push("");
       this.$forceUpdate();
     },
     removeOneCategory() {
       this.product.categories.length > 1
-        ? this.product.categories.splice(
-            this.product.categories.length - 1,
-            1
-          )
+        ? this.product.categories.splice(this.product.categories.length - 1, 1)
         : this.product.categories;
-        this.$forceUpdate();
+      this.$forceUpdate();
     },
     async sendForm() {
       try {
@@ -336,8 +337,8 @@ export default {
           this.showLoader = true;
           this.mergeSelectedCategoriesWithProduct();
           let response = await this.updateProductRequest();
-          this.$store.commit('updateProduct', response.data);
-          console.log('response ', response.data);
+          this.$store.commit("updateProduct", response.data);
+          console.log("response ", response.data);
           setTimeout(() => {
             this.showSuccessMessage = false;
           }, 2000);
@@ -347,29 +348,29 @@ export default {
           this.showSuccessMessage = true;
           this.showLoader = false;
           let categories = await storeService.getCategories();
-          this.$store.commit('setCategories', categories.data);
+          this.$store.commit("setCategories", categories.data);
           console.log(this.$store.state);
         } else {
-          console.log('this.$validator.error ', this.$validator.errors.items);
+          console.log("this.$validator.error ", this.$validator.errors.items);
           let firstError = this.$validator.errors.items[0].field;
-          console.log(' firstError ', firstError);
+          console.log(" firstError ", firstError);
           let el = document.querySelector(`[name=${firstError}]`);
-          console.log('el ', el);
+          console.log("el ", el);
           el.scrollIntoView({
-            behavior: 'smooth',
-            block: 'end'
+            behavior: "smooth",
+            block: "end"
           });
         }
       } catch (error) {
         this.showLoader = false;
-        console.log('error ', error);
+        console.log("error ", error);
       }
     },
     mergeSelectedCategoriesWithProduct() {
       this.product.categories = this.selectedCategories;
     },
     updateProductRequest() {
-      return axios.post('/api/products/update', {
+      return axios.post("/api/products/update", {
         ...this.product
       });
     }
