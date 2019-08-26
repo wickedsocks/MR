@@ -1,5 +1,6 @@
 <template>
   <div class="pt-4">
+    <!-- NOTE: block below just for desktop -->
     <div class="d-none d-md-block">
       <h4 class="catgories-name cl2 pb-4">Категории</h4>
       <ul class="navigation-main-menu">
@@ -10,6 +11,7 @@
             :class="{'active-category': categoryTitle == undefined || ''}"
           >Все иконы</nuxt-link>
         </li>
+        <!-- NOTE: back to parent category LI -->
         <li>
           <nuxt-link
             v-if="parentCategory"
@@ -25,16 +27,6 @@
             class="dis-block category-link cl6 hov-cl1 trans-04 p-tb-8 p-lr-4"
             :class="{'active-category': lowerCase(categoryTitle) == lowerCase(activeCat.name)}"
           >{{activeCat.name}}</nuxt-link>
-          <ul class="sub-categories-menu">
-            <li class="p-b-6" v-for="(cat, index) in categoriesList" :key="index">
-              <nuxt-link
-                @click.native="toggleFilters()"
-                :to="'/products-by-categories/' + cat.url"
-                class="filter-link stext-106 trans-04 active-category"
-                :class="{'active-category': lowerCase(categoryTitle) == lowerCase(cat.name)}"
-              >{{ cat.name }}</nuxt-link>
-            </li>
-          </ul>
         </li>
         <li
           v-for="(cat, index) in categoriesList"
@@ -46,9 +38,21 @@
             class="dis-block category-link cl6 hov-cl1 trans-04 p-tb-8 p-lr-4"
             :class="{'active-category': lowerCase(categoryTitle) == lowerCase(cat.name)}"
           >{{cat.name}}</nuxt-link>
+          <!-- NOTE: this is hover sub menu -->
+          <ul class="sub-categories-menu" v-if="subCategoryDrillDown(cat).length > 0">
+            <li class="p-b-6" v-for="(subCat, index) in subCategoryDrillDown(cat)" :key="index">
+              <nuxt-link
+                @click.native="toggleFilters()"
+                :to="'/products-by-categories/' + subCat.url"
+                class="filter-link stext-106 trans-04 active-category"
+                :class="{'active-category': lowerCase(categoryTitle) == lowerCase(subCat.name)}"
+              >{{ subCat.name }}</nuxt-link>
+            </li>
+          </ul>
         </li>
       </ul>
     </div>
+    <!-- NOTE: this is mobile menu -->
     <div class="d-md-none">
       <div
         class="flex-c-m cl6 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 categories-title"
@@ -72,17 +76,6 @@
                   class="filter-link stext-106 trans-04 active-category"
                   :class="{'active-category': lowerCase(categoryTitle) == lowerCase(cat.name)}"
                 >{{ cat.name }}</nuxt-link>
-
-                <ul class="sub-categories-menu">
-                  <li class="p-b-6" v-for="(cat, index) in categoriesList" :key="index">
-                    <nuxt-link
-                      @click.native="toggleFilters()"
-                      :to="'/products-by-categories/' + cat.url"
-                      class="filter-link stext-106 trans-04 active-category"
-                      :class="{'active-category': lowerCase(categoryTitle) == lowerCase(cat.name)}"
-                    >{{ cat.name }}</nuxt-link>
-                  </li>
-                </ul>
               </li>
             </ul>
           </div>
@@ -108,6 +101,7 @@ export default {
       return this.$store.state.categories;
     },
     categoriesList() {
+      console.log('categoryService.actualCategoriesList(this.activeCat, this.$store); ', categoryService.actualCategoriesList(this.activeCat, this.$store));
       return categoryService.actualCategoriesList(this.activeCat, this.$store);
     },
     parentCategory() {
@@ -121,6 +115,9 @@ export default {
     }
   },
   methods: {
+    subCategoryDrillDown(category) {
+      return categoryService.actualCategoriesList(category, this.$store);
+    },
     lowerCase(string) {
       return _.lowerCase(string);
     },
@@ -171,7 +168,7 @@ export default {
   border: 1px solid rgba(0, 0, 0, 0.125);
   top: 0;
   z-index: 9;
-  width: 100%;
+  min-width: 100%;
   padding: 20px;
   border-radius: 3px;
   li {
@@ -185,10 +182,12 @@ export default {
   }
 }
 .navigation-main-menu {
-  position: relative;
-  &:hover {
-    .sub-categories-menu {
-      display: block;
+  li {
+    position: relative;
+    &:hover {
+      .sub-categories-menu {
+        display: block;
+      }
     }
   }
 }
