@@ -17,100 +17,213 @@
         </div>
         <span class="error-default" v-show="errors.has('images')"> {{errors.first('images')}} </span>
       </div>
-    </section> -->
+    </section>-->
     <section class="row">
-      <div class="col-xs-12 col-sm-12 d-flex align-items-center flex-wrap mb-1" v-for="(item, index) in product.images" :key="index">
-        <img class="image-preview" :src="item" alt="" @click="removeOneImage(index)">
-          <input type="text" name="image" class="form-control col-6" v-model="product.images[index]" placeholder="Ссылка на фотографию" v-validate="'required'">
-          <span class="col-6">Чтобы удалить нажмите на фотографию</span>
-          <span class="error-default" v-show="errors.has('image')"> {{errors.first('image')}} </span>
-        </div>
+      <div
+        class="col-xs-12 col-sm-12 d-flex align-items-center flex-wrap mb-1"
+        v-for="(item, index) in product.images"
+        :key="index"
+      >
+        <img class="image-preview" :src="item" alt @click="removeOneImage(index)" />
+        <input
+          type="text"
+          name="image"
+          class="form-control col-6"
+          v-model="product.images[index]"
+          placeholder="Ссылка на фотографию"
+          v-validate="'required'"
+        />
+        <span class="col-6">Чтобы удалить нажмите на фотографию</span>
+        <span class="error-default" v-show="errors.has('image')">{{errors.first('image')}}</span>
+      </div>
     </section>
     <section class="row">
       <div class="col-12">
-        <button type="button" class="btn btn-success mr-2" @click="addOneImage()">Добавить ссылку на фото</button>
+        <button
+          type="button"
+          class="btn btn-success mr-2"
+          @click="addOneImage()"
+        >Добавить ссылку на фото</button>
         <!-- <button type="button" class="btn btn-danger" @click="removeOneImage('images', product._id)">Удалить ссылку на фото</button> -->
       </div>
     </section>
     <section class="row">
       <div class="col-12 d-flex flex-wrap">
-        <input class="form-control col-8" v-model="product.title" type="text" v-validate="'required|min:10'" name='title' placeholder="Имя и краткое описание товара">
-        <span class="error-default" v-show="errors.has('title')"> {{errors.first('title')}} </span>
+        <input
+          class="form-control col-8"
+          v-model="product.title"
+          type="text"
+          v-validate="'required|min:10'"
+          name="title"
+          placeholder="Имя и краткое описание товара"
+        />
+        <span class="error-default" v-show="errors.has('title')">{{errors.first('title')}}</span>
       </div>
     </section>
     <section class="row">
       <div class="col-12 d-flex flex-wrap">
-        <input class="form-control col-8" v-model="product.mykeywords" type="text" v-validate="'required'" name='mykeywords' placeholder="Ключенвые слова">
-        <span class="error-default" v-show="errors.has('mykeywords')"> {{errors.first('mykeywords')}} </span>
+        <input
+          class="form-control col-8"
+          v-model="product.mykeywords"
+          type="text"
+          v-validate="'required'"
+          name="mykeywords"
+          placeholder="Ключенвые слова"
+        />
+        <span class="error-default" v-show="errors.has('mykeywords')">{{errors.first('mykeywords')}}</span>
       </div>
     </section>
     <section class="row">
       <div class="col-12 d-flex flex-wrap">
-        <input class="form-control col-8" v-model="product.canonicalUrl" type="text" name='canonicalUrl' placeholder="Ссылку на дубль если существует">
+        <input
+          class="form-control col-8"
+          v-model="product.canonicalUrl"
+          type="text"
+          name="canonicalUrl"
+          placeholder="Ссылку на дубль если существует"
+        />
         <!-- <span class="error-default" v-show="errors.has('keywords')"> {{errors.first('keywords')}} </span> -->
       </div>
     </section>
     <section class="row">
       <div class="col-12 d-flex justify-content-center flex-wrap">
-        <textarea class="form-control" v-model="product.description" cols="30" rows="10" placeholder="Подробное описание, добавить пример извне" name="description" v-validate="'required|min:30'"></textarea>
-        <span class="error-default" v-show="errors.has('description')"> {{errors.first('description')}} </span>
+        <textarea
+          class="form-control"
+          v-model="product.description"
+          cols="30"
+          rows="10"
+          placeholder="Подробное описание, добавить пример извне"
+          name="description"
+          v-validate="'required|min:30'"
+        ></textarea>
+        <span
+          class="error-default"
+          v-show="errors.has('description')"
+        >{{errors.first('description')}}</span>
       </div>
     </section>
-    <section class="row size-option" v-for="(property, index) in product.productProperties" :key='index'>
+    <section
+      class="row size-option"
+      v-for="(property, index) in product.productProperties"
+      :key="index"
+    >
       <div class="col-xs-12 col-sm-12 col-md-6 d-flex align-items-center flex-wrap no-gutters">
         <div class="col-xs-12 col-sm-12 d-flex align-items-center flex-wrap mb-1">
-          <input type="number" v-model="property.width" name="width" class="form-control col-6" placeholder="Укажите ширину" v-validate="'required'">
+          <input
+            type="number"
+            v-model="property.width"
+            name="width"
+            class="form-control col-6"
+            placeholder="Укажите ширину"
+            v-validate="'required'"
+          />
           <span class="col-6">Ширина в см</span>
-          <span class="error-default" v-show="errors.has('width')"> {{errors.first('width')}} </span>
+          <span class="error-default" v-show="errors.has('width')">{{errors.first('width')}}</span>
         </div>
         <div class="col-xs-12 col-sm-12 d-flex align-items-center flex-wrap mb-1">
-          <input type="number" name="height" v-model="property.height" class="form-control col-6" placeholder="Укажите высоту" v-validate="'required'">
+          <input
+            type="number"
+            name="height"
+            v-model="property.height"
+            class="form-control col-6"
+            placeholder="Укажите высоту"
+            v-validate="'required'"
+          />
           <span class="col-6">Высота в см</span>
-          <span class="error-default" v-show="errors.has('height')"> {{errors.first('height')}} </span>
+          <span class="error-default" v-show="errors.has('height')">{{errors.first('height')}}</span>
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 d-flex align-items-center flex-wrap no-gutters">
         <div class="col-xs-12 col-sm-12 d-flex align-items-center flex-wrap mb-1">
-          <input type="number" name="price" v-model="property.price" class="form-control col-6" placeholder="Укажите цену" v-validate="'required'">
+          <input
+            type="number"
+            name="price"
+            v-model="property.price"
+            class="form-control col-6"
+            placeholder="Укажите цену"
+            v-validate="'required'"
+          />
           <span class="col-6">Грн</span>
-          <span class="error-default" v-show="errors.has('price')"> {{errors.first('price')}} </span>
+          <span class="error-default" v-show="errors.has('price')">{{errors.first('price')}}</span>
         </div>
       </div>
     </section>
     <section class="row">
       <div class="col-12">
-        <button type="button" class="btn btn-success mr-2" @click="addOneMoreProductProperty()">Добавить ещё размер и цену</button>
-        <button type="button" class="btn btn-danger" @click="removeOneMoreProductProperty()">Удалить последнюю запись из списка</button>
+        <button
+          type="button"
+          class="btn btn-success mr-2"
+          @click="addOneMoreProductProperty()"
+        >Добавить ещё размер и цену</button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          @click="removeOneMoreProductProperty()"
+        >Удалить последнюю запись из списка</button>
       </div>
     </section>
     <section class="row">
-      <div class="col-xs-12 col-sm-12 d-flex align-items-center flex-wrap mb-1" v-for="(item, index) in product.color" :key="index">
-          <input type="text" name="color" class="form-control col-6" v-model="product.color[index]" placeholder="Укажите цвет" v-validate="'required'">
-          <span class="col-6">Цвет изделия</span>
-          <span class="error-default" v-show="errors.has('color')"> {{errors.first('color')}} </span>
-        </div>
-    </section>
-    <section class="row">
-      <div class="col-12">
-        <button type="button" class="btn btn-success mr-2" @click="addOneMoreColor()">Добавить ещё цвет</button>
-        <button type="button" class="btn btn-danger" @click="removeOneColor()">Удалить последний цвет</button>
+      <div
+        class="col-xs-12 col-sm-12 d-flex align-items-center flex-wrap mb-1"
+        v-for="(item, index) in product.color"
+        :key="index"
+      >
+        <input
+          type="text"
+          name="color"
+          class="form-control col-6"
+          v-model="product.color[index]"
+          placeholder="Укажите цвет"
+          v-validate="'required'"
+        />
+        <span class="col-6">Цвет изделия</span>
+        <span class="error-default" v-show="errors.has('color')">{{errors.first('color')}}</span>
       </div>
     </section>
     <section class="row">
-      <div class="col-xs-12 col-sm-12 d-flex align-items-center flex-wrap mb-1" v-for="(item, index) in product.categories" :key="index">
-          <select class="custom-select" name="product" v-model="selectedCategories[index]" v-validate="'required'">
-            <option value="" disabled>Категория товара</option>
-            <option :value="cat._id" v-for="cat in categories" :key="cat._id">
-              {{cat.name}}
-            </option>
-          </select>
-          <span class="error-default" v-show="errors.has('product')"> {{errors.first('product')}} </span>
-        </div>
+      <div class="col-12">
+        <button
+          type="button"
+          class="btn btn-success mr-2"
+          @click="addOneMoreColor()"
+        >Добавить ещё цвет</button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          @click="removeOneColor()"
+        >Удалить последний цвет</button>
+      </div>
+    </section>
+    <section class="row">
+      <div
+        class="col-xs-12 col-sm-12 d-flex align-items-center flex-wrap mb-1"
+        v-for="(item, index) in product.categories"
+        :key="index"
+      >
+        <select
+          class="custom-select"
+          name="product"
+          v-model="selectedCategories[index]"
+          v-validate="'required'"
+        >
+          <option value disabled>Категория товара</option>
+          <option :value="cat._id" v-for="cat in categories" :key="cat._id">{{cat.name}}</option>
+        </select>
+        <span class="error-default" v-show="errors.has('product')">{{errors.first('product')}}</span>
+      </div>
     </section>
     <section class="row">
       <div class="col-12">
-        <button type="button" class="btn btn-success mr-2" @click="addOneMoreCategory()">Добавить ещё категорию</button>
-        <button type="button" class="btn btn-danger" @click="removeOneCategory()">Удалить последнию категорию</button>
+        <button
+          type="button"
+          class="btn btn-success mr-2"
+          @click="addOneMoreCategory()"
+        >Добавить ещё категорию</button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          @click="removeOneCategory()"
+        >Удалить последнию категорию</button>
       </div>
     </section>
     <button type="submit" class="btn btn-success">Обновить товар</button>
@@ -118,9 +231,7 @@
       <div class="loader"></div>
     </div>
     <div v-show="showSuccessMessage" class="success-message-wrapper">
-      <div class="success-message">
-        Товар успешно сохранен
-      </div>
+      <div class="success-message">Товар успешно сохранен</div>
     </div>
   </form>
 </template>
@@ -136,7 +247,13 @@ export default {
       return this.$store.state.categories;
     },
     product() {
-      return commonServices.copyObjectThroughJSON(this.$store.getters.getProductByUrl(this.$route.params.id));
+      let product = this.$store.getters.getProductByUrl(this.$route.params.id);
+      if (!product) {
+        let response = await axios.get(`/api/product?url=${params.id}`);
+        console.log('response ', response);
+        product = response.data[0];
+      }
+      return commonServices.copyObjectThroughJSON(product);
     },
     selectedCategories() {
       return this.product.categories.map(cat => cat);
@@ -280,7 +397,7 @@ section {
   padding: 20px 60px;
   cursor: pointer;
   border: 4px dashed #1fb264;
-  background-image: url('~/assets/img/camera.png');
+  background-image: url("~/assets/img/camera.png");
   background-position: 50% 30%;
   background-size: 30px;
   background-repeat: no-repeat;
@@ -311,7 +428,7 @@ section {
   &:after {
     position: absolute;
     left: 6px;
-    content: ' ';
+    content: " ";
     height: 12px;
     width: 4px;
     top: 2px;
