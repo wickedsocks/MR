@@ -1,6 +1,6 @@
 <template>
   <section>
-    <nuxt-link to="/categories/create" class="btn btn-success mb-4">Создать новую</nuxt-link>
+    <nuxt-link to="/products-by-categories/create" class="btn btn-success mb-4">Создать новую</nuxt-link>
     <ul>
       <li v-for="(category, index) in allCategories" :key="index" class="d-flex flex-column">
         <div class="d-flex justify-content-between">
