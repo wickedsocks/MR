@@ -54,7 +54,7 @@
                   <nuxt-link to="/discounts">Скидки и Акции</nuxt-link>
                 </li>
                 <li v-if="currentUser && currentUser.admin">
-                  <nuxt-link to="/products-by-categories/edit">Категории</nuxt-link>
+                  <nuxt-link to="/categories/edit">Категории</nuxt-link>
                 </li>
               </ul>
             </div>

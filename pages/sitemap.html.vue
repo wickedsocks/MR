@@ -16,7 +16,7 @@
         <ul>
           <li class="p-b-6" v-for="(cat, index) in categories" :key="index" v-if="cat.used">
             <nuxt-link
-              :to="'/products-by-categories/' + cat.url"
+              :to="'/categories/' + cat.url"
               class="filter-link stext-106 trans-04 active-category"
             >{{ cat.name }}</nuxt-link>
           </li>

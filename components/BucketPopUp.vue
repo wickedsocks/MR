@@ -170,7 +170,6 @@
             </div>
             <p class="product-description cl3">
               <span class="font-weight-bold">Категории:</span>
-              <!-- /products-by-categories/first_order -->
               <span v-for="(link, index) in links"
                   :key="index">
                 <nuxt-link
@@ -269,7 +268,7 @@ export default {
     links() {
       if (this.categories) {
         return this.categories.map(cat => {
-          return { title: cat.name, url: `/products-by-categories/${cat.url}` };
+          return { title: cat.name, url: `/categories/${cat.url}` };
         });
       }
     }

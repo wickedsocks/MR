@@ -1,60 +1,48 @@
 <template>
-  <section class="row">
-    <div class="col-12 col-sm-12 col-md-2 col-lg-2">
-      <navigation-side-bar :activeCat="category" />
-    </div>
-    <div class="col-12 col-sm-12 col-md-10 col-lg-10">
-      <div class="d-flex justify-content-between">
-        <h1 class="my-4">{{category.name}}</h1>
-        <!-- <div class="d-flex flex-column align-items-end justify-content-center align-self-baseline"> -->
-          <!-- <span>Количество товаров</span> -->
-          <!-- <div class="ml-3">
-            <pagination-filter />
-          </div> -->
-        <!-- </div> -->
+  <section>
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+        <navigation-side-bar :activeCat="category" :categoryTitle="title"/>
       </div>
-      <div class="row">
-        <categories-drill-down-card :category='cat' v-for="(cat, index) in actualCategoriesList" :key="index"/>
-        <!-- <product :product="product" v-for="(product, index) in products" :key="index"/> -->
+      <div class="col-12 col-sm-12 col-md-10 col-lg-10">
+        <h1 class="my-4">{{title}}</h1>
+        <div class="row">
+          <product :product="product" v-for="(product, index) in products" :key="index"/>
+        </div>
       </div>
-      <!-- <div class="row"> -->
-        <!-- <pagination-buttons /> -->
-      <!-- </div> -->
     </div>
   </section>
 </template>
-<script>
-import NavigationSideBar from "~/components/NavigationSideBar.vue";
-import CategoriesDrillDownCard from "~/components/CategoriesDrillDownCard.vue";
-import categoryService from '~/services/categoryService.js';
 
+<script>
+import storeServices from "~/services/storeServices.js";
+import Product from "~/components/Product.vue";
+import NavigationSideBar from "~/components/NavigationSideBar.vue";
+import _ from "lodash";
 export default {
-  components: {
-    CategoriesDrillDownCard,
-    NavigationSideBar
+  head() {
+    return {
+      title: `${this.title} - купить от ${
+        this.products[0].productProperties[0].price
+      } грн. в православном интернет магазине икон, доставка по Харькову, Киеву, Москве`,
+      link: [
+        {
+          rel: "canonical",
+          href: `https://www.mykhailovskie-ryadi.com/categories/${
+            this.$route.params.url
+          }`
+        }
+      ]
+    };
   },
-  // head() {
-  //   return {
-  //     title: `${this.title} - купить от ${
-  //       this.products[0].productProperties[0].price
-  //     } грн. в православном интернет магазине икон, доставка по Харькову, Киеву, Москве`,
-  //     link: [
-  //       {
-  //         rel: "canonical",
-  //         href: `https://www.mykhailovskie-ryadi.com/categories/${
-  //           this.$route.params.url
-  //         }`
-  //       }
-  //     ]
-  //   };
-  // },
+  props: [],
   async asyncData({ params, store, redirect }) {
     try {
-      // let products = await storeServices.getCategoryProducts(params.url);
+      let products = await storeServices.getCategoryProducts(params.url);
       let category = store.getters.getCategoryByUrl(params.url);
       let title = _.capitalize(category.name);
       return {
-        // products: products.data,
+        products: products.data,
         title,
         category
       };
@@ -62,12 +50,18 @@ export default {
       redirect(301, "/404.html");
     }
   },
-  computed: {
-     actualCategoriesList() {
-      return categoryService.actualCategoriesList(this.category, this.$store);
-    }
+  components: {
+    Product,
+    NavigationSideBar
+  },
+  mounted() {
+    console.log("this router ", this.$route.params.url);
   }
 };
 </script>
+
 <style lang="scss" scoped>
+h1 {
+  font-size: 26px;
+}
 </style>
