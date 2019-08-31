@@ -10,15 +10,15 @@
         <i class="zmdi zmdi-close"></i>
       </button>
       <div class="row" itemscope itemtype="http://schema.org/Product">
-        <div class="col-md-6 col-lg-7 p-b-30 row no-gutters d-flex justify-content-center" itemprop="aggregateRating" content='5'>
-          <div v-swiper:mySwiper="swiperOption" class="overflow-hidden d-block d-md-none">
+        <div class="col-md-6 col-lg-7 p-b-30 row no-gutters d-flex justify-content-center" itemprop="aggregateRating" content='User rating' >
+          <div v-swiper:mySwiper="swiperOption" class="overflow-hidden d-block d-md-none" itemprop="ratingCount" content='20'>
             <div class="swiper-wrapper">
               <div class="swiper-slide" v-for="(image, index) in product.images" :key="index">
                 <img :src="image" itemprop="image" />
               </div>
             </div>
           </div>
-          <div class="col-2 d-none d-md-block" itemprop="review" content='5'>
+          <div class="col-2 d-none d-md-block" itemprop="review" content='User reviews'>
             <ul>
               <li
                 class="d-flex justify-content-center mb-3 pointer sidebar-img-wrapper"
@@ -34,10 +34,10 @@
               </li>
             </ul>
           </div>
-          <div class="swiper-container-horizontal">
+          <div class="swiper-container-horizontal" itemprop="author" :content='product.title'>
             <div class="swiper-pagination d-block d-md-none"></div>
           </div>
-          <div class="col-10">
+          <div class="col-10" itemprop="ratingValue" content='5'>
             <div class="image-wrapper d-none d-md-block">
               <div
                 v-for="(image, index) in product.images"
