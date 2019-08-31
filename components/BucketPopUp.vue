@@ -9,7 +9,8 @@
       >
         <i class="zmdi zmdi-close"></i>
       </button>
-      <span
+      <div class="row" itemscope itemtype="http://schema.org/Product">
+        <span
         itemprop="aggregateRating"
         itemscope
         itemtype="http://schema.org/AggregateRating"
@@ -21,10 +22,9 @@
         <meta itemprop="ratingCount" content="5" />
         <meta itemprop="reviewCount" content="8" />
       </span>
-      <div class="row" itemscope itemtype="http://schema.org/Product">
         <div class="col-md-6 col-lg-7 p-b-30 row no-gutters d-flex justify-content-center">
           <div v-swiper:mySwiper="swiperOption" class="overflow-hidden d-block d-md-none">
-            <div class="swiper-wrapper" itemprop="ratingCount" content="20">
+            <div class="swiper-wrapper">
               <div class="swiper-slide" v-for="(image, index) in product.images" :key="index">
                 <img :src="image" itemprop="image" />
               </div>
@@ -141,7 +141,7 @@
                 </div>
               </div>
 
-              <div class="flex-w flex-r-m p-b-10" itemprop="ISBN" :content="$route.params.id">
+              <div class="flex-w flex-r-m p-b-10">
                 <div class="size-203 flex-c-m respon6 font-weight-bold">Цвет</div>
 
                 <div class="size-204 respon6-next">
