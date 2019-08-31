@@ -39,6 +39,7 @@ export default {
   async asyncData({ params, store, redirect }) {
     try {
       let products = await storeServices.getCategoryProducts(params.url);
+      storeServices.pushProducts(store, products.data.products);
       let category = store.getters.getCategoryByUrl(params.url);
       let title = _.capitalize(category.name);
       return {
