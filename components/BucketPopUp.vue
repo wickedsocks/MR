@@ -10,7 +10,7 @@
         <i class="zmdi zmdi-close"></i>
       </button>
       <div class="row" itemscope itemtype="http://schema.org/Product">
-        <div class="col-md-6 col-lg-7 p-b-30 row no-gutters d-flex justify-content-center">
+        <div class="col-md-6 col-lg-7 p-b-30 row no-gutters d-flex justify-content-center" itemprop="aggregateRating" content='5'>
           <div v-swiper:mySwiper="swiperOption" class="overflow-hidden d-block d-md-none">
             <div class="swiper-wrapper">
               <div class="swiper-slide" v-for="(image, index) in product.images" :key="index">
@@ -18,7 +18,7 @@
               </div>
             </div>
           </div>
-          <div class="col-2 d-none d-md-block">
+          <div class="col-2 d-none d-md-block" itemprop="review" content='5'>
             <ul>
               <li
                 class="d-flex justify-content-center mb-3 pointer sidebar-img-wrapper"
@@ -76,7 +76,7 @@
             <h1 class="p-b-14 product-title" itemprop="name">{{product.title}}</h1>
             <link itemprop="availability" href="http://schema.org/InStock" />
             <span class="product-price cl2">
-              <span itemprop="price">Цена: {{product.productProperties[sizeIndex].price}}</span>
+              <span itemprop="price" :content='product.productProperties[sizeIndex].price'>Цена: {{product.productProperties[sizeIndex].price}}</span>
               <meta itemprop="priceCurrency" content="UAH" /> грн
             </span>
             <meta itemprop="priceValidUntil" content="2022-01-21" />
@@ -175,12 +175,11 @@
                 <nuxt-link
                   class="category-link cl6 hov-cl1"
                   :to="`${link.url}`"
-                  itemprop="item"
+                  itemprop="itemOffered"
                 >
                   <span itemprop="name"> {{link.title }}</span>
                 </nuxt-link>
                 <span v-if="links.length - 1 != index">,</span>
-                <meta itemprop="position" :content="index + 2" />
               </span>
             </p>
             <p class="product-description cl3">
