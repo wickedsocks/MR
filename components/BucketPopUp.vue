@@ -9,17 +9,50 @@
       >
         <i class="zmdi zmdi-close"></i>
       </button>
+      <span
+        itemprop="aggregateRating"
+        itemscope
+        itemtype="http://schema.org/AggregateRating"
+        class="hidden"
+      >
+        <meta itemprop="ratingValue" content="4" />
+        <meta itemprop="worstRating" content="1" />
+        <meta itemprop="bestRating" content="5" />
+        <meta itemprop="ratingCount" content="5" />
+        <meta itemprop="reviewCount" content="8" />
+      </span>
       <div class="row" itemscope itemtype="http://schema.org/Product">
-        <div class="col-md-6 col-lg-7 p-b-30 row no-gutters d-flex justify-content-center" itemprop="aggregateRating" content='User rating' >
-          <div v-swiper:mySwiper="swiperOption" class="overflow-hidden d-block d-md-none" itemprop="ratingValue" content='5'>
-            <div class="swiper-wrapper" itemprop="ratingCount" content='20'>
+        <div class="col-md-6 col-lg-7 p-b-30 row no-gutters d-flex justify-content-center">
+          <div v-swiper:mySwiper="swiperOption" class="overflow-hidden d-block d-md-none">
+            <div class="swiper-wrapper" itemprop="ratingCount" content="20">
               <div class="swiper-slide" v-for="(image, index) in product.images" :key="index">
                 <img :src="image" itemprop="image" />
               </div>
             </div>
           </div>
-          <div class="col-2 d-none d-md-block" itemprop="review" content='User reviews'>
-            <ul itemprop="author" :content='product.title'>
+          <div
+            itemprop="review"
+            itemscope
+            itemtype="http://schema.org/Review"
+            class="hidden"
+          >
+            <meta itemprop="name" :content="product.title" />
+            <meta itemprop="author" :content="product.url" />
+            <div class="clearfix pp-review-i-b">
+              <div
+                itemprop="reviewRating"
+                itemscope
+                itemtype="http://schema.org/Rating"
+                class="hidden"
+              >
+                <meta itemprop="worstRating" content="1" />
+                <meta itemprop="bestRating" content="5" />
+                <meta itemprop="ratingValue" content="5" />
+              </div>
+            </div>
+          </div>
+          <div class="col-2 d-none d-md-block">
+            <ul>
               <li
                 class="d-flex justify-content-center mb-3 pointer sidebar-img-wrapper"
                 @click="setCurrentImage(index)"
@@ -76,7 +109,10 @@
             <h1 class="p-b-14 product-title" itemprop="name">{{product.title}}</h1>
             <link itemprop="availability" href="http://schema.org/InStock" />
             <span class="product-price cl2">
-              <span itemprop="price" :content='product.productProperties[sizeIndex].price'>Цена: {{product.productProperties[sizeIndex].price}}</span>
+              <span
+                itemprop="price"
+                :content="product.productProperties[sizeIndex].price"
+              >Цена: {{product.productProperties[sizeIndex].price}}</span>
               <meta itemprop="priceCurrency" content="UAH" /> грн
             </span>
             <meta itemprop="priceValidUntil" content="2022-01-21" />
@@ -105,7 +141,7 @@
                 </div>
               </div>
 
-              <div class="flex-w flex-r-m p-b-10" itemprop="ISBN" :content='$route.params.id'>
+              <div class="flex-w flex-r-m p-b-10" itemprop="ISBN" :content="$route.params.id">
                 <div class="size-203 flex-c-m respon6 font-weight-bold">Цвет</div>
 
                 <div class="size-204 respon6-next">
@@ -170,14 +206,13 @@
             </div>
             <p class="product-description cl3">
               <span class="font-weight-bold">Категории:</span>
-              <span v-for="(link, index) in links"
-                  :key="index">
+              <span v-for="(link, index) in links" :key="index">
                 <nuxt-link
                   class="category-link cl6 hov-cl1"
                   :to="`${link.url}`"
                   itemprop="itemOffered"
                 >
-                  <span itemprop="name"> {{link.title }}</span>
+                  <span itemprop="name">{{link.title }}</span>
                 </nuxt-link>
                 <span v-if="links.length - 1 != index">,</span>
               </span>
@@ -514,6 +549,9 @@ button {
   height: auto;
   max-height: 400px;
   max-width: 400px;
+}
+.hidden {
+  display: none;
 }
 // --------------------------------- new styles end
 @media (max-width: 768px) {
