@@ -11,15 +11,15 @@
       </button>
       <div class="row" itemscope itemtype="http://schema.org/Product">
         <div class="col-md-6 col-lg-7 p-b-30 row no-gutters d-flex justify-content-center" itemprop="aggregateRating" content='User rating' >
-          <div v-swiper:mySwiper="swiperOption" class="overflow-hidden d-block d-md-none" itemprop="ratingCount" content='20'>
-            <div class="swiper-wrapper">
+          <div v-swiper:mySwiper="swiperOption" class="overflow-hidden d-block d-md-none" itemprop="ratingValue" content='5'>
+            <div class="swiper-wrapper" itemprop="ratingCount" content='20'>
               <div class="swiper-slide" v-for="(image, index) in product.images" :key="index">
                 <img :src="image" itemprop="image" />
               </div>
             </div>
           </div>
           <div class="col-2 d-none d-md-block" itemprop="review" content='User reviews'>
-            <ul>
+            <ul itemprop="author" :content='product.title'>
               <li
                 class="d-flex justify-content-center mb-3 pointer sidebar-img-wrapper"
                 @click="setCurrentImage(index)"
@@ -34,10 +34,10 @@
               </li>
             </ul>
           </div>
-          <div class="swiper-container-horizontal" itemprop="author" :content='product.title'>
+          <div class="swiper-container-horizontal">
             <div class="swiper-pagination d-block d-md-none"></div>
           </div>
-          <div class="col-10" itemprop="ratingValue" content='5'>
+          <div class="col-10">
             <div class="image-wrapper d-none d-md-block">
               <div
                 v-for="(image, index) in product.images"
@@ -105,7 +105,7 @@
                 </div>
               </div>
 
-              <div class="flex-w flex-r-m p-b-10">
+              <div class="flex-w flex-r-m p-b-10" itemprop="ISBN" :content='$route.params.id'>
                 <div class="size-203 flex-c-m respon6 font-weight-bold">Цвет</div>
 
                 <div class="size-204 respon6-next">
