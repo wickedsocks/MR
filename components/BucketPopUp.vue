@@ -10,44 +10,11 @@
         <i class="zmdi zmdi-close"></i>
       </button>
       <div class="row" itemscope itemtype="http://schema.org/Product">
-        <span
-        itemprop="aggregateRating"
-        itemscope
-        itemtype="http://schema.org/AggregateRating"
-        class="hidden"
-      >
-        <meta itemprop="ratingValue" content="4" />
-        <meta itemprop="worstRating" content="1" />
-        <meta itemprop="bestRating" content="5" />
-        <meta itemprop="ratingCount" content="5" />
-        <meta itemprop="reviewCount" content="8" />
-      </span>
         <div class="col-md-6 col-lg-7 p-b-30 row no-gutters d-flex justify-content-center">
           <div v-swiper:mySwiper="swiperOption" class="overflow-hidden d-block d-md-none">
             <div class="swiper-wrapper">
               <div class="swiper-slide" v-for="(image, index) in product.images" :key="index">
                 <img :src="image" itemprop="image" />
-              </div>
-            </div>
-          </div>
-          <div
-            itemprop="review"
-            itemscope
-            itemtype="http://schema.org/Review"
-            class="hidden"
-          >
-            <meta itemprop="name" :content="product.title" />
-            <meta itemprop="author" :content="product.url" />
-            <div class="clearfix pp-review-i-b">
-              <div
-                itemprop="reviewRating"
-                itemscope
-                itemtype="http://schema.org/Rating"
-                class="hidden"
-              >
-                <meta itemprop="worstRating" content="1" />
-                <meta itemprop="bestRating" content="5" />
-                <meta itemprop="ratingValue" content="5" />
               </div>
             </div>
           </div>
@@ -363,11 +330,6 @@ export default {
     }
   },
   mounted() {
-    console.log("This is current swiper instance object", this.mySwiper);
-    console.log("links", this.product);
-    console.log("links", this.categories);
-    console.log("links", this.links);
-    //  this.mySwiper.slideTo(3)
   }
 };
 </script>

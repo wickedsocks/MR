@@ -101,7 +101,6 @@ export default {
       return this.$store.state.categories;
     },
     categoriesList() {
-      console.log('categoryService.actualCategoriesList(this.activeCat, this.$store); ', categoryService.actualCategoriesList(this.activeCat, this.$store));
       return categoryService.actualCategoriesList(this.activeCat, this.$store);
     },
     parentCategory() {
