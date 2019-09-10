@@ -92,7 +92,7 @@ router.get('/products', (req, res) => {
       }, (err) => {
         res.status(400).send(err);
       });
-      // res.send(product_copy);
+      res.send(product_copy);
     },
     err => {
       res.status(400).send(err);
