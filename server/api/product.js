@@ -42,9 +42,11 @@ router.post('/products', authenticate, isAdmin, (req, res) => {
     categories: req.body.categories,
     mykeywords: req.body.mykeywords,
     canonicalUrl: req.body.canonicalUrl ? req.body.canonicalUrl : '',
-    url: Product.productUrlNaming(req.body.title)
+    // NOTE: was old implementation
+    // url: Product.productUrlNaming(req.body.title)
   });
   newProduct.created_at = new Date(ObjectId(newProduct._id).getTimestamp()).getTime();
+  newProduct.url = new Date(ObjectId(newProduct._id).getTimestamp()).getTime();
   req.body.categories.forEach(id => {
     promiseCategories.push(
       Category.findByIdAndUpdate(id, { $set: { used: true } })
@@ -68,29 +70,29 @@ router.post('/products', authenticate, isAdmin, (req, res) => {
 });
 
 router.get('/products', (req, res) => {
-  // let productsArray = [];
+  let productsArray = [];
   Product.find({}).then(
   // Product.find({}).then(
     product_copy => {
       // console.log('product_copy ', product_copy);
-      // product_copy.forEach((product) => {
-      //   productsArray.push(
-      //     Product.findByIdAndUpdate(product._id, {
-      //       $set: { redirect_url: product.url }
-      //     })
-      //   );
+      product_copy.forEach((product) => {
+        productsArray.push(
+          Product.findByIdAndUpdate(product._id, {
+            $set: { url: product.created_at }
+          })
+        );
       //   // Product_copy.find({product._id})
       //   // .then((prod_copy) => {
       //   //   product.redirect_url = prod_copy.url;
       //   //   let localProduct = new Product(product);
       //   });
-      // // });
-      // Promise.all(productsArray).then((success) => {
-      //   res.send(success);
-      // }, (err) => {
-      //   res.status(400).send(err);  
-      // });
-      res.send(product_copy);
+      });
+      Promise.all(productsArray).then((success) => {
+        res.send(success);
+      }, (err) => {
+        res.status(400).send(err);
+      });
+      // res.send(product_copy);
     },
     err => {
       res.status(400).send(err);
