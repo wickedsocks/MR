@@ -207,7 +207,7 @@ export default {
         let valid = await this.$validator.validateAll();
         if (valid) {
           this.showLoader = true;
-          let imagesUploaded = await this.uploadImagesToServer(this.images, this.requestData.title);
+          let imagesUploaded = await this.uploadImagesToServer(this.images, this.requestData.title + new Date().getTime());
           imagesUploaded.forEach(img => {
             // NOTE: replace http with https to save in DB for production
             this.requestData.imagesUrlsArray.push(
