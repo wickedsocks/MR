@@ -5,7 +5,7 @@ const { Category } = require('../../models/category');
 const { authenticate, isAdmin } = require('./middleware/middleware.service');
 const formidable = require('formidable');
 const { ObjectId } = require('mongoose').Types;
-const {Mongoose} = require('mongoose');
+const { Mongoose } = require('mongoose');
 
 const cloudinary = require('cloudinary');
 
@@ -41,11 +41,13 @@ router.post('/products', authenticate, isAdmin, (req, res) => {
     images: req.body.images,
     categories: req.body.categories,
     mykeywords: req.body.mykeywords,
-    canonicalUrl: req.body.canonicalUrl ? req.body.canonicalUrl : '',
+    canonicalUrl: req.body.canonicalUrl ? req.body.canonicalUrl : ''
     // NOTE: was old implementation
     // url: Product.productUrlNaming(req.body.title)
   });
-  newProduct.created_at = new Date(ObjectId(newProduct._id).getTimestamp()).getTime();
+  newProduct.created_at = new Date(
+    ObjectId(newProduct._id).getTimestamp()
+  ).getTime();
   newProduct.url = new Date(ObjectId(newProduct._id).getTimestamp()).getTime();
   req.body.categories.forEach(id => {
     promiseCategories.push(
@@ -70,34 +72,20 @@ router.post('/products', authenticate, isAdmin, (req, res) => {
 });
 
 router.get('/products', (req, res) => {
-  let productsArray = [];
-  Product.find({}).then(
-  // Product.find({}).then(
-    product_copy => {
-      // console.log('product_copy ', product_copy);
-      product_copy.forEach((product) => {
-        productsArray.push(
-          Product.findByIdAndUpdate(product._id, {
-            $set: { url: product.created_at }
-          })
-        );
-      //   // Product_copy.find({product._id})
-      //   // .then((prod_copy) => {
-      //   //   product.redirect_url = prod_copy.url;
-      //   //   let localProduct = new Product(product);
-      //   });
-      });
-      Promise.all(productsArray).then((success) => {
-        res.send(success);
-      }, (err) => {
-        res.status(400).send(err);
-      });
-      res.send(product_copy);
-    },
-    err => {
+  const promiseArray = [];
+  Product.find({}).then((products) => {
+    products.forEach((product) => {
+     product.url = product.created_at;
+     promiseArray.push(product.save());
+    });
+    Promise.all(promiseArray).then((success) => {
+     res.send(success);
+    }, (err) => {
       res.status(400).send(err);
-    }
-  );
+    });
+  }, (err) => {
+   res.status(400).send(err);
+  });
 });
 
 router.post('/pagination/products', async (req, res) => {
@@ -217,21 +205,21 @@ router.get('/product', (req, res) => {
       products => {
         console.log('products ', products);
         if (products.length === 0) {
-          res.status(400).send('No items with such url');  
+          res.status(400).send('No items with such url');
         }
         res.send(products);
       },
       err => {
         res.status(400).send(err);
       }
-    ); 
+    );
   } else if (redirect_url) {
     Product.find({
       redirect_url
     }).then(
       products => {
         if (products.length === 0) {
-          res.status(400).send('No items with such redirect_url');   
+          res.status(400).send('No items with such redirect_url');
         }
         res.send(products);
       },
