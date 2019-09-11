@@ -10,13 +10,13 @@ export default {
   middleware: 'redirectFromOldUrlToNew',
   async asyncData({ params, store, redirect }) {
     try {
-      let product = store.getters.getProductByUrl(params.id);
-      if (!product) {
+      // let product = store.getters.getProductByUrl(params.id);
+      // if (!product) {
         let response = await axios.get(`/api/product?url=${params.id}`);
         console.log('response ', response);
         product = response.data[0];
         storeServices.pushProducts(store, product);
-      }
+      // }
       const firstCategory = store.getters.getCategoryById(product.categories[0]);
       const similarProducts = await storeServices.getCategoryProducts(firstCategory.url);
       return { product, similarProducts: similarProducts.data};

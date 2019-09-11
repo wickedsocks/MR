@@ -74,15 +74,7 @@ router.post('/products', authenticate, isAdmin, (req, res) => {
 router.get('/products', (req, res) => {
   const promiseArray = [];
   Product.find({}).then((products) => {
-    products.forEach((product) => {
-     product.url = product.created_at;
-     promiseArray.push(product.save());
-    });
-    Promise.all(promiseArray).then((success) => {
-     res.send(success);
-    }, (err) => {
-      res.status(400).send(err);
-    });
+    res.send(products);
   }, (err) => {
    res.status(400).send(err);
   });
@@ -206,8 +198,13 @@ router.get('/product', (req, res) => {
         console.log('products ', products);
         if (products.length === 0) {
           res.status(400).send('No items with such url');
-        }
-        res.send(products);
+        }        
+          product.url = product.created_at;
+          product.save().then((prod) => {
+            res.send(prod);
+          }, (err) => {
+           res.status(400).send(err);
+          })
       },
       err => {
         res.status(400).send(err);
