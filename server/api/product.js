@@ -199,12 +199,13 @@ router.get('/product', (req, res) => {
         if (products.length === 0) {
           res.status(400).send('No items with such url');
         }        
-          product.url = product.created_at;
-          product.save().then((prod) => {
+        
+        products[0].url = products[0].created_at;
+        products[0].save().then((prod) => {
             res.send(prod);
           }, (err) => {
            res.status(400).send(err);
-          })
+          });
       },
       err => {
         res.status(400).send(err);
