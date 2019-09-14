@@ -42,13 +42,11 @@ router.post('/products', authenticate, isAdmin, (req, res) => {
     categories: req.body.categories,
     mykeywords: req.body.mykeywords,
     canonicalUrl: req.body.canonicalUrl ? req.body.canonicalUrl : ''
-    // NOTE: was old implementation
-    // url: Product.productUrlNaming(req.body.title)
   });
   newProduct.created_at = new Date(
     ObjectId(newProduct._id).getTimestamp()
-  ).getTime();
-  newProduct.url = new Date(ObjectId(newProduct._id).getTimestamp()).getTime();
+  ).getTime() / 1000;
+  newProduct.url = new Date(ObjectId(newProduct._id).getTimestamp()).getTime() / 1000;
   req.body.categories.forEach(id => {
     promiseCategories.push(
       Category.findByIdAndUpdate(id, { $set: { used: true } })
@@ -72,7 +70,6 @@ router.post('/products', authenticate, isAdmin, (req, res) => {
 });
 
 router.get('/products', (req, res) => {
-  const promiseArray = [];
   Product.find({}).then((products) => {
     res.send(products);
   }, (err) => {
