@@ -1,11 +1,10 @@
 require('../../dbconfig/config');
 const { Router } = require('express');
-const { Product, Product_copy } = require('../../models/product');
+const { Product } = require('../../models/product');
 const { Category } = require('../../models/category');
 const { authenticate, isAdmin } = require('./middleware/middleware.service');
 const formidable = require('formidable');
 const { ObjectId } = require('mongoose').Types;
-const { Mongoose } = require('mongoose');
 
 const cloudinary = require('cloudinary');
 
@@ -70,7 +69,9 @@ router.post('/products', authenticate, isAdmin, (req, res) => {
 });
 
 router.get('/products', (req, res) => {
-  Product.find({}).then((products) => {
+  Product.find({}, null, null, (err) => {
+   res.status(404).send(err);
+  }).then((products) => {
     res.send(products);
   }, (err) => {
    res.status(400).send(err);
