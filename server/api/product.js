@@ -69,9 +69,7 @@ router.post('/products', authenticate, isAdmin, (req, res) => {
 });
 
 router.get('/products', (req, res) => {
-  Product.find({}, null, null, (err) => {
-   res.status(404).send(err);
-  }).then((products) => {
+  Product.find({}).then((products) => {
     res.send(products);
   }, (err) => {
    res.status(400).send(err);
