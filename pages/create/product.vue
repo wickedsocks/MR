@@ -46,12 +46,12 @@
       <div class="col-xs-12 col-sm-12 col-md-6 d-flex align-items-center flex-wrap no-gutters">
         <div class="col-xs-12 col-sm-12 d-flex align-items-center flex-wrap mb-1">
           <input type="number" v-model="property.width" name="width" class="form-control col-6" placeholder="Укажите ширину" v-validate="'required'">
-          <span class="col-6">Ширина в см</span>
+          <span class="col-6">Ширина в мм</span>
           <span class="error-default" v-show="errors.has('width')"> {{errors.first('width')}} </span>
         </div>
         <div class="col-xs-12 col-sm-12 d-flex align-items-center flex-wrap mb-1">
           <input type="number" name="height" v-model="property.height" class="form-control col-6" placeholder="Укажите высоту" v-validate="'required'">
-          <span class="col-6">Высота в см</span>
+          <span class="col-6">Высота в мм</span>
           <span class="error-default" v-show="errors.has('height')"> {{errors.first('height')}} </span>
         </div>
       </div>

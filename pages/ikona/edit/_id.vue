@@ -117,7 +117,7 @@
             placeholder="Укажите ширину"
             v-validate="'required'"
           />
-          <span class="col-6">Ширина в см</span>
+          <span class="col-6">Ширина в мм</span>
           <span class="error-default" v-show="errors.has('width')">{{errors.first('width')}}</span>
         </div>
         <div class="col-xs-12 col-sm-12 d-flex align-items-center flex-wrap mb-1">
@@ -129,7 +129,7 @@
             placeholder="Укажите высоту"
             v-validate="'required'"
           />
-          <span class="col-6">Высота в см</span>
+          <span class="col-6">Высота в мм</span>
           <span class="error-default" v-show="errors.has('height')">{{errors.first('height')}}</span>
         </div>
       </div>

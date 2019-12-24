@@ -48,7 +48,7 @@
                       </nuxt-link>
                       <!-- <div
                         class="size"
-                      >Размер: {{item.product.productProperties[item.sizeIndex].height}} x {{item.product.productProperties[item.sizeIndex].width}} см</div>
+                      >Размер: {{item.product.productProperties[item.sizeIndex].height}} x {{item.product.productProperties[item.sizeIndex].width}} мм</div>
                       <div class="color">Цвет: {{item.product.color[item.colorIndex]}}</div>-->
                     </th>
                     <td>{{item.product.productProperties[item.sizeIndex].price}} грн</td>

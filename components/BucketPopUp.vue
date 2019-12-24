@@ -102,7 +102,7 @@
                         :value="{height: item.height, width: item.width}"
                         v-for="(item, index) in product.productProperties"
                         :key="index"
-                      >{{item.width}} x {{item.height}} см</option>
+                      >{{item.width}} x {{item.height}} мм</option>
                     </select>
                   </div>
                 </div>
@@ -160,7 +160,7 @@
                   <button
                     class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 btn-danger"
                     @click="addToBucket(product, quantity, sizeIndex, colorIndex); hidePopUp(); showPreview();"
-                  >В КОЗРИНУ</button>
+                  >В КОРЗИНУ</button>
                   <span class="edit-button-placeholder">
                     <nuxt-link
                       :to="editUrl"
@@ -186,11 +186,11 @@
             </p>
             <p class="product-description cl3">
               <span class="font-weight-bold">Высота:</span>
-              {{product.productProperties[sizeIndex].height}} см
+              {{product.productProperties[sizeIndex].height}} мм
             </p>
             <p class="product-description cl3">
               <span class="font-weight-bold">Ширина:</span>
-              {{product.productProperties[sizeIndex].width}} см
+              {{product.productProperties[sizeIndex].width}} мм
             </p>
             <p class="product-description cl3">
               <span class="font-weight-bold">Цвет:</span>

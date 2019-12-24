@@ -35,7 +35,7 @@
                           <span class="bucket-product-name">{{item.product.title}}</span>
                         </div>
                       </nuxt-link>
-                      <!-- <div class="size">Размер: {{item.product.productProperties[item.sizeIndex].height}} x {{item.product.productProperties[item.sizeIndex].width}} см</div> -->
+                      <!-- <div class="size">Размер: {{item.product.productProperties[item.sizeIndex].height}} x {{item.product.productProperties[item.sizeIndex].width}} мм</div> -->
                       <!-- <div class="color">Цвет: {{item.product.color[item.colorIndex]}}</div> -->
                     </th>
                     <td>{{item.product.productProperties[item.sizeIndex].price}} грн</td>

@@ -41,8 +41,8 @@ router.post('/orders', async (req, res) => {
         return `${item.product.title} в количестве - ${item.quantity}
         Цвет - ${item.product.color},
         Размер:
-        Ширина - ${item.size.width} см,
-        Высота - ${item.size.height} см,
+        Ширина - ${item.size.width} мм,
+        Высота - ${item.size.height} мм,
         Цена - ${item.size.price} грн`;
       }).join(',\n');
 
