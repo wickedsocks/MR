@@ -80,8 +80,9 @@ router.post('/pagination/products', async (req, res) => {
   let { skip, limit } = req.body;
   let count;
   try {
-    count = await Product.count();
+    count = await Product.countDocuments();
   } catch (error) {
+    res.send('error in count');
     res.status(400).send(error);
   }
   Product.find({})
@@ -96,6 +97,7 @@ router.post('/pagination/products', async (req, res) => {
         res.send({ count, products: success });
       },
       err => {
+        res.send('error in find');
         res.status(400).send(err);
       }
     );

@@ -1,5 +1,5 @@
 <template>
-  <footer class="py-3 px-5 bg3 fixed-bottom position-relative d-flex">
+  <footer class="py-3 px-5 bg3 fixed-bottom position-relative d-flex justify-content-between">
     <div class="section-with-name">
       <nuxt-link to="/" class="logo-link">
         <div class="logo-icon">
