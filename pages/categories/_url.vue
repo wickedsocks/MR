@@ -41,7 +41,7 @@ export default {
       let products = await storeServices.getCategoryProducts(params.url);
       let category = store.getters.getCategoryByUrl(params.url);      
       let title = _.capitalize(category.name);
-      if (!products) {
+      if (products.data.length === 0) {
         throw new Error('Not found products');
       }
       return {
