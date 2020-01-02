@@ -218,7 +218,6 @@ export default {
     },
     products() {
       return this.bucket.map(item => {
-        console.log("item ", item);
         return {
           url: item.product.url,
           id: item.product._id,

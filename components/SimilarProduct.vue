@@ -26,7 +26,6 @@
 export default {
   props: ["products", "currentProduct"],
   mounted() {
-    console.log("products asdas ", this.products);
   }
 };
 </script>

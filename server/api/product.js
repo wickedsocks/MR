@@ -193,7 +193,6 @@ router.get('/product', (req, res) => {
       url
     }).then(
       products => {
-        console.log('products ', products);
         if (products.length === 0) {
           res.status(400).send('No items with such url');
         }        

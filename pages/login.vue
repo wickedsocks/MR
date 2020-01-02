@@ -41,7 +41,6 @@ export default {
               this.$store.commit('setUser', localUser);
               storeService.setLocalStorageUser(localUser);
               axiosService.setDefaultHeader(localUser.token);
-              console.log('this store', this.$store.state);
               this.$router.push('/');
             });
         } catch (e) {

@@ -49,7 +49,6 @@ export default {
     }
   },
   mounted() {
-    console.log('this products ', this.products);
   },
   data() {
     return {

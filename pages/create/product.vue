@@ -123,7 +123,6 @@ export default {
     }
   },
   mounted() {
-    console.log('categories ', this.$store.state.categories);
   },
   data() {
     return {
@@ -228,10 +227,8 @@ export default {
           let categories = await storeService.getCategories();
           this.$store.commit('setCategories', categories);
         } else {
-          console.log('this.$validator.error ', this.$validator.errors.items);
           let firstError = this.$validator.errors.items[0].field;
           let el = document.querySelector(`[name=${firstError}]`);
-          console.log('el ', el);
           el.scrollIntoView({
             behavior: 'smooth',
             block: 'end'

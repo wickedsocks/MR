@@ -153,8 +153,6 @@ export default {
       // this.imgbox.append(this.canvas);
       this.ctx = this.canvas.getContext("2d");
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      console.log("canvas ", this.canvas.style.left);
-      console.log("canvas ", this.canvas.style.top);
     },
     initBox() {
       this.showImg = false;

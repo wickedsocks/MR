@@ -27,7 +27,6 @@ export default {
     createCategory() {
       axiosService.createCategory({name: this.name, description: this.description}).then(
         success => {
-          console.log("success ", success);
           this.$store.commit("setCategories", success);
         },
         err => {

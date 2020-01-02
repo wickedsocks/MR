@@ -32,21 +32,7 @@ export default {
   },
   methods: {
     async getMoreProducts() {
-      console.log(
-        "this.products.length < this.productsCount ",
-        this.products,
-        this.productsCount
-      );
-      console.log(
-        "this.products.length < this.productsCount ",
-        this.productsOffset
-      );
-      console.log(
-        "this.products.length < this.productsCount ",
-        this.productsLimit
-      );
       if (this.products.length < this.productsCount) {
-        console.log("fired");
         try {
           let products = await storeService.getPaginationProducts(
             this.productsOffset,

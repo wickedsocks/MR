@@ -62,7 +62,6 @@ export default {
     this.close();
   },
   mounted() {
-    console.log("this bucket ", this.bucket);
   }
 };
 </script>

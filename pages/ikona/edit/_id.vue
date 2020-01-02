@@ -247,7 +247,6 @@ export default {
       let product = store.getters.getProductByUrl(params.id);
       if (!product) {
         let response = await axios.get(`/api/product?url=${params.id}`);
-        console.log('response ', response);
         product = response.data[0];
       }
       return { product: commonServices.copyObjectThroughJSON(product)};
@@ -264,12 +263,6 @@ export default {
     }
   },
   mounted() {
-    console.log("categories ", this.$store.state.categories);
-    console.log(
-      "products ",
-      this.$store.getters.getProductByUrl(this.$route.params.id)
-    );
-    console.log("state ", this.$store.state);
   },
   data() {
     return {
@@ -338,7 +331,6 @@ export default {
           this.mergeSelectedCategoriesWithProduct();
           let response = await this.updateProductRequest();
           this.$store.commit("updateProduct", response.data);
-          console.log("response ", response.data);
           setTimeout(() => {
             this.showSuccessMessage = false;
           }, 2000);
@@ -348,14 +340,10 @@ export default {
           this.showSuccessMessage = true;
           this.showLoader = false;
           let categories = await storeService.getCategories();
-          this.$store.commit("setCategories", categories.data);
-          console.log(this.$store.state);
-        } else {
-          console.log("this.$validator.error ", this.$validator.errors.items);
+          this.$store.commit("setCategories", categories.data);          
+        } else { 
           let firstError = this.$validator.errors.items[0].field;
-          console.log(" firstError ", firstError);
           let el = document.querySelector(`[name=${firstError}]`);
-          console.log("el ", el);
           el.scrollIntoView({
             behavior: "smooth",
             block: "end"

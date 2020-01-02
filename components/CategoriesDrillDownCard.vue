@@ -23,7 +23,6 @@
 export default {
   props: ["category"],
   mounted() {
-    console.log("category ", this.category);
   }
 
 }

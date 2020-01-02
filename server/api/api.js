@@ -6,6 +6,7 @@ const category = require('./category');
 const order = require('./order');
 const user = require('./user');
 const sitemap = require('./sitemap_routes');
+const {Error} = require('../../models/errors');
 
 const router = Router();
 
@@ -23,5 +24,15 @@ router.use(user);
 
 // Sitemap routes
 router.use(sitemap);
+
+router.use((err, req, res, next) => {
+  console.error(err.stack);
+  const newError = new Error({data: JSON.stringify(err)});
+  newError.save().then((success) => {
+    next(err); 
+  }, (errorInternal) => {
+    next(errorInternal);
+  });
+})
 
 module.exports = router;

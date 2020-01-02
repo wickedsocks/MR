@@ -41,6 +41,9 @@ export default {
       let products = await storeServices.getCategoryProducts(params.url);
       let category = store.getters.getCategoryByUrl(params.url);      
       let title = _.capitalize(category.name);
+      if (!products) {
+        throw new Error('Not found products');
+      }
       return {
         products: products.data,
         title,
@@ -55,7 +58,6 @@ export default {
     NavigationSideBar
   },
   mounted() {
-    console.log("this router ", this.$route.params.url);
   }
 };
 </script>

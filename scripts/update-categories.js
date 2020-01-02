@@ -21,7 +21,6 @@ async function findAllProducts() {
   });
 
   Promise.all(promiseAll).then(success => {
-    console.log("success");
   });
 }
 

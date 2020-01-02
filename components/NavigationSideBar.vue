@@ -128,7 +128,6 @@ export default {
     }
   },
   mounted() {
-    console.log("all categories ", this.allCategories);
   }
 };
 </script>

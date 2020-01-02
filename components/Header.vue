@@ -203,7 +203,6 @@ export default {
     async logout() {
       try {
         await axios.delete("/api/users/logout");
-        console.log("logged out");
         this.$store.commit("removeUser");
         storeServices.removeLocalStorageUser();
       } catch (e) {
