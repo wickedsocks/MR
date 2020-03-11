@@ -1,6 +1,9 @@
 <template>
   <div class="container container-margins" v-if="product">
-    <div class="bg0 product-wrapper" :class="{'px-5 py-5':pagePreviewStyling}">
+    <div
+      class="bg0 product-wrapper"
+      :class="{ 'px-5 py-5': pagePreviewStyling }"
+    >
       <breadcrumbs :links="links"></breadcrumbs>
       <button
         class="close-button hov3 trans-04 position-absolute"
@@ -10,10 +13,19 @@
         <i class="zmdi zmdi-close"></i>
       </button>
       <div class="row" itemscope itemtype="http://schema.org/Product">
-        <div class="col-md-6 col-lg-7 p-b-30 row no-gutters d-flex justify-content-center">
-          <div v-swiper:mySwiper="swiperOption" class="overflow-hidden d-block d-md-none">
+        <div
+          class="col-md-6 col-lg-7 p-b-30 row no-gutters d-flex justify-content-center"
+        >
+          <div
+            v-swiper:mySwiper="swiperOption"
+            class="overflow-hidden d-block d-md-none"
+          >
             <div class="swiper-wrapper">
-              <div class="swiper-slide" v-for="(image, index) in product.images" :key="index">
+              <div
+                class="swiper-slide"
+                v-for="(image, index) in product.images"
+                :key="index"
+              >
                 <img :src="image" itemprop="image" />
               </div>
             </div>
@@ -29,7 +41,7 @@
                 <img
                   :src="image"
                   :alt="product.title | limitTo(5)"
-                  :class="{'select-image-border-color': index == photoIndex}"
+                  :class="{ 'select-image-border-color': index == photoIndex }"
                 />
               </li>
             </ul>
@@ -63,7 +75,7 @@
             </div>
             <p class="product-description cl3 pt-4 d-none d-md-block">
               <span class="font-weight-bold">Описание:</span>
-              <span itemprop="description">{{product.description}}</span>
+              <span itemprop="description">{{ product.description }}</span>
             </p>
           </div>
         </div>
@@ -71,21 +83,29 @@
         <meta itemprop="brand" content="MykhailovskieRyadi" />
         <meta itemprop="sku" :content="product._id" />
         <div class="col-md-6 col-lg-5 p-b-30 overflow-hidden">
-          <div id="handler" style="position: absolute;display:none;height: 100%;width: 100%;"></div>
+          <div
+            id="handler"
+            style="position: absolute;display:none;height: 100%;width: 100%;"
+          ></div>
           <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-            <h1 class="p-b-14 product-title" itemprop="name">{{product.title}}</h1>
+            <h1 class="p-b-14 product-title" itemprop="name">
+              {{ product.title }}
+            </h1>
             <link itemprop="availability" href="http://schema.org/InStock" />
             <span class="product-price cl2">
               <span
                 itemprop="price"
                 :content="product.productProperties[sizeIndex].price"
-              >Цена: {{product.productProperties[sizeIndex].price}}</span>
+                >Цена: {{ product.productProperties[sizeIndex].price }}</span
+              >
               <meta itemprop="priceCurrency" content="UAH" /> грн
             </span>
             <meta itemprop="priceValidUntil" content="2022-01-21" />
             <meta
               itemprop="url"
-              :content="`https://www.mykhailovskie-ryadi.com/ikona/${product.url}`"
+              :content="
+                `https://www.mykhailovskie-ryadi.com/ikona/${product.url}`
+              "
             />
             <div class="p-t-33">
               <div class="flex-w flex-r-m p-b-10">
@@ -99,10 +119,11 @@
                       @change="sizeSelectOnChange($event)"
                     >
                       <option
-                        :value="{height: item.height, width: item.width}"
+                        :value="{ height: item.height, width: item.width }"
                         v-for="(item, index) in product.productProperties"
                         :key="index"
-                      >{{item.width}} x {{item.height}} мм</option>
+                        >{{ item.width }} x {{ item.height }} мм</option
+                      >
                     </select>
                   </div>
                 </div>
@@ -122,7 +143,8 @@
                         :value="color"
                         v-for="(color, index) in product.color"
                         :key="index"
-                      >{{color}}</option>
+                        >{{ color }}</option
+                      >
                     </select>
                   </div>
                 </div>
@@ -155,18 +177,29 @@
                 <div class="d-flex flex-column">
                   <div class="py-3 total-price default-font-family">
                     <span class="font-weight-bold">Всего:</span>
-                    {{price * quantity}} грн
+                    {{ price * quantity }} грн
                   </div>
                   <button
-                    class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 btn-danger"
-                    @click="addToBucket(product, quantity, sizeIndex, colorIndex); hidePopUp(); showPreview();"
-                  >В КОРЗИНУ</button>
+                    class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 btn btn-danger"
+                    @click="
+                      addToBucket(product, quantity, sizeIndex, colorIndex);
+                      hidePopUp();
+                      showPreview();
+                    "
+                  >
+                    В КОРЗИНУ
+                  </button>
                   <span class="edit-button-placeholder">
                     <nuxt-link
                       :to="editUrl"
-                      class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 btn-danger mt-3"
                       v-if="currentUser && currentUser.admin"
-                    >РЕДАКТИРОВАТЬ</nuxt-link>
+                    >
+                      <button
+                        class="default-font-family font-weight-bold flex-c-m cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 btn btn-danger mt-3"
+                      >
+                        РЕДАКТИРОВАТЬ
+                      </button></nuxt-link
+                    >
                   </span>
                 </div>
               </div>
@@ -179,22 +212,22 @@
                   :to="`${link.url}`"
                   itemprop="itemOffered"
                 >
-                  <span itemprop="name">{{link.title }}</span>
+                  <span itemprop="name">{{ link.title }}</span>
                 </nuxt-link>
                 <span v-if="links.length - 1 != index">,</span>
               </span>
             </p>
             <p class="product-description cl3">
               <span class="font-weight-bold">Высота:</span>
-              {{product.productProperties[sizeIndex].height}} мм
+              {{ product.productProperties[sizeIndex].height }} мм
             </p>
             <p class="product-description cl3">
               <span class="font-weight-bold">Ширина:</span>
-              {{product.productProperties[sizeIndex].width}} мм
+              {{ product.productProperties[sizeIndex].width }} мм
             </p>
             <p class="product-description cl3">
               <span class="font-weight-bold">Цвет:</span>
-              {{colorModel}}
+              {{ colorModel }}
             </p>
           </div>
         </div>
@@ -202,16 +235,22 @@
     </div>
     <div v-if="similarProducts">
       <h3>Похожие товары</h3>
-      <similar-product :products="similarProducts" :currentProduct="product"></similar-product>
+      <similar-product
+        :products="similarProducts"
+        :currentProduct="product"
+      ></similar-product>
     </div>
-    <bucket-preview @close-preview="hideBucketPreview()" v-if="showBucketPreviewFlag"></bucket-preview>
+    <bucket-preview
+      @close-preview="hideBucketPreview()"
+      v-if="showBucketPreviewFlag"
+    ></bucket-preview>
   </div>
 </template>
 <script>
-import Magnifier from "~/components/Magnifier.vue";
-import Breadcrumbs from "~/components/Breadcrumbs.vue";
-import SimilarProduct from "~/components/SimilarProduct.vue";
-import BucketPreview from "~/components/BucketPreview.vue";
+import Magnifier from '~/components/Magnifier.vue';
+import Breadcrumbs from '~/components/Breadcrumbs.vue';
+import SimilarProduct from '~/components/SimilarProduct.vue';
+import BucketPreview from '~/components/BucketPreview.vue';
 export default {
   components: {
     Magnifier,
@@ -231,11 +270,11 @@ export default {
         loop: true,
         spaceBetween: 30,
         pagination: {
-          el: ".swiper-pagination"
+          el: '.swiper-pagination'
         },
         navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev"
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
         }
       },
       showBucketPreviewFlag: false
@@ -263,7 +302,7 @@ export default {
           return this.$store.getters.getCategoryById(id);
         });
       } else {
-        return "";
+        return '';
       }
     },
     links() {
@@ -274,7 +313,7 @@ export default {
       }
     }
   },
-  props: ["product", "pagePreviewStyling", "similarProducts"],
+  props: ['product', 'pagePreviewStyling', 'similarProducts'],
   methods: {
     sizeSelectOnChange(event) {
       this.sizeIndex = event.target.selectedIndex;
@@ -293,12 +332,12 @@ export default {
       this.quantity -= 1;
     },
     hidePopUp() {
-      this.$emit("close-pop-up");
+      this.$emit('close-pop-up');
       this.quantity = 1;
       this.photoIndex = 0;
     },
     addToBucket(product, quantity, sizeIndex, colorIndex) {
-      this.$store.commit("addNewBucketItem", {
+      this.$store.commit('addNewBucketItem', {
         product,
         quantity,
         sizeIndex,
@@ -315,7 +354,7 @@ export default {
       this.photoIndex = index;
     },
     swipeTest() {
-      console.log("test");
+      console.log('test');
     },
     changeImage(number) {
       this.photoIndex += number;
@@ -329,8 +368,7 @@ export default {
       this.showBigPopUp = !this.showBigPopUp;
     }
   },
-  mounted() {
-  }
+  mounted() {}
 };
 </script>
 

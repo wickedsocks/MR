@@ -162,7 +162,7 @@
 
               <button
                 type="submit"
-                class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer my-btn btn-danger"
+                class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer btn btn-danger"
               >Заказ подтверждаю</button>
             </div>
           </div>
@@ -281,7 +281,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-button,
 div,
 h4,
 span,
@@ -289,6 +288,9 @@ input,
 p {
   font-family: sans-serif;
   color: #555;
+}
+button {
+  font-family: sans-serif;
 }
 .main-border {
   border: 1px solid #e6e6e6;
