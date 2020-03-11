@@ -21,13 +21,12 @@ export default {
   middleware: "removeSlash",
   mounted() {
     // Check if cookie is available and set bucket data
-    // FIXME: rewrite
     let parsedLocalStorage = storeServices.getLocalStorageItem("mrbucket");
     if (parsedLocalStorage) {
       if (!this.$store.state.bucket.length) {
-        parsedLocalStorage.forEach(bucketItem => {
-          this.$store.commit("addNewBucketItem", bucketItem);
-        });
+        storeServices.filledBucketFromLocalStorage(this.$store, parsedLocalStorage);
+        storeServices.makeProductsConsistentWithBucket(this.$store, this.$store.state.bucket);
+        this.$forceUpdate();
       }
     }
     let currentUser = storeServices.getLocalStorageUser();

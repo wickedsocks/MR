@@ -2,32 +2,47 @@
   <div class="col-lg-3 col-md-4 col-6 product-item">
     <div class="card">
       <nuxt-link :to="`/ikona/${product.url}`" class="d-flex flex-column">
-        <img 
+        <img
           class="card-img-top"
           v-if="product.images && product.images.length > 0"
           :src="product.images[0]"
           :alt="product.title"
-        >
+        />
         <div class="card-body">
-          <h5 class="card-title">{{product.title| limitTo(80)}}...</h5>
-          <!-- <p class="card-text card-description d-none d-sm-block">{{product.description | limitTo(50)}}...</p> -->
-          <p class="card-text card-price">{{product.productProperties[0].price}} грн</p>
-    
-
+          <h5 class="card-title">{{ product.title | limitTo(80) }}...</h5>
+          <p class="card-text">
+            Ширина: {{ product.productProperties[0].width }} мм<br />
+            Высота: {{ product.productProperties[0].height }} мм
+          </p>
+          <p class="card-text card-price">
+            {{ product.productProperties[0].price }} грн
+          </p>
         </div>
       </nuxt-link>
       <button
-        @click.prevent="addToBucket(product, 1, 0, 0); showPreview();"
-        class="btn black-button d-none d-sm-block"
-      >В корзину</button>
+        v-if="!product.inBucket"
+        @click.prevent="addToBucket(product, 1, 0, 0)"
+        class="btn black-button"
+      >
+        В корзину</button>
+      <nuxt-link
+        v-if="product.inBucket"
+        to="/bucket"
+        class="underline-none d-flex"
+      >
+        <button class="btn purple-button w-100">Товар в корзине</button>
+      </nuxt-link>
     </div>
-    <bucket-preview @close-preview="hideBucketPreview()" v-if="showBucketPreviewFlag"></bucket-preview>
+    <bucket-preview
+      @close-preview="hideBucketPreview()"
+      v-if="showBucketPreviewFlag"
+    ></bucket-preview>
   </div>
 </template>
 
 <script>
-import BucketPopUp from "~/components/BucketPopUp.vue";
-import BucketPreview from "~/components/BucketPreview.vue";
+import BucketPopUp from '~/components/BucketPopUp.vue';
+import BucketPreview from '~/components/BucketPreview.vue';
 export default {
   components: {
     BucketPopUp,
@@ -38,7 +53,7 @@ export default {
       showBucketPreviewFlag: false
     };
   },
-  props: ["product"],
+  props: ['product'],
   methods: {
     showPreview() {
       this.showBucketPreviewFlag = true;
@@ -46,28 +61,14 @@ export default {
     hideBucketPreview() {
       this.showBucketPreviewFlag = false;
     },
-    // NOTE: function above was created for refactoring category structure
-  //  async solveCategoriesIssue(product) {
-  //     if (product && product.manufactureCategory) {
-  //       const manufactCat = product.manufactureCategory; // ID
-  //       const prodCat = product.productCategory; // ID
-  //       const manuName = this.$store.getters.getConcatCategoryById(manufactCat);
-  //       const prodName = this.$store.getters.getConcatCategoryById(prodCat);
-  //       const newProdCat = this.$store.getters.getCategoriesByName(prodName.name);
-  //       const newManuCat = this.$store.getters.getCategoriesByName(manuName.name);
-  //       await axios.post('/api/update/categories', {
-  //         id: product._id,
-  //         categories: [newProdCat._id, newManuCat._id]
-  //       });
-  //     }
-  //   },
-  addToBucket(product, quantity, sizeIndex, colorIndex) {
-      this.$store.commit("addNewBucketItem", {
+    addToBucket(product, quantity, sizeIndex, colorIndex) {
+      this.$store.commit('addNewBucketItem', {
         product,
         quantity,
         sizeIndex,
         colorIndex
       });
+      this.$forceUpdate();
     }
   }
 };

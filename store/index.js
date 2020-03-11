@@ -105,15 +105,16 @@ export const mutations = {
       state.bucket.splice(0);
     }
   },
-  addNewBucketItem(state, payload) {
+  addNewBucketItem(state, product) {
     // Increasing same bucket item quantity if bucket item already exists in state.bucket
     // if not -> pushing new one in array
     let sameBucketItem = storeService.increaseSameBucketItemQuantity(
       state.bucket,
-      payload
+      product
     );
+    storeService.setInBucketFlagTrue(product);
     if (!sameBucketItem) {
-      state.bucket.unshift(payload);
+      state.bucket.unshift(product);
     }
     storeService.setLocalStorageBucket(state);
   },

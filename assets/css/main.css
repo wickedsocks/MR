@@ -48,9 +48,8 @@ textarea {
 }
 
 .purple-button:hover {
-  border-color: #fff;
-  background-color: #fff;
-  color: #717fe0;
+  background-color: #222;
+  text-decoration: none;
 }
 
 .black-button,
@@ -69,4 +68,12 @@ textarea {
 
 .border-gray-default {
   border: 1px solid #e6e6e6;
+}
+
+.underline-none {
+  text-decoration: none;
+}
+
+.underline-none:hover {
+  text-decoration: none;
 }

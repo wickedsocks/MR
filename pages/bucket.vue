@@ -247,16 +247,9 @@ export default {
     hideLoaderAndShowNotification() {
       this.showLoader = false;
       this.showNotification = true;
-      // NOTE: need handle this via buttons
-      // setTimeout(() => {
-      //   this.showNotification = false;
-      //   this.showError = false;
-      //   this.$router.push('/');
-      // }, 3000);
     },
     async makeOrder() {
       try {
-        // this.showLoader = true;
         let valid = await this.$validator.validateAll();
         if (valid && this.bucket && this.bucket.length > 0) {
           let regExp = new RegExp(/(\(|\)|\+|-)/g);
@@ -270,8 +263,6 @@ export default {
             totalPrice: this.totalBucketPrice
           });
             this.$router.push('/checkout-success');
-          // need for redirecting and cleaning bu
-          // this.hideLoaderAndShowNotification();
         }
       } catch (error) {
         this.showError = true;
