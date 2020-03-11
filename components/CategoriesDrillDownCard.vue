@@ -52,10 +52,6 @@ export default {
   object-fit: contain;
 }
 
-.card-body {
-  padding: 10px;
-}
-
 .card {
   width: 175px;
   flex-shrink: 0;
@@ -75,10 +71,6 @@ export default {
 .card-title {
   font-size: 15px;
   font-weight: normal;
-}
-
-.card-description {
-  font-size: 13px;
 }
 
 .card-price {

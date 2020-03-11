@@ -1,7 +1,10 @@
 <template>
   <div class="col-lg-3 col-md-4 col-6 product-item">
     <div class="card">
-      <nuxt-link :to="`/ikona/${product.url}`" class="d-flex flex-column">
+      <nuxt-link
+        :to="`/ikona/${product.url}`"
+        class="d-flex flex-column card-product-link"
+      >
         <img
           class="card-img-top"
           v-if="product.images && product.images.length > 0"
@@ -9,14 +12,16 @@
           :alt="product.title"
         />
         <div class="card-body">
-          <h5 class="card-title">{{ product.title | limitTo(80) }}...</h5>
-          <p class="card-text">
-            Ширина: {{ product.productProperties[0].width }} мм<br />
-            Высота: {{ product.productProperties[0].height }} мм
-          </p>
-          <p class="card-text card-price">
-            {{ product.productProperties[0].price }} грн
-          </p>
+          <h5 class="card-title">{{ product.title | limitTo(50) }}...</h5>
+          <div class="card-description">
+            <p class="card-text">
+              Ширина: {{ product.productProperties[0].width }} мм<br />
+              Высота: {{ product.productProperties[0].height }} мм
+            </p>
+            <p class="card-text card-price">
+              {{ product.productProperties[0].price }} грн
+            </p>
+          </div>
         </div>
       </nuxt-link>
       <button
@@ -24,13 +29,14 @@
         @click.prevent="addToBucket(product, 1, 0, 0)"
         class="btn black-button"
       >
-        В корзину</button>
+        В корзину
+      </button>
       <nuxt-link
         v-if="product.inBucket"
         to="/bucket"
         class="underline-none d-flex"
       >
-        <button class="btn purple-button w-100">Товар в корзине</button>
+        <button class="btn purple-button w-100">Уже в корзине</button>
       </nuxt-link>
     </div>
     <bucket-preview
@@ -84,10 +90,6 @@ export default {
   object-fit: contain;
 }
 
-.card-body {
-  padding: 10px;
-}
-
 .card {
   button {
     margin: 0 10px 10px;
@@ -99,12 +101,12 @@ export default {
   font-weight: normal;
 }
 
-.card-description {
-  font-size: 13px;
-}
-
 .card-price {
   font-size: 18px;
   font-weight: 500;
+}
+
+.card-product-link {
+  height: 100%;
 }
 </style>
