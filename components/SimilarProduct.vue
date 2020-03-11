@@ -35,7 +35,6 @@ export default {
   padding-bottom: 20px;
   overflow-y: hidden;
   overflow-x: scroll;
-  height: 338px;
   &::-webkit-scrollbar {
     display: block;
     height: 6px;
