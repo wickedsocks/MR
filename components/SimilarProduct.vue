@@ -35,6 +35,7 @@ export default {
   padding-bottom: 20px;
   overflow-y: hidden;
   overflow-x: scroll;
+  height: 338px;
   &::-webkit-scrollbar {
     display: block;
     height: 6px;
@@ -55,6 +56,9 @@ export default {
 .card {
   width: 175px;
   flex-shrink: 0;
+  a {
+    height: 100%;
+  }
   & + .card {
     margin-left: 10px;
   }
