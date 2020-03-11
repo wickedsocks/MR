@@ -36,14 +36,21 @@
                     :key="index"
                   >
                     <th scope="row">
-                      <nuxt-link :to="'/ikona/'+ item.product.url" class="purple-hover">
-                        <div class="d-flex align-items-center justify-content-start">
+                      <nuxt-link
+                        :to="'/ikona/' + item.product.url"
+                        class="purple-hover"
+                      >
+                        <div
+                          class="d-flex align-items-center justify-content-start"
+                        >
                           <img
                             :src="item.product.images[0]"
                             class="product-image pr-2"
                             :alt="item.product.title"
-                          >
-                          <span class="bucket-product-name">{{item.product.title}}</span>
+                          />
+                          <span class="bucket-product-name">{{
+                            item.product.title
+                          }}</span>
                         </div>
                       </nuxt-link>
                       <!-- <div
@@ -51,7 +58,12 @@
                       >Размер: {{item.product.productProperties[item.sizeIndex].height}} x {{item.product.productProperties[item.sizeIndex].width}} мм</div>
                       <div class="color">Цвет: {{item.product.color[item.colorIndex]}}</div>-->
                     </th>
-                    <td>{{item.product.productProperties[item.sizeIndex].price}} грн</td>
+                    <td>
+                      {{
+                        item.product.productProperties[item.sizeIndex].price
+                      }}
+                      грн
+                    </td>
                     <td>
                       <div class="wrap-num-product my-1 flex-nowrap d-flex">
                         <div
@@ -66,7 +78,7 @@
                           type="number"
                           name="num-product"
                           @input="onInput($event, item)"
-                        >
+                        />
                         <div
                           class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m"
                           @click="increase(item)"
@@ -75,11 +87,19 @@
                         </div>
                       </div>
                     </td>
-                    <td>{{item.product.productProperties[item.sizeIndex].price * item.quantity}} грн</td>
+                    <td>
+                      {{
+                        item.product.productProperties[item.sizeIndex].price *
+                          item.quantity
+                      }}
+                      грн
+                    </td>
                     <td
                       @click="removeItemFromBucket(index)"
                       class="pointer delete-button purple-hover"
-                    >Удалить</td>
+                    >
+                      Удалить
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -95,17 +115,22 @@
                 </div>
 
                 <div class="size-209">
-                  <span class="mtext-110 cl2">{{totalBucketPrice}} грн</span>
+                  <span class="mtext-110 cl2">{{ totalBucketPrice }} грн</span>
                 </div>
               </div>
               <button
-                class="font-weight-bold flex-c-m cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer my-btn mb-4"
+                class="font-weight-bold flex-c-m cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer btn mb-4"
                 @click="hideProductPreview()"
-              >Продолжить покупки</button>
-              <nuxt-link
-                class="font-weight-bold flex-c-m cl0 size-116 bg1 bor1 hov-btn1 p-lr-15 trans-04 btn-danger"
-                to="/bucket"
-              >Оформить заказ</nuxt-link>
+              >
+                Продолжить покупки
+              </button>
+              <nuxt-link to="/bucket">
+                <button
+                  class="font-weight-bold flex-c-m cl0 size-116 bg1 bor1 hov-btn1 p-lr-15 trans-04 btn btn-danger"
+                >
+                  Оформить заказ
+                </button>
+              </nuxt-link>
             </div>
           </div>
         </div>
@@ -114,7 +139,7 @@
   </section>
 </template>
 <script>
-import storeService from "~/services/storeServices";
+import storeService from '~/services/storeServices';
 export default {
   computed: {
     bucket() {
@@ -140,17 +165,17 @@ export default {
   },
   methods: {
     increase(item) {
-      this.$store.commit("icreaseBucketItemQuantity", { item, amount: 1 });
+      this.$store.commit('icreaseBucketItemQuantity', { item, amount: 1 });
     },
     decrease(item) {
-      this.$store.commit("decreaseBucketItemQuantity", { item, amount: 1 });
+      this.$store.commit('decreaseBucketItemQuantity', { item, amount: 1 });
     },
     hideProductPreview() {
-      this.$emit("close-preview");
+      this.$emit('close-preview');
     },
     removeItemFromBucket(index) {
-      this.$store.commit("removeItemFromBucketByIndex", { index });
-      storeService.removeLocalStorageBucket("mrbucket");
+      this.$store.commit('removeItemFromBucketByIndex', { index });
+      storeService.removeLocalStorageBucket('mrbucket');
       storeService.setLocalStorageBucket(this.$store.state);
       if (this.bucket && this.bucket.length == 0) {
         this.hideProductPreview();
@@ -160,7 +185,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-button,
 div,
 h4,
 span,
@@ -168,6 +192,9 @@ input,
 p {
   font-family: sans-serif;
   color: #555;
+}
+button {
+  font-family: sans-serif;
 }
 .main-border {
   border: 1px solid #e6e6e6;
@@ -236,5 +263,3 @@ a {
   font-size: 20px;
 }
 </style>
-
-
