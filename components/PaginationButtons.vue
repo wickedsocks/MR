@@ -44,6 +44,8 @@ export default {
             let newOffset = currentOffset + products.data.products.length;
             storeService.updateProductsOffset(this.$store, newOffset);
           }
+          storeService.makeProductsConsistentWithBucket(this.$store, this.$store.state.bucket);
+          this.$forceUpdate();
         } catch (error) {
           console.log("error ", error);
         }
