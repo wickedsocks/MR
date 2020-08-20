@@ -26,7 +26,7 @@ export default {
       if (!this.$store.state.bucket.length) {
         storeServices.filledBucketFromLocalStorage(this.$store, parsedLocalStorage);
         storeServices.makeProductsConsistentWithBucket(this.$store, this.$store.state.bucket);
-        this.$forceUpdate(); 
+        this.$forceUpdate();
       }
     }
     let currentUser = storeServices.getLocalStorageUser();
