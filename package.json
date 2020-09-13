@@ -22,8 +22,6 @@
     "alias": "node scripts/alias.js"
   },
   "dependencies": {
-    "@nuxt/babel-preset-app": "^2.14.5",
-    "@nuxt/core": "^2.14.5",
     "@nuxtjs/google-tag-manager": "^2.1.0",
     "@nuxtjs/sitemap": "^0.1.2",
     "axios": ">=0.18.1",
@@ -44,7 +42,7 @@
     "mocha": "^5.2.0",
     "mongoose": "^5.3.3",
     "node-sass": "^4.14.1",
-    "nuxt": "^2.14.5",
+    "nuxt": "^1.4.5",
     "regenerator-runtime": "^0.11.1",
     "source-map-support": "^0.4.15",
     "validator": "^10.8.0",
@@ -54,12 +52,14 @@
     "vue-the-mask": "^0.11.1"
   },
   "devDependencies": {
-    "@nuxtjs/babel-preset-app": "github:nuxt/babel-preset-app",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-es2015": "^6.24.1",
     "backpack-core": "^0.4.1",
     "bootstrap": "^4.1.3",
     "chai": "^4.2.0",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^10.2.1",
+    "eslint-loader": "^1.9.0",
     "eslint-plugin-html": "^3.1.1",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^5.1.1",
