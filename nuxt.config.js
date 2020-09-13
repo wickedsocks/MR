@@ -131,20 +131,10 @@ module.exports = {
    ** Add axios globally
    */
   build: {
-    vendor: ['axios', 'vee-validate'],
     /*
      ** Run ESLINT on save
      */
-    extend(config, ctx) {
-      if (ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        });
-      }
-    }
+    presets: ['es2015', '@nuxt/babel-preset-app']
   },
   // serverMiddleware: [
   //   { path: '/d/:id', handler: '~/api/redirect.js' },
