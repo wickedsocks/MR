@@ -52,6 +52,7 @@
     "vue-the-mask": "^0.11.1"
   },
   "devDependencies": {
+    "@nuxtjs/now-builder": "^0.17.3",
     "babel-eslint": "^7.2.3",
     "babel-preset-es2015": "^6.24.1",
     "backpack-core": "^0.4.1",
