@@ -108,23 +108,23 @@ module.exports = {
       '/contacts',
       '/create/*'
     ],
-    // routes() {
-    //   let routes = axios.post(
-    //     '/api/generate-sitemap',
-    //     {
-    //       product: 'ikona',
-    //       category: 'categories'
-    //     }
-    //   );
-    //   return routes.data.map(route => {
-    //     return {
-    //       url: route.url,
-    //       changefreq: route.changefreq,
-    //       priority: route.priority,
-    //       lastmodISO: route.lastmodISO
-    //     };
-    //   });
-    // }
+    routes() {
+      let routes = axios.post(
+        '/api/generate-sitemap',
+        {
+          product: 'ikona',
+          category: 'categories'
+        }
+      );
+      return routes.data.map(route => {
+        return {
+          url: route.url,
+          changefreq: route.changefreq,
+          priority: route.priority,
+          lastmodISO: route.lastmodISO
+        };
+      });
+    }
   },
 
   /*
@@ -135,20 +135,20 @@ module.exports = {
     /*
      ** Run ESLINT on save
      */
-    extend(config, ctx) {
-      if (ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        });
+    extend (config, { isDev }) {
+      if (isDev && process.client) {
+      config.module.rules.push({
+        enforce: 'pre',
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        exclude: /(node_modules)/
+      })
       }
     }
   },
-  // serverMiddleware: [
-  //   { path: '/d/:id', handler: '~/api/redirect.js' },
-  // ]
+  serverMiddleware: [
+    { path: '/d/:id', handler: '~/api/redirect.js' },
+  ],
   router: {
     extendRoutes(routes, resolve) {
       routes.push({
