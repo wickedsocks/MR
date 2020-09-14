@@ -2,7 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "config": { "distDir": "./.nuxt/dist" }
+      "config": { "distDir": "./.nuxt/dist" },
+      "src": "*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "config": { "distDir": "./.nuxt/dist" },
+      "src": "*.js",
+      "use": "@vercel/node"
     }
   ]
 }
