@@ -1,4 +1,4 @@
-const axios = require('axios');
+// const axios = require('axios');
 module.exports = {
   /*
    ** Headers of the page
@@ -108,23 +108,23 @@ module.exports = {
       '/contacts',
       '/create/*'
     ],
-    routes() {
-      let routes = axios.post(
-        '/api/generate-sitemap',
-        {
-          product: 'ikona',
-          category: 'categories'
-        }
-      );
-      return routes.data.map(route => {
-        return {
-          url: route.url,
-          changefreq: route.changefreq,
-          priority: route.priority,
-          lastmodISO: route.lastmodISO
-        };
-      });
-    }
+    // routes() {
+    //   let routes = axios.post(
+    //     '/api/generate-sitemap',
+    //     {
+    //       product: 'ikona',
+    //       category: 'categories'
+    //     }
+    //   );
+    //   return routes.data.map(route => {
+    //     return {
+    //       url: route.url,
+    //       changefreq: route.changefreq,
+    //       priority: route.priority,
+    //       lastmodISO: route.lastmodISO
+    //     };
+    //   });
+    // }
   },
 
   /*
