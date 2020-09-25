@@ -1,78 +1,62 @@
 <template>
   <div>
-    <my-header/>
-    <div class="main-wrapper container">
-      <nuxt/>
-    </div>
-    <my-footer/>
+    <Nuxt />
   </div>
 </template>
 
-<script>
-import MyFooter from "~/components/Footer.vue";
-import MyHeader from "~/components/Header.vue";
-import storeServices from "~/services/storeServices";
-import axiosService from "~/services/axiosService";
-export default {
-  components: {
-    MyFooter,
-    MyHeader
-  },
-  middleware: "removeSlash",
-  mounted() {
-    // Check if cookie is available and set bucket data
-    let parsedLocalStorage = storeServices.getLocalStorageItem("mrbucket");
-    if (parsedLocalStorage) {
-      if (!this.$store.state.bucket.length) {
-        storeServices.filledBucketFromLocalStorage(this.$store, parsedLocalStorage);
-        storeServices.makeProductsConsistentWithBucket(this.$store, this.$store.state.bucket);
-        this.$forceUpdate();  
-      }
-    }
-    let currentUser = storeServices.getLocalStorageUser();
-    if (currentUser) {
-      this.$store.commit("setUser", currentUser);
-      axiosService.setDefaultHeader(currentUser.token);
-    }
-  }
-};
-</script>
-
-<style lang="scss" scoped>
-.main-wrapper {
-  min-height: calc(100vh - 52px);
-  padding-bottom: 50px;
-  margin-top: 124px;
+<style>
+html {
+  font-family:
+    'Source Sans Pro',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+  font-size: 16px;
+  word-spacing: 1px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
 }
 
-.button,
-.button:visited {
-  display: inline-block;
-  color: black;
-  letter-spacing: 1px;
-  background-color: #fff;
-  border: 2px solid #000;
-  text-decoration: none;
-  text-transform: uppercase;
-  padding: 15px 45px;
-}
-
-.button:hover,
-.button:focus {
-  color: #fff;
-  background-color: #000;
-}
-
-.title {
-  color: #000;
-  font-weight: 300;
-  font-size: 2.5em;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
 }
 
-@media screen and (max-width: 991px) {
-  .main-wrapper {
-    margin-top: 0;
-  }
+.button--green {
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid #3b8070;
+  color: #3b8070;
+  text-decoration: none;
+  padding: 10px 30px;
+}
+
+.button--green:hover {
+  color: #fff;
+  background-color: #3b8070;
+}
+
+.button--grey {
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid #35495e;
+  color: #35495e;
+  text-decoration: none;
+  padding: 10px 30px;
+  margin-left: 15px;
+}
+
+.button--grey:hover {
+  color: #fff;
+  background-color: #35495e;
 }
 </style>
