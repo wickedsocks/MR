@@ -15,8 +15,8 @@
           <h5 class="card-title">{{ product.title | limitTo(50) }}...</h5>
           <div class="card-description">
             <p class="card-text">
-              Ширина: {{ product.productProperties[0].width }} мм<br />
-              Высота: {{ product.productProperties[0].height }} мм
+              Ширина: {{ product.productProperties[0]?.width }} мм<br />
+              Высота: {{ product.productProperties[0]?.height }} мм
             </p>
             <p class="card-text card-price">
               {{ product.productProperties[0].price }} грн

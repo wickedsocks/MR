@@ -119,10 +119,10 @@
                       @change="sizeSelectOnChange($event)"
                     >
                       <option
-                        :value="{ height: item.height, width: item.width }"
+                        :value="{ height: item.height, width: item?.width }"
                         v-for="(item, index) in product.productProperties"
                         :key="index"
-                        >{{ item.width }} x {{ item.height }} мм</option
+                        >{{ item?.width }} x {{ item.height }} мм</option
                       >
                     </select>
                   </div>
