@@ -88,7 +88,7 @@ router.post('/pagination/products', async (req, res) => {
   Product.find({})
     .skip(skip)
     .limit(limit)
-    .sort('title')
+    .sort('productProperties.height')
     .then(
       success => {
         success = success.map(item => {
