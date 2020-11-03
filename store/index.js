@@ -43,7 +43,13 @@ export const getters = {
     return id => state.products.find(item => item._id == id);
   },
   getProductByUrl(state) {
-    return url => state.products.find(item => item.url == url);
+    return (url => {
+      if (state && state.products && state.products.length > 0 ) {
+       return state.products.find(item => item.url == url); 
+      } else {
+        return null;
+      }
+    });
   },
   totalBucketPrice(state) {
     let price = 0;
